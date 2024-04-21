@@ -1,6 +1,6 @@
 const BookCategory = () => {
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-auto mt-20">
       {/* En-tête de la catégorie */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="font-bold text-xl">Explorez les diférentes catégories de notre catalogue. </h2>

@@ -29,13 +29,13 @@ const NavBar = () => {
         </div>
         {/* Options du milieu */}
         <div className={`md:flex md:items-center md:justify-center ${isOpen ? 'block' : 'hidden'}`}>
-          <a href="#" className="text-white hover:bg-orange-400 hover:text-black px-3 py-2 rounded-md text-sm font-medium">À propos</a>
-          <a href="#" className="text-white hover:bg-orange-400 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Contactez-nous</a>
+          <a href="#" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">À propos</a>
+          <a href="#" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Contactez-nous</a>
         </div>
         {/* Boutons de connexion et d'inscription à droite */}
         <div className="hidden md:flex items-center">
-          <button className="bg-black text-white hover:bg-gray-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Se connecter</button>
-          <button className="bg-black text-white hover:bg-gray-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">S'inscrire</button>
+          <button className="bg-black text-white hover:bg-gray-900 hover:text-white px-3 py-2 mr-5 rounded-md text-sm font-medium">Se connecter</button>
+          <button className="bg-black text-white hover:bg-gray-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium mr-5">S'inscrire</button>
         </div>
       </div>
     </nav>

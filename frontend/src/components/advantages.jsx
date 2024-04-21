@@ -2,7 +2,7 @@
 
 const Advantages = () => {
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-auto mt-20">
       {/* En-tête */}
       <h2 className="font-bold text-2xl mb-8 text-[#DC7211]">Avantages de la lecture</h2>
       {/* Cartes d'avantages */}

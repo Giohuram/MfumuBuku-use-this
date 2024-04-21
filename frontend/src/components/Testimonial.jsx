@@ -2,7 +2,7 @@ import React from 'react';
 
 const Testimonial = () => {
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-auto mt-10">
       <div className="flex justify-between items-center mb-4">
         <div>
           <h2 className="font-bold text-3xl text-orange-500">TÉMOIGNAGES</h2>

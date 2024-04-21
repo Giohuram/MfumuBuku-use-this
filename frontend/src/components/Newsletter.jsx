@@ -2,7 +2,7 @@ import React from 'react';
 
 const Newsletter = () => {
   return (
-    <div className="container mx-auto mt-8 text-center">
+    <div className="container mx-auto mt-20 text-center">
       <h2 className="font-bold text-3xl text-[#DC7211] mb-2">Newsletter</h2>
       <p className="font-semibold mb-4">Souscrivez à notre newsletter pour avoir nos dernières actualités</p>
       <p className="mb-4">Veuillez laisser votre adresse e-mail ci-dessous pour recevoir des mises à jour mensuelles sur nos activités.</p>

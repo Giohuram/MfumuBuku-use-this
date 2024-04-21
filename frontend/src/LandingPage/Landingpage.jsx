@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import NavBar from '../components/NavBar';
 import HeroSection from '../components/HeroSection';
 import BookCategory from '../components/BookCategory';
@@ -17,7 +17,9 @@ const Landingpage = () => {
         <HeroSection />
         <BookCategory />
         <Advantages />
-        <Abonnement />
+        <div className='bg-[#000]'>
+          <Abonnement />
+        </div>
         <Testimonial />
         <Newsletter />
         <Footer /> 
