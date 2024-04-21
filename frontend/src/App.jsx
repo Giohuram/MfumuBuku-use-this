@@ -1,12 +1,17 @@
 import react from 'react'; 
 import './App.css'
+import Landingpage from './LandingPage/Landingpage';
+
+
 
 function App() {
   
 
   return (
     <>
-      <p className="text-3xl font-bold underline">Mbote</p>
+      <div>
+         <Landingpage /> 
+      </div>
     </>
   )
 }
