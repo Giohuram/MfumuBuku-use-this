@@ -1,5 +1,5 @@
 // import React from 'react';
-import NavBar from '../components/NavBar';
+// import NavBar from '../components/NavBar';
 import HeroSection from '../components/HeroSection';
 import BookCategory from '../components/BookCategory';
 import Abonnement from '../components/Abonnement';
@@ -10,10 +10,10 @@ import Advantages from '../components/advantages';
 
 
 
+
 const Landingpage = () => {
   return (
     <div>
-        <NavBar /> 
         <HeroSection />
         <BookCategory />
         <Advantages />
