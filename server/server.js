@@ -1,23 +1,24 @@
-// server.js
-
 const express = require('express');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
-const authRoutes = require('./authRoutes'); // Importez vos routes d'authentification
+const authRoutes = require('./authRoutes');
+const { prisma } = require('./prisma'); // Import your Prisma instance
+const bcrypt = require('bcrypt');
+const morgan = require('morgan'); // Importing morgan for logging
 
 const app = express();
 
-// Middleware CORS
+// Middleware for CORS
 app.use(cors());
 
-// Middleware pour le parsing des données JSON
+// Middleware for parsing JSON data
 app.use(express.json());
 
-// Initialiser Passport
+// Initialize Passport
 app.use(passport.initialize());
 
-// Configuration de la stratégie locale
+// Configure local strategy for Passport
 passport.use(new LocalStrategy(
   async (username, password, done) => {
     try {
@@ -25,11 +26,11 @@ passport.use(new LocalStrategy(
         where: { username: username }
       });
       if (!user) {
-        return done(null, false);
+        return done(null, false, { message: 'Username not found' });
       }
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (!passwordMatch) {
-        return done(null, false);
+        return done(null, false, { message: 'Incorrect password' });
       }
       return done(null, user);
     } catch (error) {
@@ -38,11 +39,20 @@ passport.use(new LocalStrategy(
   }
 ));
 
-// Utiliser les routes d'authentification
-app.use('/auth', authRoutes); // Utilisez le préfixe '/auth' pour toutes les routes d'authentification
+// Mount authentication routes
+app.use('/auth', authRoutes);
 
-// Démarrer le serveur
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error');
+});
+
+// Logging middleware
+app.use(morgan('dev'));
+
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 });
