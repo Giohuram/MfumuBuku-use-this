@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -7,7 +8,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model utilisateurs {
-  id  Int     @id @default(autoincrement())
-  nom String? @db.VarChar(100)
+// models/User.model.prisma
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  // Ajoutez d'autres champs utilisateur selon vos besoins
+}
+
+// models/Book.model.prisma
+model Book {
+  id            Int      @id @default(autoincrement())
+  title         String
+  author        String
+  description   String
+  type          String   // livre électronique / livre audio
+  urlFile       String?  // pour les livres électroniques
+  urlAudio      String?  // pour les livres audio
+  datePublished DateTime
+  // Ajoutez d'autres champs de livre selon vos besoins
+}
+
+// models/Subscription.model.prisma
+model Subscription {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  type         String   // mensuel / annuel
+  startDate    DateTime @default(now())
+  endDate      DateTime
+  // Ajoutez d'autres champs d'abonnement selon vos besoins
+}
+
+// models/ReadingHistory.model.prisma
+model ReadingHistory {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  bookId    Int
+  readDate  DateTime @default(now())
+  // Ajoutez d'autres champs pour l'historique de lecture selon vos besoins
+}
+
+// models/UserPreferences.model.prisma
+model UserPreferences {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  preferredLanguage String
+  preferredCategory String
+  readingLevel     String // débutant / intermédiaire / avancé
+  // Ajoutez d'autres champs de préférences utilisateur selon vos besoins
+}
+
+// models/ParentalControl.model.prisma
+model ParentalControl {
+  id               Int      @id @default(autoincrement())
+  isEnabled        Boolean  @default(false)
+  allowedStartTime DateTime
+  allowedEndTime   DateTime
+  createdAt        DateTime @default(now())
+  // Ajoutez d'autres champs selon vos besoins
 }
