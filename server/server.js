@@ -2,8 +2,10 @@ const express = require('express');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
-const authRoutes = require('./authRoutes');
-const { prisma } = require('./prisma'); // Import your Prisma instance
+const authRoutes = require('./src/routes/authRoutes');
+// const { prisma } = require('./prisma/'); // Import your Prisma instance
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 const morgan = require('morgan'); // Importing morgan for logging
 
@@ -52,7 +54,7 @@ app.use((err, req, res, next) => {
 app.use(morgan('dev'));
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });

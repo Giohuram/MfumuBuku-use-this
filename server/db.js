@@ -5,7 +5,7 @@ const pool = new Pool({
   host: 'localhost',
   database: 'MfumuBuku',
   password: 'Tupex@2024',
-  port: 5433, // Port par défaut de PostgreSQL
+  port: 5433 // Port par défaut de PostgreSQL
 });
 
 module.exports = pool;

@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -9,13 +8,24 @@ datasource db {
 }
 
 // models/User.model.prisma
+enum SchoolLevel {
+  Creche
+  Maternelle
+  Primaire
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  password  String
-  createdAt DateTime @default(now())
+  id           Int        @id @default(autoincrement())
+  username     String     @unique
+  password     String
+  parentName   String
+  childAge     Int      
+  schoolLevel  SchoolLevel
+  email        String     @unique
+  createdAt    DateTime   @default(now())
   // Ajoutez d'autres champs utilisateur selon vos besoins
 }
+
 
 // models/Book.model.prisma
 model Book {
