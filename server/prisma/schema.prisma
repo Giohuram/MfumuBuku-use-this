@@ -34,8 +34,6 @@ model Book {
   author        String
   description   String
   type          String   // livre électronique / livre audio
-  urlFile       String?  // pour les livres électroniques
-  urlAudio      String?  // pour les livres audio
   datePublished DateTime
   // Ajoutez d'autres champs de livre selon vos besoins
 }

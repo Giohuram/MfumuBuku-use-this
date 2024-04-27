@@ -45,7 +45,7 @@ const LibrairieNavBar = ({ username, schoolLevel }) => {
 
 const NavItem = ({ icon, label }) => {
   return (
-    <div className="flex items-center py-3 px-4 hover:bg-gray-700 cursor-pointer w-full">
+    <div className="flex items-center py-3 px-4 hover:bg-black cursor-pointer w-full">
       {icon}
       <span className="ml-4">{label}</span>
     </div>
