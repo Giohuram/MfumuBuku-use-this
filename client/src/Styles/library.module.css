@@ -1,0 +1,36 @@
+.main {
+  width: 95%;
+  margin: auto;
+}
+
+.containerStyle {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.content {
+  width: 30%;
+}
+
+.ulGroupStyle {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.grouper {
+  margin: 0 20px;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.title {
+  padding-left: 40px;
+}
+
+.bookItem {
+  flex-basis: calc(25% - 20px); /* Modifier pour afficher 4 livres par ligne */
+  margin: 10px;
+}

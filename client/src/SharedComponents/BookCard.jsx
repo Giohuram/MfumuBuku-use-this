@@ -1,40 +1,44 @@
-import React, { useRef, useState } from 'react';
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-
-import '../Styles/BookCard.css';
-
-// import required modules
-import { Pagination } from 'swiper/modules';
-
-export default function BookCard() {
+export default function BookCard({ title, description, coverImage, onClick }) {
   return (
-    <div className='bookCard'>
-      <Swiper
-        slidesPerView={4}
-        spaceBetween={30}
-        centeredSlides={true}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        <SwiperSlide></SwiperSlide>
-        <SwiperSlide></SwiperSlide>
-        <SwiperSlide></SwiperSlide>
-        <SwiperSlide></SwiperSlide>
-        {/* <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide> */}
-      </Swiper>
+    <div style={cardStyle} onClick={onClick}>
+      <img src={coverImage} alt={title} style={imageStyle} />
+      <div style={contentStyle}>
+        <h3 style={titleStyle}>{title}</h3>
+        <p style={descriptionStyle}>{description}</p>
+      </div>
     </div>
   );
 }
 
+const cardStyle = {
+  width: '200px',
+  padding: '1rem',
+  borderRadius: '5px',
+  backgroundColor: '#f8eadd',
+  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+  cursor: 'pointer',
+  transition: 'transform 0.3s ease',
+  marginBottom: '1.5rem',
+  marginRight: '1.6rem',
+};
+
+const imageStyle = {
+  width: '100%',
+  aspectRatio: 1,
+  borderRadius: '5px',
+};
+
+const contentStyle = {
+  marginTop: '1rem',
+};
+
+const titleStyle = {
+  fontSize: '1.2rem',
+  marginBottom: '0.5rem',
+  color: '#000',
+};
+
+const descriptionStyle = {
+  fontSize: '0.8rem',
+  color: '#888',
+};
