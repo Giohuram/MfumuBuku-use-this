@@ -16,18 +16,18 @@ const Login = ({ setIsLoggedIn }) => {
         username,
         password,
       });
-      // Vérifiez si la réponse contient des données
       if (response && response.data) {
-        console.log(response.data); // Faites ce que vous voulez avec les données de la réponse
-        setIsLoggedIn(true); // Mettez à jour l'état de connexion
-        navigate('/librairie'); // Redirigez l'utilisateur vers la page "Librairie"
+        console.log(response.data); // Log response data for debugging
+        setIsLoggedIn(true);
+        navigate('/librairie');
       } else {
-        setError('Erreur de connexion');
+        setError('Invalid response from server');
       }
     } catch (error) {
-      setError(error.response.data.error);
+      console.error('Error during login:', error); // Log the error for debugging
+      setError(error.response?.data?.error || 'An error occurred during login');
     }
-  };
+  };  
 
   return (
     <>

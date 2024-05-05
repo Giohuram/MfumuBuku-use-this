@@ -1,11 +1,40 @@
-// Affiche une carte représentant un livre avec son titre, son auteur
+import React, { useRef, useState } from 'react';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-// import React from 'react'
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
 
-const BookCard = () => {
+import '../Styles/BookCard.css';
+
+// import required modules
+import { Pagination } from 'swiper/modules';
+
+export default function BookCard() {
   return (
-    <div>BookCard</div>
-  )
+    <div className='bookCard'>
+      <Swiper
+        slidesPerView={4}
+        spaceBetween={30}
+        centeredSlides={true}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper"
+      >
+        <SwiperSlide></SwiperSlide>
+        <SwiperSlide></SwiperSlide>
+        <SwiperSlide></SwiperSlide>
+        <SwiperSlide></SwiperSlide>
+        {/* <SwiperSlide>Slide 5</SwiperSlide>
+        <SwiperSlide>Slide 6</SwiperSlide>
+        <SwiperSlide>Slide 7</SwiperSlide>
+        <SwiperSlide>Slide 8</SwiperSlide>
+        <SwiperSlide>Slide 9</SwiperSlide> */}
+      </Swiper>
+    </div>
+  );
 }
 
-export default BookCard

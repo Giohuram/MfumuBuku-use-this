@@ -32,9 +32,10 @@ model Book {
   id            Int      @id @default(autoincrement())
   title         String
   author        String
-  description   String
-  type          String   // livre électronique / livre audio
+  content       String    // Champ pour stocker le contenu EPUB du livre
+  category      String 
   datePublished DateTime
+  bookCover     String
   // Ajoutez d'autres champs de livre selon vos besoins
 }
 

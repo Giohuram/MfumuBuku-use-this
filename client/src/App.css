@@ -2,4 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-
+.banner .swiper {
+    width: 240px;
+    height: 320px;
+  }
+  
+.banner .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .banner .swiper-slide:nth-child(1n) {
+    /* background-color: rgb(206, 17, 17); */
+    background-image: url('/Kids_cat_pics/monde.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .banner.swiper-slide:nth-child(2n) {
+    /* background-color: rgb(0, 140, 255); */
+    background-image: url('/Kids_cat_pics/kids-animals.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .banner .swiper-slide:nth-child(3n) {
+    /* background-color: rgb(10, 184, 111); */
+    background-image: url('/Kids_cat_pics/Space.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .banner .swiper-slide:nth-child(4n) {
+    /* background-color: rgb(211, 122, 7); */
+    background-image: url('/Kids_cat_pics/numbers.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .banner .swiper-slide:nth-child(5n) {
+    /* background-color: rgb(118, 163, 12); */
+    background-image: url('/Kids_cat_pics/alphabet.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  

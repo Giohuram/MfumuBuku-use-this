@@ -6,7 +6,6 @@ const passport = require('passport');
 const authController = require('../controllers/authController');
 const verifyEmailAlreadyExist = require('../middlewares/verifyEmailAlreadyExist');
 const verifyUsernameAlreadyExist = require('../middlewares/verifyUsernameAlreadyExist');
-const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
 
 // Route d'inscription
 router.post('/signup', verifyEmailAlreadyExist, verifyUsernameAlreadyExist, authController.signup);

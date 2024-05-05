@@ -34,48 +34,14 @@ const MyProfile = ({ username, email, schoolLevel }) => {
 
   return (
     <div className="flex">
+    {/* Composant LibrairieNavBar à gauche */}
+    <div className="flex-none">
       <LibrairieNavBar />
-      <Container className="mx-auto">
-        <h1 className="text-3xl font-semibold mb-4">Mon Profil</h1>
-        <div className="flex items-center mb-8">
-          <div className="mr-4">
-            <img
-              src={profileImage || '/default-profile-image.jpg'}
-              alt="Profile"
-              className="w-32 h-32 rounded-full border-4 border-gray-300"
-            />
-            <input type="file" accept="image/*" onChange={handleImageChange} className="mt-2" />
-          </div>
-          <div>
-            <p className="text-xl font-semibold">{username}</p>
-            <p>{schoolLevel}</p>
-          </div>
-        </div>
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Mes Activités</h2>
-          <div className="mb-4">
-            <p className="font-semibold">Livres achetés: {booksBought}</p>
-            <button onClick={buyBook}>Acheter un livre</button>
-          </div>
-          <div className="mb-4">
-            <p className="font-semibold">Livres en cours de lecture: {booksReading.length}</p>
-            <ul>
-              {booksReading.map((book, index) => (
-                <li key={index}>{book}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold">Livres déjà lus: {booksRead.length}</p>
-            <ul>
-              {booksRead.map((book, index) => (
-                <li key={index}>{book}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </Container>
     </div>
+
+    {/* Div avec le texte MyLibrary à droite */}
+    <div className="flex-grow text-center">Mon Profile</div>
+  </div>
   );
 };
 

@@ -4,7 +4,7 @@
 
 const Lecture = () => {
   return (
-    <div>Lecture</div>
+   <div>Lecture</div> 
   )
 }
 
