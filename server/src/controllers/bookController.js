@@ -35,4 +35,20 @@ const getAllBooks = async (req, res) => {
   }
 };
 
-module.exports = { createBook, getAllBooks };
+// Controller pour récupérer les livres par catégorie
+const getBooksByCategory = async (req, res) => {
+  const { category } = req.params; // Récupère la catégorie à partir des paramètres de l'URL
+  try {
+    const booksByCategory = await prisma.book.findMany({
+      where: {
+        category: category // Filtre les livres par catégorie
+      }
+    });
+    res.json(booksByCategory);
+  } catch (error) {
+    console.error('Error fetching books by category:', error);
+    res.status(500).json({ error: 'Failed to fetch books by category' });
+  }
+};
+
+module.exports = { createBook, getAllBooks, getBooksByCategory };

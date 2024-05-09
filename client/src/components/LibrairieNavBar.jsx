@@ -1,115 +1,76 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
 
 const LibrairieNavBar = () => {
-  return (
-    <header style={headerStyle}>
-      <motion.div
-        style={leftContainerStyle}
-        transition={{ type: 'spring', damping: 18, mass: 0.75 }}
-        initial={{ opacity: 0, x: -1000 }}
-        animate={{ opacity: 1, x: 0 }}
-      >
-        <h1 style={bookTitleStyle}>Mfumu Buku Kids</h1>
-        <motion.input
-          type='text'
-          placeholder='Trouver vos livres favoris ici..'
-          style={searchInputStyle}
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          className='ml-20'
-        ></motion.input>
-      </motion.div>
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
 
-      <motion.div
-        style={rightContainerStyle}
-        transition={{ type: 'spring', damping: 18, mass: 0.75 }}
-        initial={{ opacity: 0, x: 1000 }}
-        animate={{ opacity: 1, x: 0 }}
-      >
-        <Link to='/profile' style={avatarLinkStyle}>
-          <div style={avatarContainerStyle}>
-            <motion.img
-              src='https://www.creativefabrica.com/wp-content/uploads/2022/11/21/Black-Boy-Retro-Charming-Avatar-47769583-1.png'
-              alt='avatar'
-              style={avatarStyle}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-            />
-            <div style={userInfoContainerStyle}>
-              <p style={usernameStyle}>Melch Huram Masala</p>
-              <p style={userLevelStyle}>Niveau primaire</p>
-            </div>
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const navItems = [
+    { link: 'Librairie', path: '/Librairie' },
+    { link: 'Ma Bibliothèque', path: '/MyBooks' },
+  ];
+
+  return (
+    <header>
+      <nav className={`py-4 lg:px-24 px-4 ${isSticky ? "top-0 right-0 left-0" : ""} bg-[#DC7211]`}>
+        <div className='flex justify-between items-center text-base gap-8'>
+          <Link to="/" className={`text-white font-semibold flex items-center gap-2 ${isMenuOpen ? 'hidden' : 'block'}`}>
+            <img src="/Mfumu-logo.png" alt="Logo" className="h-8 w-8 mr-2" />
+            MfumuBuku Kids
+          </Link>
+
+          <ul className='md:flex space-x-12 hidden'>
+            {navItems.map(({ link, path }) => (
+              <li key={path}>
+                <Link to={path} className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
+                  {link}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className='space-x-12 hidden lg:flex items-center'>
+            <button><FaBarsStaggered className="w-5" /></button>
           </div>
-        </Link>
-      </motion.div>
+
+          <div>
+            <div className='md:hidden'>
+              <button onClick={toggleMenu} className='text-white focus:outline-none' >
+                { 
+                  isMenuOpen ? <FaXmark className="h-5 w-5 text-white" /> : <FaBarsStaggered className="h-5 w-5 text-white" />
+                }
+              </button>
+            </div> 
+          </div>
+
+          <div className={`text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium ${isMenuOpen ? 'block' : 'hidden'} md:absolute md:top-0 md:right-0 md:bottom-0 md:left-auto md:bg-[#DC7211] md:w-auto`}>
+            {navItems.map(({ link, path }) => (
+              <Link key={path} to={path} className="block text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
+                {link}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </nav>
     </header>
   );
 };
 
-const headerStyle = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  padding: '1rem 1rem', // Modification de la valeur de padding
-  width: '100%',
-  backgroundColor: '#DC7211'
-};
-
-const leftContainerStyle = {
-  display: 'flex',
-  alignItems: 'center',
-};
-
-const bookTitleStyle = {
-  marginRight: '2rem',
-  fontSize: '2rem',
-  color: 'white'
-};
-
-const searchInputStyle = {
-  padding: '0.7rem 1rem',
-  borderRadius: '70px',
-  // backgroundColor: 'rgb(248, 234, 221)',
-  border: '2px solid #DC7211',
-  minWidth: '320px',
-};
-
-const rightContainerStyle = {
-  display: 'flex',
-  alignItems: 'center',
-};
-
-const avatarLinkStyle = {
-  marginRight: '1rem',
-  textDecoration: 'none', // Suppression du soulignement des liens
-};
-
-const avatarContainerStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  
-};
-
-const avatarStyle = {
-  width: '40px',
-  height: '40px',
-  borderRadius: '50%',
-};
-
-const userInfoContainerStyle = {
-  marginLeft: '0.5rem',
-  color: 'white'
-};
-
-const usernameStyle = {
-  margin: '0',
-};
-
-const userLevelStyle = {
-  margin: '0',
-  fontSize: '0.8rem', // Réduction de la taille de la police
-};
-
-export default LibrairieNavBar;
+export default LibrairieNavBar; 

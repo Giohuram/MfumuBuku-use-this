@@ -1,46 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import LibrairieNavBar from '../components/LibrairieNavBar';
-import SideBar from '../SharedComponents/Sidebar';
-import MyLibrary from '../LibraryPages/MyLibrary';
+import BookCard from '../SharedComponents/BookCard';
 
 const Librairie = () => {
+  const [booksByCategory, setBooksByCategory] = useState([]);
+
+  useEffect(() => {
+    // Fetch books from backend
+    fetchBooks();
+  }, []);
+
+  const fetchBooks = async () => {
+    try {
+      // Send request to backend to fetch books
+      const response = await fetch('http://localhost:3005/Book');
+      const data = await response.json();
+      setBooksByCategory(groupBooksByCategory(data));
+    } catch (error) {
+      console.error('Error fetching books:', error);
+    }
+  };
+
+  const groupBooksByCategory = (books) => {
+    // Group books by category
+    const groupedBooks = {};
+    books.forEach(book => {
+      if (!groupedBooks[book.category]) {
+        groupedBooks[book.category] = [];
+      }
+      groupedBooks[book.category].push(book);
+    });
+    return groupedBooks;
+  };
+
   return (
-    <div style={containerStyle}>
+    <div>
       <LibrairieNavBar />
-      <div style={contentContainerStyle}>
-        <div style={sidebarStyle} className='ml-5'>
-          <SideBar/>
-        </div>
-        <div style={myLibraryStyle}>
-          <MyLibrary />
-        </div>
+      <div>
+        {/* Display books under each category */}
+        {Object.keys(booksByCategory).map(category => (
+          <div key={category}>
+            <h2 className='mt-5 ml-3 text-2xl font-semibold'>{category}</h2>
+            <div className="ml-[-80px] mr-[-80px]">
+              <BookCard books={booksByCategory[category]} />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
-};
-
-const containerStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-};
-
-const contentContainerStyle = {
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'flex-start',
-  justifyContent: 'flex-start',
-  marginTop: '3rem'
-};
-
-const sidebarStyle = {
-  flex: '1 1 30%', // Utilisation de flexbox pour le sidebar avec une largeur de 30%
-  maxWidth: '250px', // Limite de la largeur du sidebar
-  minWidth: '150px', // Largeur minimale du sidebar
-  marginRight: '20px', // Espace entre le sidebar et le contenu principal
-};
-
-const myLibraryStyle = {
-  flex: '1 1 70%', // Utilisation de flexbox pour MyLibrary avec une largeur de 70%
 };
 
 export default Librairie;

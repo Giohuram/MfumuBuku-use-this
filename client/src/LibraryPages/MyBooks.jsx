@@ -3,15 +3,12 @@ import LibrairieNavBar from '../components/LibrairieNavBar';
 
 const MyBooks = () => {
   return (
-    <div className="flex">
-    {/* Composant LibrairieNavBar à gauche */}
-    <div className="flex-none">
-      <LibrairieNavBar />
+    <div className="">
+      <div >
+        <LibrairieNavBar />
+      </div>
+      <div className="">MyBooks</div>
     </div>
-
-    {/* Div avec le texte MyLibrary à droite */}
-    <div className="flex-grow text-center">MyBooks</div>
-  </div>
   )
 }
 
