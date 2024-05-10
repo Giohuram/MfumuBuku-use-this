@@ -12,6 +12,9 @@ import MyBooks from './LibraryPages/MyBooks';
 import ReadingClub from './LibraryPages/ReadingClub';
 import Subscription from './LibraryPages/Subscription';
 import MyProfile from './LibraryPages/MyProfile';
+import Lecture from './SpecificComponent/Lecture';
+import { BookProvider } from '../src/Context/BookContext';
+import { MyBooksProvider } from '../src/Context/MyBooksContext';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,9 +27,38 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/librairie" element={isLoggedIn ? <Librairie /> : <Navigate to="/login" />} />
+            <Route 
+              path="/librairie" 
+              element={isLoggedIn ? 
+             <BookProvider>
+                <Librairie />
+             </BookProvider>   
+               : <Navigate to="/login" 
+              />
+            } 
+              
+              />
             <Route path="/MyLibrary" element={<MyLibrary />} />
-            <Route path="/MyBooks" element={<MyBooks />} />
+            <Route 
+              path="/MyBooks" 
+              element={
+                <BookProvider>
+                  <MyBooksProvider>
+                    <MyBooks />
+                  </MyBooksProvider>
+                </BookProvider>  
+              }  
+            />
+            <Route 
+              path="/Lecture" 
+              element={
+                <BookProvider>
+                   <MyBooksProvider> 
+                    < Lecture />
+                  </MyBooksProvider>
+                </BookProvider>
+              } 
+              />
             <Route path="/ReadingClub" element={<ReadingClub />} />
             <Route path="/Subscription" element={<Subscription />} />
             <Route path="/MyProfile" element={<MyProfile />} />

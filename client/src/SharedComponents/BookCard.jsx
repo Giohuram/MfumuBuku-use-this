@@ -2,12 +2,17 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { Link } from 'react-router-dom';
+import { useBookContext } from '../Context/BookContext';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const BookCard = ({ headline, books }) => {
+const BookCard = ({ headline, books, onAddToCollection }) => {
+  if (!books || books.length === 0) {
+    return <div>No books available</div>;
+  }
+
   return (
     <>
       <div className='px-4 lg:px-24 mb-2 mt-4'>
@@ -40,14 +45,15 @@ const BookCard = ({ headline, books }) => {
         >
           {books && books.map(book => (
             <SwiperSlide key={book.id}>
-              <Link to={`/book/${book.id}`} className="flex flex-col items-center">
-                <img src={book.bookCover} alt="bookCover" className="mb-2 w-full max-w-[200px] h-auto" />
-                <p className="text-center font-semibold">{book.title}</p>
-                <p className="text-center">{book.age}</p>
-                <button className='bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2 mx-auto'>
+              <div className="flex flex-col items-center">
+                <Link to={`/book/${book.id}`} className="flex flex-col items-center">
+                  <img src={book.bookCover} alt="bookCover" className="mb-2 w-full max-w-[200px] h-auto" />
+                  <p className="text-center font-semibold">{book.title}</p>
+                </Link>
+                <button onClick={() => onAddToCollection(book)} className='bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2 mx-auto'>
                   Ajouter à ma collection
                 </button>
-              </Link>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
