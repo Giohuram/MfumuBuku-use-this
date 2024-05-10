@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
@@ -9,7 +9,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="bg-[#DC7211] p-4">
+    <nav className={`bg-[#DC7211] p-4 ${isOpen ? 'fixed top-0 right-0 left-0' : ''}`}>
       <div className="flex items-center justify-between">
         {/* Logo et nom de l'entreprise à gauche */}
         <Link to="/">
@@ -32,10 +32,10 @@ const NavBar = () => {
         </div>
         {/* Options du milieu */}
         <div className={`md:flex md:items-center md:justify-center ${isOpen ? 'block' : 'hidden'}`}>
-        <Link to="/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Accueil</Link>
+          <Link to="/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Accueil</Link>
           <Link to="#" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">À propos</Link>
           <Link to="#" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Contactez-nous</Link>
-          <Link to="/Librairie" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Librairie</Link>
+          <Link to="/Librairie" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Bibliothèque</Link>
         </div>
         {/* Boutons de connexion et d'inscription à droite */}
         <div className="hidden md:flex items-center">

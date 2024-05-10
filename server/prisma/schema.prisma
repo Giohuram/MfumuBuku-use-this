@@ -22,9 +22,11 @@ model User {
   childAge     Int      
   schoolLevel  SchoolLevel
   email        String     @unique
+  avatar       String?    // Champ pour le chemin de l'avatar
   createdAt    DateTime   @default(now())
   // Ajoutez d'autres champs utilisateur selon vos besoins
 }
+
 
 
 // models/Book.model.prisma
@@ -36,8 +38,11 @@ model Book {
   category      String 
   datePublished DateTime
   bookCover     String
+  audioContent  String?   // Nouvelle propriété pour le contenu audio du livre
+  age           String? // Nouvelle propriété pour l'âge approprié du livre
   // Ajoutez d'autres champs de livre selon vos besoins
 }
+
 
 // models/Subscription.model.prisma
 model Subscription {

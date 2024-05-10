@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Book" ALTER COLUMN "age" DROP NOT NULL,
+ALTER COLUMN "audioContent" DROP NOT NULL;

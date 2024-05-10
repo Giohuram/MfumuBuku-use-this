@@ -7,7 +7,7 @@ const authController = require('../controllers/authController');
 const verifyEmailAlreadyExist = require('../middlewares/verifyEmailAlreadyExist');
 const verifyUsernameAlreadyExist = require('../middlewares/verifyUsernameAlreadyExist');
 
-// Route d'inscription
+// Route d'inscription 
 router.post('/signup', verifyEmailAlreadyExist, verifyUsernameAlreadyExist, authController.signup);
 
 // Route de connexion

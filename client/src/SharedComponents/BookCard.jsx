@@ -17,37 +17,37 @@ const BookCard = ({ headline, books }) => {
       <div className='px-4 lg:px-24 pb-10'>
         <Swiper
           slidesPerView={1}
-          spaceBetween={10}
+          spaceBetween={10} // Adjusted space between slides
           pagination={{
             clickable: true,
           }}
           breakpoints={{
             640: {
               slidesPerView: 2,
-              spaceBetween: 20,
+              spaceBetween: 10, // Adjusted space between slides for smaller screens
             },
             768: {
-              slidesPerView: 4,
-              spaceBetween: 40,
+              slidesPerView: 3,
+              spaceBetween: 10,
             },
             1024: {
-              slidesPerView: 5,
-              spaceBetween: 50,
+              slidesPerView: 4,
+              spaceBetween: 10,
             },
           }}
           modules={[Pagination]}
           className="mySwiper w-full h-full"
         >
           {books && books.map(book => (
-            <SwiperSlide key={book._id}>
-              <Link to={`/book/${book._id}`} className="flex flex-col items-center">
-                <img src={book.bookCover} alt="bookCover" className="mb-2" />
+            <SwiperSlide key={book.id}>
+              <Link to={`/book/${book.id}`} className="flex flex-col items-center">
+                <img src={book.bookCover} alt="bookCover" className="mb-2 w-full max-w-[200px] h-auto" />
                 <p className="text-center font-semibold">{book.title}</p>
-                <p className="text-center">{book.author}</p>
+                <p className="text-center">{book.age}</p>
+                <button className='bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2 mx-auto'>
+                  Ajouter à ma collection
+                </button>
               </Link>
-              <button className='bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2'>
-                Ajouter à ma bibliothèque
-              </button>
             </SwiperSlide>
           ))}
         </Swiper>

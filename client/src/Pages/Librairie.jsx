@@ -15,6 +15,7 @@ const Librairie = () => {
       // Send request to backend to fetch books
       const response = await fetch('http://localhost:3005/Book');
       const data = await response.json();
+      console.log(data); // Afficher les données renvoyées dans la console
       setBooksByCategory(groupBooksByCategory(data));
     } catch (error) {
       console.error('Error fetching books:', error);
@@ -40,8 +41,8 @@ const Librairie = () => {
         {/* Display books under each category */}
         {Object.keys(booksByCategory).map(category => (
           <div key={category}>
-            <h2 className='mt-5 ml-3 text-2xl font-semibold'>{category}</h2>
-            <div className="ml-[-80px] mr-[-80px]">
+            <h2 className='mt-5 ml-40 text-2xl font-semibold'>{category}</h2>
+            <div className="ml-[-0px] mr-[-0px]">
               <BookCard books={booksByCategory[category]} />
             </div>
           </div>

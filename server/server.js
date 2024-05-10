@@ -9,7 +9,8 @@ const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 const morgan = require('morgan'); // Importing morgan for logging
 const bookRoutes = require('./src/routes/bookRoutes');
-
+const userRoutes = require('./userRoutes');
+const avatarRoutes = require('./routes/avatarRoutes');
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(cors());
 // Middleware for parsing JSON data
 app.use(express.json());
 
+// Middleware pour gérer les fichiers statiques
+app.use(express.static('uploads'));
 
 // Initialize Passport
 app.use(passport.initialize());
@@ -49,6 +52,13 @@ app.use('/auth', authRoutes);
 
 // Books routes
 app.use('/Book', bookRoutes);
+
+// Users routes 
+app.use('/user/:id', userRoutes);
+
+// Middleware pour les routes liées aux avatars
+app.use('/avatars', avatarRoutes);
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

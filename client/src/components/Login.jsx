@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaGoogle, FaFacebook, FaApple } from 'react-icons/fa';
 import axios from 'axios';
+import login  from '../Utils/auth'; // Importez la fonction de connexion depuis votre fichier d'authentification
 
 const Login = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState('');
@@ -12,22 +13,16 @@ const Login = ({ setIsLoggedIn }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3005/auth/login', {
-        username,
-        password,
-      });
-      if (response && response.data) {
-        console.log(response.data); // Log response data for debugging
-        setIsLoggedIn(true);
-        navigate('/librairie');
-      } else {
-        setError('Invalid response from server');
-      }
+      const response = await axios.post('http://localhost:3005/auth/login', { username, password });
+      const { token } = response.data;
+      setIsLoggedIn(true);
+      navigate('/librairie');
     } catch (error) {
-      console.error('Error during login:', error); // Log the error for debugging
-      setError(error.response?.data?.error || 'An error occurred during login');
+      console.error('Error during login:', error);
+      setError(error.message || 'An error occurred during login');
     }
-  };  
+  };
+  
 
   return (
     <>

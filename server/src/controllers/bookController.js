@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 // Controller pour ajouter un livre
 const createBook = async (req, res) => {
   try {
-    const { title, author, content, category, datePublished, bookCover } = req.body;
+    const { title, author, content, category, datePublished, bookCover, audioContent, age } = req.body;
     const newBook = await prisma.book.create({
       data: {
         title,
@@ -14,7 +14,9 @@ const createBook = async (req, res) => {
         content,
         category,
         datePublished,
-        bookCover
+        bookCover,
+        audioContent,
+        age
       }
     });
     res.json(newBook);
