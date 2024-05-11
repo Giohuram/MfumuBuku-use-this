@@ -15,6 +15,8 @@ import MyProfile from './LibraryPages/MyProfile';
 import Lecture from './SpecificComponent/Lecture';
 import { BookProvider } from '../src/Context/BookContext';
 import { MyBooksProvider } from '../src/Context/MyBooksContext';
+import LectureAudio from './SpecificComponent/LectureAudio';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,6 +61,16 @@ function App() {
                 </BookProvider>
               } 
               />
+            <Route 
+              path="/LectureAudio" 
+              element={
+                <BookProvider>
+                   <MyBooksProvider> 
+                    < LectureAudio />
+                  </MyBooksProvider>
+                </BookProvider>
+              } 
+              />  
             <Route path="/ReadingClub" element={<ReadingClub />} />
             <Route path="/Subscription" element={<Subscription />} />
             <Route path="/MyProfile" element={<MyProfile />} />

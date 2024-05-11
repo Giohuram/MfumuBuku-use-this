@@ -9,8 +9,9 @@ const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 const morgan = require('morgan'); // Importing morgan for logging
 const bookRoutes = require('./src/routes/bookRoutes');
-const userRoutes = require('./userRoutes');
-const avatarRoutes = require('./routes/avatarRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+// const userController = require('./src/controllers/userController')
+const avatarRoutes = require('./src/routes/AvatarRoutes');
 
 const app = express();
 

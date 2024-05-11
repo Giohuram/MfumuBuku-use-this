@@ -1,7 +1,7 @@
 const multer = require('multer'); // Middleware pour gérer les fichiers uploadés
 const fs = require('fs');
 const path = require('path');
-const prisma = require('../prisma'); // Importer votre instance Prisma
+const prisma = require('prisma'); // Importer votre instance Prisma
 
 // Configurer le middleware multer pour gérer les uploads d'avatar
 const storage = multer.diskStorage({
@@ -36,4 +36,4 @@ const uploadAvatar = async (req, res, next) => {
   }
 };
 
-module.exports = { uploadAvatar };
+module.exports = { upload, uploadAvatar };
