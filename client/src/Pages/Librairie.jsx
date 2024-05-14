@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; 
 import LibrairieNavBar from '../components/LibrairieNavBar';
 import BookCard from '../SharedComponents/BookCard';
 import { useBookContext } from '../Context/BookContext';
+import Banner from '../SharedComponents/Banner';
 
 const Librairie = () => {
   const { myBooks, addBookToLibrary } = useBookContext(); // Assurez-vous d'obtenir la fonction addBookToLibrary du contexte
@@ -40,10 +41,12 @@ const Librairie = () => {
   return (
     <div>
       <LibrairieNavBar />
+      <Banner />
+      
       <div>
         {Object.keys(booksByCategory).map(category => (
           <div key={category}>
-            <h2 className='mt-5 ml-40 text-2xl font-semibold'>{category}</h2>
+            <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
             <div className="ml-[-0px] mr-[-0px]">
               {/* Passez la fonction handleAddToCollection à BookCard */}
               <BookCard books={booksByCategory[category]} onAddToCollection={handleAddToCollection} />

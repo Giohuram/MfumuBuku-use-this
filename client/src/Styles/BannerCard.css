@@ -1,0 +1,51 @@
+.banner .swiper {
+    width: 240px;
+    height: 320px;
+  }
+  
+.banner .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .banner .swiper-slide:nth-child(1n) {
+    /* background-color: rgb(206, 17, 17); */
+    background-image: url('https://res.cloudinary.com/dxmozt7lf/image/upload/v1715433759/Contes%20africains/LE_secret_d_un_baobab_magique_bookCover_wu16xg.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .banner .swiper-slide:nth-child(2n) {
+    /* background-color: rgb(0, 140, 255); */
+    background-image: url('https://m.media-amazon.com/images/I/71LiNtn3BTL._SL1181_.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .banner .swiper-slide:nth-child(3n) {
+    /* background-color: rgb(10, 184, 111); */
+    background-image: url('https://m.media-amazon.com/images/I/61uo1nWlnQL._SL1293_.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .banner .swiper-slide:nth-child(4n) {
+    /* background-color: rgb(211, 122, 7); */
+    background-image: url('https://m.media-amazon.com/images/I/81mWANjdPDL._SL1500_.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .banner .swiper-slide:nth-child(5n) {
+    /* background-color: rgb(118, 163, 12); */
+    background-image: url('https://m.media-amazon.com/images/I/61OQm0iuKJL._SL1294_.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  

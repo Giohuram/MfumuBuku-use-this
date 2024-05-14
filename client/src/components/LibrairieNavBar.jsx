@@ -1,26 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
-import axios from 'axios';
+import { UserContext } from '../Context/userContext'; 
 
 const LibrairieNavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
-  const [username, setUsername] = useState('');
-  const [error, setError] = useState('');
+  const { user, updateUser } = useContext(UserContext); // Accédez aux données utilisateur depuis le contexte
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3005/auth/login'); // Remplacez '/api/user' par l'URL de votre endpoint pour récupérer les détails de l'utilisateur
-        setUsername(response.data.username);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-
-    fetchUserData();
-
     const handleScroll = () => {
       setIsSticky(window.scrollY > 100);
     };
@@ -36,80 +25,97 @@ const LibrairieNavBar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleAvatarUpload = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('avatar', file);
-
-    try {
-      const response = await axios.post('http://localhost:3005/upload-avatar', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-      // Afficher un message de succès ou mettre à jour l'avatar de l'utilisateur
-    } catch (error) {
-      console.error('Error uploading avatar:', error);
-      // Afficher un message d'erreur à l'utilisateur
-    }
+  const handleLogout = () => {
+    // Implémentez la logique de déconnexion ici
+    // Par exemple, réinitialisez les données de l'utilisateur
+    updateUser({
+      username: '',
+      email: '',
+      schoolLevel: '',
+      avatar: ''
+    });
+    navigate('/');
   };
 
   return (
     <header>
-      <nav className={`py-4 px-4 md:px-24 ${isSticky ? "fixed top-0 right-0 left-0" : ""} bg-[#DC7211] w-full z-50`}>
+      <nav className={`py-6 px-4 md:px-24 ${isSticky ? "fixed top-0 right-0 left-0" : ""} bg-[#DC7211] w-full z-50`}>
         <div className='flex justify-between items-center text-base'>
-          <Link to="/" className={`text-white font-semibold flex items-center gap-2 ${isMenuOpen ? 'hidden' : 'block'}`}>
-            <img src="/Mfumu-logo.png" alt="Logo" className="h-8 w-8 mr-2" />
-            <span className="hidden md:block">MfumuBuku Kids</span>
-          </Link>
+          <div className='flex items-center'>
+            <Link to="/" className={`text-white ml-[-5rem] mr-20 font-semibold flex items-center gap-2 ${isMenuOpen ? 'hidden' : ''}`}>
+              <img src="/Mfumu-logo.png" alt="Logo" className="h-8 w-8" />
+              <span>MfumuBuku Kids</span>
+            </Link>
+          </div>
 
-          <div className='md:hidden'>
+          <div className='md:hidden ml-56'>
             <button onClick={toggleMenu}>
               {isMenuOpen ? <FaXmark className="h-5 w-5 text-white" /> : <FaBarsStaggered className="h-5 w-5 text-white" />}
             </button>
           </div>
 
-          <ul className={`md:flex md:space-x-12 md:items-center ${isMenuOpen ? 'flex flex-col md:flex-row md:space-x-0' : 'hidden'}`}>
-            <li key="Librairie">
-              <Link to="/Librairie" className="text-white hover:bg-black hover:text-[#DC7211] block px-3 py-2 rounded-md text-sm font-medium md:inline-block md:px-0 md:py-0">
-               Bibliothèque
-              </Link>
-            </li>
-            <li key="MyBooks">
-              <Link to="/MyBooks" className="text-white hover:bg-black hover:text-[#DC7211] block px-3 py-2 rounded-md text-sm font-medium md:inline-block md:px-0 md:py-0">
-                Ma Collection 
-              </Link>
-            </li>
-          </ul>
-
-          <div className="relative ml-auto md:ml-0">
-            {/* Partie Profil utilisateur */}
-            <div className="flex items-center gap-2 cursor-pointer md:ml-auto">
-              <img src="/default-profile-pic.jpg" alt="Profile" className="h-8 w-8 rounded-full" /> {/* Image de profil par défaut */}
-              <div className="text-white hidden md:block">{username}</div> {/* Nom d'utilisateur */}
-              <button className="text-white md:hidden" onClick={toggleMenu}> {/* Affiche un menu déroulant pour le profil sur les appareils mobiles */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 12a2 2 0 100-4 2 2 0 000 4zm0 2a2 2 0 100-4 2 2 0 000 4zm0 2a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                </svg>
-              </button>
-            </div>
-            {/* Menu déroulant pour le profil */}
-            <div className={`absolute top-full right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-md md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}>
-              <ul className="py-2">
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Mon Profile</li>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Abonnement</li>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Control Parental</li>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Stats Lecture</li>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Se déconnecter</li>
-                {/* Champ d'entrée pour le téléchargement de l'avatar */}
-                <li className="px-4 py-2">
-                  <label htmlFor="avatar" className="hover:bg-gray-100 cursor-pointer block px-4 py-2">
-                    Changer d'avatar
-                  </label>
-                  <input type="file" id="avatar" className="hidden" onChange={handleAvatarUpload} />
+          <div className="flex items-center justify-between w-full">
+            {/* Menu pour les appareils mobiles */}
+            <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}>
+              <ul className="flex flex-col text-white bg-[#DC7211] absolute top-14 right-0 left-0 z-50 mb-5 pl-3 ml-56 mt-2">
+                <li>
+                  <Link to="/Librairie" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211]">Bibliothèque</Link>
+                </li>
+                <li>
+                  <Link to="/MyBooks" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211]">Ma Collection</Link>
+                </li>
+                <li>
+                  <Link to="/MonCompte" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211]">Mon Compte</Link>
+                </li>
+                <li>
+                  <button onClick={handleLogout} className="block py-2 px-4 hover:bg-black hover:text-[#DC7211]">Déconnexion</button>
                 </li>
               </ul>
+            </div>
+
+            {/* Avatar et informations de l'utilisateur pour les appareils mobiles */}
+            <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}>
+              <div className="flex items-center ml-4">
+                <img src={user.avatar} alt="Avatar" className="h-8 w-8 rounded-full" />
+                <div className="ml-2">
+                  <div className="text-white">{user.username}</div>
+                  <div className="text-gray-300 text-sm">{user.schoolLevel}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Menu et Avatar pour les écrans non mobiles */}
+            <div className="hidden md:flex items-center ml-[8rem]">
+              <ul className={`md:flex md:space-x-12 md:items-center ${isMenuOpen ? 'flex flex-col md:flex-row md:space-x-0' : ''}`}>
+                <li key="Librairie">
+                  <Link to="/Librairie" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
+                    Bibliothèque
+                  </Link>
+                </li>
+                <li key="MyBooks">
+                  <Link to="/MyBooks" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
+                    Ma Collection
+                  </Link>
+                </li>
+                <li key="MonCompte">
+                  <Link to="/MonCompte" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
+                    Mon Compte
+                  </Link>
+                </li>
+                <li>
+                  <button onClick={handleLogout} className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
+                    Déconnexion
+                  </button>
+                </li>
+              </ul>
+              {/* Avatar et informations de l'utilisateur pour les écrans non mobiles */}
+              <div className="flex items-center ml-[250px]">
+                <img src={user.avatar} alt="Avatar" className="h-8 w-8 rounded-full" />
+                <div className="ml-2">
+                  <div className="text-white">{user.username}</div>
+                  <div className="text-gray-300 text-sm">{user.schoolLevel}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

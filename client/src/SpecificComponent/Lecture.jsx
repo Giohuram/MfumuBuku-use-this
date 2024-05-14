@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types'; // Importez PropTypes depuis la bibliothèque prop-types
 import { ReactReader } from 'react-reader';
 import { useLocation } from 'react-router-dom';
+import LibrairieNavBar from '../components/LibrairieNavBar';
 
 const Lecture = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const Lecture = () => {
 
   return (
     <div style={{ height: '100vh' }}>
+      <LibrairieNavBar />
       <ReactReader
         url={book.content}
         location={0}

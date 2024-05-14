@@ -1,27 +1,48 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
 import { useBookContext } from '../Context/BookContext'; 
 import 'swiper/css';
 import 'swiper/css/pagination';
-// import Banner from './Banner';
-// import { fetchBookContent } from '../Utils/api'; // Importer la fonction depuis le fichier utilitaire
-// import { Howl } from 'howler'; // Importer Howler.js
 import LibrairieNavBar from '../components/LibrairieNavBar';
-import BookCard from '../SharedComponents/BookCard';
-
+// import BookCard from '../SharedComponents/BookCard';
+import { UserContext } from '../Context/userContext';
 
 const MyBooks = () => {
   const { myBooks, groupedBooks } = useBookContext(); // Accédez à groupedBooks depuis le contexte
-
+  const { user } = useContext(UserContext); 
   const navigate = useNavigate();
   const [selectedBook, setSelectedBook] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
   const handleReadButtonClick = (book) => {
     setSelectedBook(book);
     navigate('/Lecture', { state: { book } });
   };
+
+  const handleListenButtonClick = (book) => {
+    setSelectedBook(book);
+    navigate('/LectureAudio', { state: { book } });
+  };
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const response = await fetch(`/user/${user.id}/favorites`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch favorites');
+        }
+        const data = await response.json();
+        setFavorites(data);
+      } catch (error) {
+        console.error('Error fetching favorites:', error);
+      }
+    };
+
+    fetchFavorites();
+  }, [user.id]);
+
 
   return (
     <div>
@@ -42,8 +63,8 @@ const MyBooks = () => {
               modules={[Pagination]}
               className="mySwiper w-full h-full"
             >
-              {groupedBooks[category].map((book) => (
-                <SwiperSlide key={book._id}>
+              {groupedBooks[category].map((book, index) => (
+                <SwiperSlide key={index}>
                   <div className="flex flex-col items-center">
                     <img src={book.bookCover} alt="bookCover" className="mb-2" />
                     <div className="text-center">
@@ -55,6 +76,7 @@ const MyBooks = () => {
                       </button>
                       <button
                         className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2"
+                        onClick={() => handleListenButtonClick(book)}
                       >
                         Écouter
                       </button>

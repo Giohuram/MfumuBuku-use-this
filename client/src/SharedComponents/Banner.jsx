@@ -1,57 +1,51 @@
-import React, { useRef, useState } from 'react';
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useState, useContext, useEffect } from 'react';
+import BannerCard from '../SharedComponents/BannerCard';
+import SearchBar from '../components/SearchBar'; // Import du composant SearchBar
+import { UserContext } from '../Context/userContext'; // Adaptation de l'importation du contexte utilisateur
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+const Banner = ({ books }) => {
+  // État local pour stocker le nom d'utilisateur
+  const [username, setUsername] = useState('');
 
-import '../Styles/Banner.css';
+  // Utilisation du contexte utilisateur
+  const { user } = useContext(UserContext);
 
-// import required modules
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
-export default function Banner() {
-  const progressCircle = useRef(null);
-  const progressContent = useRef(null);
-  const onAutoplayTimeLeft = (s, time, progress) => {
-    progressCircle.current.style.setProperty('--progress', 1 - progress);
-    progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
+  // Fonction pour gérer la connexion de l'utilisateur
+  const handleLogin = () => {
+    setUsername(user.username); // Mettre à jour le nom d'utilisateur dans l'état local
   };
+
+  // Suppose que vous avez une fonction handleLogin qui sera appelée lorsque l'utilisateur se connecte
+  useEffect(() => {
+    handleLogin();
+  }, [user]);
+
   return (
-    <div className='BannerLib'>
-      <Swiper
-        spaceBetween={30}
-        centeredSlides={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
-        onAutoplayTimeLeft={onAutoplayTimeLeft}
-        className="mySwiper"
-      >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
-        <div className="autoplay-progress" slot="container-end">
-          <svg viewBox="0 0 48 48" ref={progressCircle}>
-            <circle cx="24" cy="24" r="20"></circle>
-          </svg>
-          <span ref={progressContent}></span>
+    <div className='px-4 lg:px-8 bg-[#DC7211]'>
+      <div className='flex flex-col md:flex-row items-center md:justify-between gap-6 py-10 md:py-20'>
+        {/* Left side content */}
+        <div className='w-full md:w-1/2 space-y-6 md:space-y-8'>
+          {/* Utilisation du nom d'utilisateur dans le titre */}
+         <div>
+            <h2 className='text-2xl md:text-4xl font-bold leading-tight text-white'>
+              Salut {username ? `${username}` : ''},
+            </h2>
+          </div>  
+          <p className='text-white'>
+            Nous sommes ravis de vous accueillir à nouveau parmi nous. Êtes-vous prêts à plonger dans un monde plein d'aventures ? Laissez-vous emporter par les récits merveilleux qui nourriront votre imagination et votre créativité.<br/>
+            <span>Bonne lecture !</span>
+          </p>
+          {/* Utilisation du composant SearchBar avec la fonction de recherche gérée */}
+          <SearchBar />
         </div>
-      </Swiper>
+
+        {/* Right side content */}
+        <div className='w-full md:w-auto mr-20'>
+          <BannerCard books={books} />
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default Banner;

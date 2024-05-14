@@ -22,8 +22,9 @@ model User {
   childAge     Int      
   schoolLevel  SchoolLevel
   email        String     @unique
-  avatar       String?    // Champ pour le chemin de l'avatar
+  avatar       Bytes?    // Champ pour le chemin de l'avatar
   createdAt    DateTime   @default(now())
+  books        BookUser[]
   // Ajoutez d'autres champs utilisateur selon vos besoins
 }
 
@@ -40,7 +41,19 @@ model Book {
   bookCover     String
   audioContent  String?   // Nouvelle propriété pour le contenu audio du livre
   age           String? // Nouvelle propriété pour l'âge approprié du livre
-  // Ajoutez d'autres champs de livre selon vos besoins
+  description   String?
+  // Relation pour représenter les utilisateurs qui ont sélectionné ce livre
+  users         BookUser[]
+}
+
+// Relation pour représenter les utilisateurs qui ont sélectionné ce livre
+model BookUser {
+  id       Int    @id @default(autoincrement())
+  user     User   @relation(fields: [userId], references: [id])
+  userId   Int
+  book     Book   @relation(fields: [bookId], references: [id])
+  bookId   Int
+  // Vous pouvez ajouter d'autres champs comme la date à laquelle l'utilisateur a ajouté le livre, etc.
 }
 
 

@@ -3,20 +3,22 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
-// const { prisma } = require('./prisma/'); // Import your Prisma instance
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 const morgan = require('morgan'); // Importing morgan for logging
 const bookRoutes = require('./src/routes/bookRoutes');
 const userRoutes = require('./src/routes/userRoutes');
-// const userController = require('./src/controllers/userController')
 const avatarRoutes = require('./src/routes/AvatarRoutes');
+const jwtAuthMiddleware = require('./src/middlewares/jwtAuthMiddleware');
 
 const app = express();
 
 // Middleware for CORS
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true, 
+}));
 
 // Middleware for parsing JSON data
 app.use(express.json());
@@ -52,14 +54,13 @@ passport.use(new LocalStrategy(
 app.use('/auth', authRoutes);
 
 // Books routes
-app.use('/Book', bookRoutes);
+app.use('/Book', jwtAuthMiddleware, bookRoutes); // Apply JWT middleware to protected routes
 
 // Users routes 
-app.use('/user/:id', userRoutes);
+app.use('/User', jwtAuthMiddleware, userRoutes); // Apply JWT middleware to protected routes
 
 // Middleware pour les routes liées aux avatars
-app.use('/avatars', avatarRoutes);
-
+app.use('/avatars', avatarRoutes); // Assuming avatars routes do not require JWT
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -69,7 +70,6 @@ app.use((err, req, res, next) => {
 
 // Logging middleware
 app.use(morgan('dev'));
-
 
 // Start the server
 const PORT = process.env.PORT || 3005;

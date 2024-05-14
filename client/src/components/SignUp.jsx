@@ -11,6 +11,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [avatar, setAvatar] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
 
@@ -25,13 +26,15 @@ const SignUp = () => {
         email,
         password,
         confirmPassword,
+        avatar
       });
       console.log(response.data); // Gérer la réponse de l'API comme vous le souhaitez, par exemple, rediriger l'utilisateur vers une autre page
-      navigate('/Accueil'); // Rediriger vers le tableau de bord après la création du compte
+      navigate('/login'); // Rediriger vers le tableau de bord après la création du compte
     } catch (error) {
       setError(error.response.data.message);
     }
   };
+  
 
   return (
     <div className="bg-[#DC7211] py-16 px-4 md:px-0">
@@ -66,6 +69,7 @@ const SignUp = () => {
               <input type="email" placeholder="Entrer votre email" className="mb-4 p-2 rounded border-2 border-gray-400 w-full text-black" value={email} onChange={(e) => setEmail(e.target.value)} />
               <input type="password" placeholder="Mot de passe" className="mb-4 p-2 rounded border-2 border-gray-400 w-full text-black" value={password} onChange={(e) => setPassword(e.target.value)} />
               <input type="password" placeholder="Confirmer votre Mot de passe" className="mb-4 p-2 rounded border-2 border-gray-400 w-full text-black" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+              <input type="file" onChange={(e) => setAvatar(e.target.files[0])} accept="image/*"/><br/>
               <button type="submit" className="bg-black text-white font-bold py-2 px-4 rounded mr-2">Créer votre compte</button>
             </form>
             {error && <p className="text-red-500">{error}</p>}
