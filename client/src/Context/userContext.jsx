@@ -1,7 +1,12 @@
 import React, { createContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 const UserContext = createContext();
+
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:3005',
+});
 
 const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({
@@ -10,7 +15,7 @@ const UserContextProvider = ({ children }) => {
     email: '',
     schoolLevel: '',
     avatar: '',
-    myBooks: [] // Ajoutez le tableau des livres favoris ici
+    books: [], // Tableau des livres favoris
   });
 
   const updateUser = (userData) => {
@@ -19,16 +24,16 @@ const UserContextProvider = ({ children }) => {
 
   const addToMyBooks = async (bookId) => {
     try {
-      const response = await axios.post('http://localhost:3005/addFavorite', {
+      const response = await axiosInstance.post('/addFavorite', {
         userId: user.id,
-        bookId
+        bookId,
       });
-      setUser(prevUser => ({
+      setUser((prevUser) => ({
         ...prevUser,
-        myBooks: [...prevUser.myBooks, response.data]
+        books: [...prevUser.books, response.data],
       }));
     } catch (error) {
-      console.error('Error adding book to favorites:', error);
+      console.error('Erreur lors de l\'ajout du livre aux favoris :', error);
     }
   };
 
@@ -36,13 +41,13 @@ const UserContextProvider = ({ children }) => {
     const fetchFavorites = async () => {
       if (user.id) {
         try {
-          const response = await axios.get(`http://localhost:3005/${user.id}/favorites`);
-          setUser(prevUser => ({
+          const response = await axiosInstance.get(`/${user.id}/favorites`);
+          setUser((prevUser) => ({
             ...prevUser,
-            myBooks: response.data
+            books: response.data,
           }));
         } catch (error) {
-          console.error('Error fetching favorite books:', error);
+          console.error('Erreur lors de la récupération des livres favoris :', error);
         }
       }
     };
@@ -55,6 +60,10 @@ const UserContextProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
+};
+
+UserContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export { UserContext, UserContextProvider };

@@ -1,30 +1,30 @@
-// authService.js
-
 const bcrypt = require('bcrypt');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Fonction d'inscription
+// Fonction pour l'inscription d'un nouvel utilisateur
 const signup = async (username, password, email, parentName, childAge, schoolLevel, avatar) => {
-  const hashedPassword = await bcrypt.hash(password, 10); try {
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
     await prisma.user.create({
       data: {
         username,
         password: hashedPassword,
-        email: email, // Ajoutez le champ email
-        parentName: parentName, // Ajoutez le champ parentName
-        childAge: childAge, // Ajoutez le champ childAge
-        schoolLevel: schoolLevel, // Ajoutez le champ schoolLevel
-        avatar: avatar
+        email, 
+        parentName, 
+        childAge, 
+        schoolLevel, 
+        avatar
       },
     });
-    return true
+    return true; // Retourne true si l'inscription réussit
   } catch (error) {
-    console.log({error});
-    return false
+    console.error('Error creating user:', error);
+    return false; // Retourne false en cas d'erreur lors de la création de l'utilisateur
   }
 };
 
+// Fonction pour récupérer les livres d'un utilisateur par son ID
 const getUserBooks = async (userId) => {
   try {
     const userBooks = await prisma.bookUser.findMany({
@@ -37,7 +37,8 @@ const getUserBooks = async (userId) => {
     });
     return userBooks;
   } catch (error) {
-    throw new Error(error);
+    console.error('Error fetching user books:', error);
+    throw new Error('Could not fetch user books');
   }
 };
 

@@ -1,12 +1,19 @@
+// bookRoutes.js
+
 const express = require('express');
 const router = express.Router();
-const { createBook, getAllBooks, getBooksByCategory, getBookById, getBooksByAuthor, getBookDataById } = require('../controllers/bookController');
+const { createBook, getAllBooks, getBooksByCategory, getBookById } = require('../controllers/bookController');
 
+// Route pour créer un livre
 router.post('/', createBook);
+
+// Route pour récupérer tous les livres
 router.get('/', getAllBooks);
+
+// Route pour récupérer les livres par catégorie
 router.get('/category/:category', getBooksByCategory);
-router.get('/author/:author', getBooksByAuthor);
-router.get('/id/:id', getBookById); // Modification du chemin pour éviter les conflits
-// router.get('/id/:id/data', getBookDataById); // Utilisation d'un chemin distinct pour récupérer les données d'un livre par son ID
+
+// Route pour récupérer un livre par son ID
+router.get('/:id', getBookById);
 
 module.exports = router;

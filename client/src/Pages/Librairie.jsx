@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import LibrairieNavBar from '../components/LibrairieNavBar';
 import BookCard from '../SharedComponents/BookCard';
 import { useBookContext } from '../Context/BookContext';
 import Banner from '../SharedComponents/Banner';
+import { UserContext } from '../Context/userContext';
 
 const Librairie = () => {
-  const { myBooks, addBookToLibrary } = useBookContext(); // Assurez-vous d'obtenir la fonction addBookToLibrary du contexte
-
+  const { books, addBookToLibrary } = useBookContext();
   const [booksByCategory, setBooksByCategory] = useState([]);
 
   useEffect(() => {
@@ -15,9 +16,13 @@ const Librairie = () => {
 
   const fetchBooks = async () => {
     try {
-      const response = await fetch('http://localhost:3005/Book');
-      const data = await response.json();
-      setBooksByCategory(groupBooksByCategory(data));
+      const token = localStorage.getItem('token'); // Récupérez le jeton JWT depuis le localStorage
+      const response = await axios.get('http://localhost:3005/Book', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setBooksByCategory(groupBooksByCategory(response.data));
     } catch (error) {
       console.error('Error fetching books:', error);
     }
@@ -35,7 +40,7 @@ const Librairie = () => {
   };
 
   const handleAddToCollection = (book) => {
-    addBookToLibrary(book); // Utilisez la fonction addBookToLibrary pour ajouter un livre à la collection
+    addBookToLibrary(book);
   };
 
   return (
@@ -48,7 +53,6 @@ const Librairie = () => {
           <div key={category}>
             <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
             <div className="ml-[-0px] mr-[-0px]">
-              {/* Passez la fonction handleAddToCollection à BookCard */}
               <BookCard books={booksByCategory[category]} onAddToCollection={handleAddToCollection} />
             </div>
           </div>

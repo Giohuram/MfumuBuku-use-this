@@ -3,33 +3,30 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
-const bcrypt = require('bcrypt');
-const morgan = require('morgan'); // Importing morgan for logging
 const bookRoutes = require('./src/routes/bookRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 const avatarRoutes = require('./src/routes/AvatarRoutes');
 const jwtAuthMiddleware = require('./src/middlewares/jwtAuthMiddleware');
+const { addFavorite, getFavorites, removeFavorite } = require('./src/controllers/favoritesController');
 
 const app = express();
 
-// Middleware for CORS
+// Middleware pour CORS
 app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true, 
 }));
 
-// Middleware for parsing JSON data
+// Middleware pour parser les données JSON
 app.use(express.json());
 
-// Middleware pour gérer les fichiers statiques
+// Middleware pour les fichiers statiques
 app.use(express.static('uploads'));
 
-// Initialize Passport
+// Initialisation de Passport
 app.use(passport.initialize());
 
-// Configure local strategy for Passport
+// Configuration de la stratégie locale pour Passport
 passport.use(new LocalStrategy(
   async (username, password, done) => {
     try {
@@ -50,28 +47,33 @@ passport.use(new LocalStrategy(
   }
 ));
 
-// Mount authentication routes
+// Montage des routes d'authentification
 app.use('/auth', authRoutes);
 
-// Books routes
-app.use('/Book', jwtAuthMiddleware, bookRoutes); // Apply JWT middleware to protected routes
+// Routes des livres avec le middleware d'authentification JWT
+app.use('/Book', jwtAuthMiddleware, bookRoutes);
 
-// Users routes 
-app.use('/User', jwtAuthMiddleware, userRoutes); // Apply JWT middleware to protected routes
+// Routes des utilisateurs avec le middleware d'authentification JWT
+app.use('/User', jwtAuthMiddleware, userRoutes);
 
 // Middleware pour les routes liées aux avatars
-app.use('/avatars', avatarRoutes); // Assuming avatars routes do not require JWT
+app.use('/avatars', avatarRoutes);
 
-// Error handling middleware
+// Routes pour ajouter et supprimer des livres favoris
+app.post('/addFavorite', addFavorite);
+app.get('/User/:userId/favorites', getFavorites);
+app.delete('/User/:userId/favorites/:bookId', removeFavorite);
+
+// Gestionnaire d'erreurs
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Internal Server Error');
 });
 
-// Logging middleware
+// Middleware de journalisation
 app.use(morgan('dev'));
 
-// Start the server
+// Démarrage du serveur
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

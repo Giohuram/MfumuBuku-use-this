@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../Context/userContext';
+
+// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 const BookCard = ({ headline, books, onAddToCollection }) => {
+  const { user, addToMyBooks } = useContext(UserContext);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const navigate = useNavigate();
+
+  // Function to check if the book is already in favorites
+  const isFavorite = (bookId) => {
+    return user && user.books && user.books.some(favoriteBook => favoriteBook.id === bookId);
+  };
+
   if (!books || books.length === 0) {
     return <div>No books available</div>;
   }
+
+  // const handleAddToCollection = (book) => {
+  //   addToMyBooks(book.id);
+  // };
+
+  const handleReadButtonClick = (book) => {
+    setSelectedBook(book);
+    navigate('/Lecture', { state: { book } });
+  };
+
+  const handleListenButtonClick = (book) => {
+    setSelectedBook(book);
+    navigate('/LectureAudio', { state: { book } });
+  };
+
 
   return (
     <>
@@ -48,12 +75,20 @@ const BookCard = ({ headline, books, onAddToCollection }) => {
                   <p className="text-center font-semibold">{book.title}</p>
                   <p className="text-center font-semibold">Âge concerné: {book.age} ans</p>
                 </Link>
-                <button 
-                  onClick={() => onAddToCollection(book)} 
-                  className='bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2 mx-auto'
-                >
-                  Ajouter à ma collection
-                </button>
+                <div className="text-center">
+                      <button
+                        className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2 mr-2"
+                        onClick={() => handleReadButtonClick(book)}
+                      >
+                        Lire
+                      </button>
+                      <button
+                        className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2"
+                        onClick={() => handleListenButtonClick(book)}
+                      >
+                        Écouter
+                      </button>
+                </div>      
               </div>
             </SwiperSlide>
           ))}

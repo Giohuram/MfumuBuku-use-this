@@ -1,12 +1,15 @@
+// userController.js
+
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Controller function to handle user creation
-async function createUser(req, res) {
+// Controller pour créer un nouvel utilisateur
+const createUser = async (req, res) => {
   const { username, password, parentName, childAge, schoolLevel, email, avatar } = req.body;
 
   try {
-    const user = await prisma.user.create({
+    // Créer un nouvel utilisateur dans la base de données
+    const newUser = await prisma.user.create({
       data: {
         username,
         password,
@@ -17,58 +20,40 @@ async function createUser(req, res) {
         avatar
       },
     });
-    res.status(201).json(user);
+    
+    res.status(201).json(newUser);
   } catch (error) {
     console.error('Error creating user:', error);
-    res.status(500).json({ error: 'Could not create user' });
+    res.status(500).json({ error: 'Impossible de créer un utilisateur' });
   }
-}
+};
 
-// Controller function to handle fetching all users
-async function getUsers(req, res) {
+// Controller pour récupérer tous les utilisateurs
+const getUsers = async (req, res) => {
   try {
+    // Récupérer tous les utilisateurs de la base de données
     const users = await prisma.user.findMany();
     res.status(200).json(users);
   } catch (error) {
     console.error('Error fetching users:', error);
-    res.status(500).json({ error: 'Could not fetch users' });
+    res.status(500).json({ error: 'Impossible de récupérer les utilisateurs' });
   }
-}
+};
 
-// Controller function to handle fetching a single user by ID
-async function getUserById(req, res) {
-  const userId = parseInt(req.params.userId);
+// Controller pour récupérer un utilisateur par son ID
+const getUserById = async (req, res) => {
+  const userId = parseInt(req.params.id);
 
   try {
+    // Récupérer un utilisateur par son ID de la base de données
     const user = await prisma.user.findUnique({
       where: { id: userId },
     });
     res.status(200).json(user);
   } catch (error) {
     console.error('Error fetching user:', error);
-    res.status(500).json({ error: 'Could not fetch user' });
+    res.status(500).json({ error: 'Impossible de récupérer l\'utilisateur' });
   }
-}
-
-// Controller function to handle fetching favorite books of a user by ID
-async function getUserFavorites(req, res) {
-  const userId = parseInt(req.params.userId);
-
-  try {
-    const favorites = await prisma.bookUser.findMany({
-      where: { userId },
-      include: { book: true },
-    });
-    res.status(200).json(favorites.map((fav) => fav.book));
-  } catch (error) {
-    console.error('Error fetching user favorites:', error);
-    res.status(500).json({ error: 'Could not fetch user favorites' });
-  }
-}
-
-module.exports = {
-  createUser,
-  getUsers,
-  getUserById,
-  getUserFavorites,
 };
+
+module.exports = { createUser, getUsers, getUserById };

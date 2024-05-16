@@ -28,7 +28,7 @@ const Banner = ({ books }) => {
           {/* Utilisation du nom d'utilisateur dans le titre */}
          <div>
             <h2 className='text-2xl md:text-4xl font-bold leading-tight text-white'>
-              Salut {username ? `${username}` : ''},
+              Salut {username ? `${username}` : ''}
             </h2>
           </div>  
           <p className='text-white'>

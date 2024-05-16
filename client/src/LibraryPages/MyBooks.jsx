@@ -2,19 +2,18 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
-import { useBookContext } from '../Context/BookContext'; 
+import { useBookContext } from '../Context/BookContext';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import LibrairieNavBar from '../components/LibrairieNavBar';
-// import BookCard from '../SharedComponents/BookCard';
 import { UserContext } from '../Context/userContext';
+import axios from 'axios'; // Importez axios ici
 
 const MyBooks = () => {
-  const { myBooks, groupedBooks } = useBookContext(); // Accédez à groupedBooks depuis le contexte
-  const { user } = useContext(UserContext); 
+  const { groupedBooks } = useBookContext();
+  const { user, removeFromMyBooks } = useContext(UserContext);
   const navigate = useNavigate();
   const [selectedBook, setSelectedBook] = useState(null);
-  const [favorites, setFavorites] = useState([]);
 
   const handleReadButtonClick = (book) => {
     setSelectedBook(book);
@@ -26,29 +25,28 @@ const MyBooks = () => {
     navigate('/LectureAudio', { state: { book } });
   };
 
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        const response = await fetch(`/user/${user.id}/favorites`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch favorites');
-        }
-        const data = await response.json();
-        setFavorites(data);
-      } catch (error) {
-        console.error('Error fetching favorites:', error);
-      }
-    };
+  const handleReturnBook = async (bookId) => {
+    try {
+      // Récupération du token depuis le contexte utilisateur
+      const token = localStorage.getItem('token');
+      // Configuration du header avec le token JWT
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
 
-    fetchFavorites();
-  }, [user.id]);
-
+      // Appel axios avec le header
+      await axios.delete(`/user/${user.id}/favorites/${bookId}`, { headers });
+      removeFromMyBooks(bookId);
+    } catch (error) {
+      console.error('Error removing book from favorites:', error);
+    }
+  };
 
   return (
     <div>
       <LibrairieNavBar />
       <div className="mt-10 ml-2 mr-2">
-        {Object.keys(groupedBooks).map(category => (
+        {Object.keys(groupedBooks).map((category) => (
           <div key={category}>
             <h2 className='text-2xl font-semibold'>{category}</h2>
             <Swiper
@@ -79,6 +77,12 @@ const MyBooks = () => {
                         onClick={() => handleListenButtonClick(book)}
                       >
                         Écouter
+                      </button>
+                      <button
+                        className="mt-2 py-2 px-4 rounded-lg bg-red-500 text-white"
+                        onClick={() => handleReturnBook(book.id)}
+                      >
+                        Retourner ce livre
                       </button>
                     </div>
                   </div>

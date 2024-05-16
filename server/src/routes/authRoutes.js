@@ -16,9 +16,11 @@ router.post('/login', passport.authenticate('local', { session: false }), authCo
 
 // Route de déconnexion
 router.post('/logout', (req, res) => {
-    req.logout(); // Utilisez la méthode `logout()` fournie par Passport pour déconnecter l'utilisateur
+    console.log('Requête de déconnexion reçue');
+    req.logout();
     res.status(200).json({ message: 'Déconnexion réussie' });
-});
+  });  
+
 
 // Route de récupération des livres de l'utilisateur
 router.get('/user/books', jwtAuthMiddleware, authController.getUserBooks);

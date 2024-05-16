@@ -8,7 +8,7 @@ import NavBar from './components/NavBar';
 import LandingPage from './LandingPage/Landingpage';
 import Librairie from './Pages/Librairie';
 import MyLibrary from './LibraryPages/MyLibrary';
-import MyBooks from './LibraryPages/MyBooks';
+// import MyBooks from './LibraryPages/MyBooks';
 import ReadingClub from './LibraryPages/ReadingClub';
 import Subscription from './LibraryPages/Subscription';
 import MyProfile from './LibraryPages/MyProfile';
@@ -29,11 +29,10 @@ function App() {
   
 
   return (
-   
+  <UserContextProvider>
     <Router>
-      <UserContextProvider>
         <>
-          {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyLibrary') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/Subscription') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
+          {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyLibrary') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/MonCompte') || window.location.pathname.includes('/Subscription') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route 
@@ -55,7 +54,7 @@ function App() {
               
               />
             <Route path="/MyLibrary" element={<MyLibrary />} />
-            <Route 
+            {/* <Route 
               path="/MyBooks" 
               element={
                 <BookProvider>
@@ -64,7 +63,7 @@ function App() {
                   </MyBooksProvider>
                 </BookProvider>  
               }  
-            />
+            /> */}
             <Route 
               path="/Lecture" 
               element={
@@ -111,8 +110,9 @@ function App() {
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </>
-      </UserContextProvider>  
+      
     </Router>
+  </UserContextProvider>    
   );
 }
 

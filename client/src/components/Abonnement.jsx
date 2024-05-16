@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaCheckCircle } from "react-icons/fa";
 import { Card } from "flowbite-react";
+import { Link } from 'react-router-dom';
 
 const Feature = ({ children }) => (
   <li className="flex space-x-3">
@@ -42,12 +43,14 @@ const Abonnement = () => {
               <Feature>Bibliothèque numérique illimitée.</Feature>
               <Feature>Recommandations personnalisées</Feature>
             </ul>
-          <button
-            type="button"
-            className="inline-flex w-full justify-center rounded-lg bg-[#DC7211] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#DC7211]focus:outline-none focus:ring-4 focus:ring-[#DC7211] dark:focus:ring-[#DC7211]"
-          >
-            Souscrire pour mon enfant
-          </button>
+          <Link to="/Subscription">
+            <button
+              type="button"
+              className="inline-flex w-full justify-center rounded-lg bg-[#DC7211] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#DC7211]focus:outline-none focus:ring-4 focus:ring-[#DC7211] dark:focus:ring-[#DC7211]"
+            >
+              Souscrire pour mon enfant
+            </button>
+          </Link>  
         </CustomCard>
       </div>
     </div>

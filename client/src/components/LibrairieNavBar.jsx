@@ -25,17 +25,33 @@ const LibrairieNavBar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleLogout = () => {
-    // Implémentez la logique de déconnexion ici
-    // Par exemple, réinitialisez les données de l'utilisateur
-    updateUser({
-      username: '',
-      email: '',
-      schoolLevel: '',
-      avatar: ''
-    });
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Inclut les cookies dans la requête
+      });
+  
+      if (response.ok) {
+        updateUser({
+          username: '',
+          email: '',
+          schoolLevel: '',
+          avatar: ''
+        });
+        navigate('/');
+      } else {
+        console.error('Erreur lors de la déconnexion');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion', error);
+    }
   };
+  
+  
 
   return (
     <header>
@@ -43,12 +59,12 @@ const LibrairieNavBar = () => {
         <div className='flex justify-between items-center text-base'>
           <div className='flex items-center'>
             <Link to="/" className={`text-white ml-[-5rem] mr-20 font-semibold flex items-center gap-2 ${isMenuOpen ? 'hidden' : ''}`}>
-              <img src="/Mfumu-logo.png" alt="Logo" className="h-8 w-8" />
+              <img src="/Mfumu-logo.png" alt="Logo" className="h-8 w-8 ml-20" />
               <span>MfumuBuku Kids</span>
             </Link>
           </div>
 
-          <div className='md:hidden ml-56'>
+          <div className='md:hidden ml-[9rem] '>
             <button onClick={toggleMenu}>
               {isMenuOpen ? <FaXmark className="h-5 w-5 text-white" /> : <FaBarsStaggered className="h-5 w-5 text-white" />}
             </button>
@@ -60,9 +76,6 @@ const LibrairieNavBar = () => {
               <ul className="flex flex-col text-white bg-[#DC7211] absolute top-14 right-0 left-0 z-50 mb-5 pl-3 ml-56 mt-2">
                 <li>
                   <Link to="/Librairie" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211]">Bibliothèque</Link>
-                </li>
-                <li>
-                  <Link to="/MyBooks" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211]">Ma Collection</Link>
                 </li>
                 <li>
                   <Link to="/MonCompte" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211]">Mon Compte</Link>
@@ -85,16 +98,11 @@ const LibrairieNavBar = () => {
             </div>
 
             {/* Menu et Avatar pour les écrans non mobiles */}
-            <div className="hidden md:flex items-center ml-[8rem]">
+            <div className="hidden md:flex items-center ml-[12rem]">
               <ul className={`md:flex md:space-x-12 md:items-center ${isMenuOpen ? 'flex flex-col md:flex-row md:space-x-0' : ''}`}>
                 <li key="Librairie">
                   <Link to="/Librairie" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
                     Bibliothèque
-                  </Link>
-                </li>
-                <li key="MyBooks">
-                  <Link to="/MyBooks" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
-                    Ma Collection
                   </Link>
                 </li>
                 <li key="MonCompte">

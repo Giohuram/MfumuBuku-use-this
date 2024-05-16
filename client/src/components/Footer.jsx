@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
+
 const Footer = () => {
   return (
     <footer className="bg-[#DC7211] text-white py-8 mt-20">
@@ -38,7 +39,7 @@ const Footer = () => {
 
          {/* Colonne 4 */}
         <div className=''>
-         <p className="text-sm mt-auto text-black">© En Classe RDC 2024 designed by Huram Abi</p>
+         <p className="text-sm mt-auto text-white">© En Classe RDC 2024 designed by Huram Abi</p>
         </div>
       </div>
     </footer>
