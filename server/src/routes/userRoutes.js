@@ -3,20 +3,22 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const jwtAuthMiddleware = require('../middlewares/jwtAuthMiddleware');
+
 
 // Route pour créer un nouvel utilisateur
-router.post('/', userController.createUser);
+router.post('/', jwtAuthMiddleware, userController.createUser);
 
 // Route pour récupérer tous les utilisateurs
-router.get('/', userController.getUsers);
+router.get('/', jwtAuthMiddleware, userController.getUsers);
 
 // Route pour récupérer un utilisateur par son ID
-router.get('/:id', userController.getUserById);
+router.get('/:id', jwtAuthMiddleware, userController.getUserById);
 
 // Route pour récupérer les livres favoris d'un utilisateur par son ID
-router.get('/:id/favorites', userController.getUserFavorites);
+// router.get('/:id/favorites', userController.getUserFavorites);
 
 // Route pour ajouter un livre aux favoris d'un utilisateur
-router.post('/:id/favorites', userController.addFavoriteBook);
+// router.post('/:id/favorites', userController.addFavoriteBook);
 
 module.exports = router;

@@ -1,5 +1,8 @@
 const express = require('express');
 const passport = require('passport');
+const morgan = require('morgan'); 
+const bcrypt = require('bcrypt'); // Import bcrypt module
+// console.log(bcrypt);
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
@@ -7,9 +10,13 @@ const bookRoutes = require('./src/routes/bookRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 const avatarRoutes = require('./src/routes/AvatarRoutes');
 const jwtAuthMiddleware = require('./src/middlewares/jwtAuthMiddleware');
-const { addFavorite, getFavorites, removeFavorite } = require('./src/controllers/favoritesController');
+const { PrismaClient } = require('@prisma/client');
+const session = require('express-session');
 
 const app = express();
+
+// Import Prisma and instantiate it
+const prisma = new PrismaClient();
 
 // Middleware pour CORS
 app.use(cors({
@@ -17,11 +24,27 @@ app.use(cors({
   credentials: true, 
 }));
 
+// Utilisation du middleware de session
+app.use(session({
+  secret: '35jfbejfb489njedbjb#bjfb%@{}?.<>\|', // Clé secrète pour signer la session
+  resave: false,
+  saveUninitialized: false,
+}));
+
+// Route pour définir une valeur dans la session
+app.get('/setSessionValue', (req, res) => {
+  req.session.user = { username: 'utilisateur1' };
+  res.send('Valeur définie dans la session');
+});
+
+// Route pour récupérer une valeur de la session
+app.get('/getSessionValue', (req, res) => {
+  const user = req.session.user;
+  res.send(user ? `Utilisateur connecté: ${user.username}` : 'Aucun utilisateur connecté');
+});
+
 // Middleware pour parser les données JSON
 app.use(express.json());
-
-// Middleware pour les fichiers statiques
-app.use(express.static('uploads'));
 
 // Initialisation de Passport
 app.use(passport.initialize());
@@ -58,11 +81,6 @@ app.use('/User', jwtAuthMiddleware, userRoutes);
 
 // Middleware pour les routes liées aux avatars
 app.use('/avatars', avatarRoutes);
-
-// Routes pour ajouter et supprimer des livres favoris
-app.post('/addFavorite', addFavorite);
-app.get('/User/:userId/favorites', getFavorites);
-app.delete('/User/:userId/favorites/:bookId', removeFavorite);
 
 // Gestionnaire d'erreurs
 app.use((err, req, res, next) => {
