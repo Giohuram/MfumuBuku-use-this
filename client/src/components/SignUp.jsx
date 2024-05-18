@@ -31,9 +31,14 @@ const SignUp = () => {
       console.log(response.data); // Gérer la réponse de l'API comme vous le souhaitez, par exemple, rediriger l'utilisateur vers une autre page
       navigate('/login'); // Rediriger vers le tableau de bord après la création du compte
     } catch (error) {
-      setError(error.response.data.message);
+      if (error.response && error.response.data) {
+        setError(error.response.data.message);
+      } else {
+        setError('Une erreur inattendue s\'est produite.');
+      }
     }
   };
+  
   
 
   return (

@@ -21,6 +21,8 @@ import SingleBook from './Pages/SingleBook'
 import MonCompte from './SpecificComponent/MonCompte';
 import {UserContextProvider} from './Context/userContext';
 import Banner from './SharedComponents/Banner';
+import ResetPassword from './Utils/ResetPassword';
+import ForgotPassword from './Utils/ForgotPassword';
 
 
 function App() {
@@ -52,6 +54,8 @@ function App() {
               <Route path="/Book/:id" element={<SingleBook />} />
               <Route path="/MyProfile" element={<MyProfile />} />
               <Route path="/" element={<Banner />} />
+              <Route path="/ResetPassword" element={<ResetPassword />} />
+              <Route path="/ForgotPassword" element={<ForgotPassword />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </>

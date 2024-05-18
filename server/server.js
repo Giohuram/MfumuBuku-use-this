@@ -8,7 +8,6 @@ const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
 const bookRoutes = require('./src/routes/bookRoutes');
 const userRoutes = require('./src/routes/userRoutes');
-const avatarRoutes = require('./src/routes/AvatarRoutes');
 const jwtAuthMiddleware = require('./src/middlewares/jwtAuthMiddleware');
 const { PrismaClient } = require('@prisma/client');
 const session = require('express-session');
@@ -86,9 +85,6 @@ app.use('/Book', jwtAuthMiddleware, bookRoutes);
 
 // Routes des utilisateurs avec le middleware d'authentification JWT
 app.use('/user', jwtAuthMiddleware, userRoutes);
-
-// Middleware pour les routes liées aux avatars
-app.use('/avatars', avatarRoutes);
 
 // Gestionnaire d'erreurs
 app.use((err, req, res, next) => {

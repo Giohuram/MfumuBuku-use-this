@@ -22,9 +22,9 @@ model User {
   childAge     Int      
   schoolLevel  SchoolLevel
   email        String     @unique
-  avatar       Bytes?    // Champ pour le chemin de l'avatar
+  avatar       String?    // Champ pour le chemin de l'avatar
   createdAt    DateTime   @default(now())
-  verified    Boolean  @default(false)
+  verified     Boolean  @default(false)
   // Ajoutez d'autres champs utilisateur selon vos besoins
 }
 

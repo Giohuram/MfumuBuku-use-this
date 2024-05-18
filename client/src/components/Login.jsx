@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaGoogle, FaFacebook, FaApple } from 'react-icons/fa';
+import { FaGoogle, FaFacebook, FaApple, FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
-import { useUserContext } from '../Context/useUserContext'; // Import custom hook
+import { useUserContext } from '../Context/useUserContext';
 
 const Login = ({ setIsLoggedIn, setUserData }) => {
   const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
-  const { updateUser } = useUserContext(); // Use custom hook
+  const { updateUser } = useUserContext();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
-    setError(''); // Clear error message when user starts typing
+    setError('');
   };
 
   const handleLogin = async (e) => {
@@ -23,10 +25,10 @@ const Login = ({ setIsLoggedIn, setUserData }) => {
     setError('');
     try {
       const response = await axios.post('http://localhost:3005/auth/login', form);
-      console.log('Login response:', response.data); // Add debug log
+      console.log('Login response:', response.data);
       const { token } = response.data;
       if (token) {
-        localStorage.setItem('token', token); // Store JWT token in localStorage
+        localStorage.setItem('token', token);
         setIsLoggedIn(true);
         updateUser({ username: form.username });
         navigate('/librairie');
@@ -45,11 +47,15 @@ const Login = ({ setIsLoggedIn, setUserData }) => {
           setError('Une erreur est survenue. Veuillez réessayer.');
         }
       } else {
-        setError('An error occurred during login.');
+        setError('Une erreur est survenue lors de la connexion.');
       }
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   return (
@@ -81,15 +87,36 @@ const Login = ({ setIsLoggedIn, setUserData }) => {
                 onChange={handleChange}
                 disabled={isLoading}
               />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                className="w-full mb-4 p-2 rounded-lg border-2 border-gray-400"
-                value={form.password}
-                onChange={handleChange}
-                disabled={isLoading}
-              />
+              <div className="relative w-full mb-4">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  className="w-full p-2 pr-10 rounded-lg border-2 border-gray-400"
+                  value={form.password}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-2 bottom-2 mb-1"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+              <div className="w-full flex justify-between items-center mb-4">
+                <label className="text-white">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="mr-2"
+                  />
+                  Se souvenir de moi
+                </label>
+                <a href="/ForgotPassword" className="text-white">Mot de passe oublié?</a>
+              </div>
               <button
                 type="submit"
                 className={`bg-black text-white font-bold py-2 px-4 rounded mr-2 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}

@@ -84,7 +84,24 @@ async function getUserAccount(req, res) {
     console.error('Error fetching user account:', error);
     res.status(500).json({ error: 'Could not fetch user account' });
   }
+}; 
+
+// Lorsque l'utilisateur charge une photo d'avatar
+const uploadAvatar = async (req, res) => {
+  const { file } = req; // Le fichier uploadé
+  const fileName = file.filename; // Nom du fichier
+
+  // Enregistrer le nom du fichier dans la base de données pour l'utilisateur actuel
+  const userId = req.user.id; // Supposons que vous avez une authentification utilisateur
+  await prisma.user.update({
+    where: { id: userId },
+    data: { avatar: fileName }
+  });
+
+  // Répondre avec un message de succès
+  res.status(200).json({ message: 'Avatar téléchargé avec succès' });
 }
 
 
-module.exports = { createUser, getUsers, getUserById, getUserAccount };
+
+module.exports = { createUser, getUsers, getUserById, getUserAccount, uploadAvatar };
