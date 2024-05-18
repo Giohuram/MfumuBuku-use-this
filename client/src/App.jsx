@@ -8,7 +8,6 @@ import NavBar from './components/NavBar';
 import LandingPage from './LandingPage/Landingpage';
 import Librairie from './Pages/Librairie';
 import MyLibrary from './LibraryPages/MyLibrary';
-// import MyBooks from './LibraryPages/MyBooks';
 import ReadingClub from './LibraryPages/ReadingClub';
 import Subscription from './LibraryPages/Subscription';
 import MyProfile from './LibraryPages/MyProfile';
@@ -30,88 +29,36 @@ function App() {
 
   return (
   <UserContextProvider>
-    <Router>
-        <>
-          {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyLibrary') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/MonCompte') || window.location.pathname.includes('/Subscription') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route 
-              path="/login" 
-              element={
-                <Login setIsLoggedIn={setIsLoggedIn} /> 
-             } 
-            />
-            <Route path="/signup" element={<SignUp />} />
-            <Route 
-              path="/librairie" 
-              element={isLoggedIn ? 
-             <BookProvider>
-                <Librairie />
-             </BookProvider>   
-               : <Navigate to="/login" 
-              />
-            } 
-              
-              />
-            <Route path="/MyLibrary" element={<MyLibrary />} />
-            {/* <Route 
-              path="/MyBooks" 
-              element={
-                <BookProvider>
-                  <MyBooksProvider>
-                    <MyBooks />
-                  </MyBooksProvider>
-                </BookProvider>  
-              }  
-            /> */}
-            <Route 
-              path="/Lecture" 
-              element={
-                <BookProvider>
-                   <MyBooksProvider> 
-                    < Lecture />
-                  </MyBooksProvider>
-                </BookProvider>
-              } 
-              />
-            <Route 
-              path="/LectureAudio" 
-              element={
-                <BookProvider>
-                   <MyBooksProvider> 
-                    < LectureAudio />
-                  </MyBooksProvider>
-                </BookProvider>
-              } 
-              />  
-            <Route path="/ReadingClub" element={<ReadingClub />} />
-            <Route path="/MonCompte" element={<MonCompte />} />
-            <Route path="/MyProfile" element={<MyProfile />} />
-            <Route path="/ParentalControl" element={<ParentalControl />} />
-            <Route path="/Subscription" element={<Subscription />} />
-            <Route path="/Subscription" element={<Subscription />} />
-            <Route path="/StatLecture" element={<StatLecture />} />
-            <Route 
-              path="/Book/id/:id" 
-              element={<SingleBook />}
-              loader={(params) => {
-                const bookId = params.id; // Récupère l'ID du livre à partir des paramètres d'URL
-                return fetch(`/Book/id/${bookId}`)
-                  .then(response => response.json())
-                  .catch(error => {
-                    console.error('Error loading book:', error);
-                    return null; // Retourne null en cas d'erreur de chargement
-                  });
-              }}
-            />
-
-            <Route path="/MyProfile" element={<MyProfile />} />
-            <Route path="/" element={<Banner />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </>
+    <BookProvider>
+      <MyBooksProvider>
+        <Router>
+          <>
+            {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyLibrary') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/MonCompte') || window.location.pathname.includes('/Subscription') || window.location.pathname.includes('/SingleBook') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/librairie" element={isLoggedIn ? <Librairie /> : <Navigate to="/login" />} />
+              <Route path="/MyLibrary" element={<MyLibrary />} />
+              <Route path="/Lecture" element={< Lecture />} />
+              <Route path="/LectureAudio" element={ < LectureAudio />} />  
+              <Route path="/ReadingClub" element={<ReadingClub />} />
+              <Route path="/MonCompte" element={<MonCompte />}/>
+              <Route path="/MyProfile" element={<MyProfile />} />
+              <Route path="/ParentalControl" element={<ParentalControl />} />
+              <Route path="/Subscription" element={<Subscription />} />
+              <Route path="/Subscription" element={<Subscription />} />
+              <Route path="/StatLecture" element={<StatLecture />} />
+              <Route path="/Book/:id" element={<SingleBook />} />
+              <Route path="/MyProfile" element={<MyProfile />} />
+              <Route path="/" element={<Banner />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </>
       
-    </Router>
+        </Router>
+    </MyBooksProvider>
+   </BookProvider>
   </UserContextProvider>    
   );
 }

@@ -7,6 +7,7 @@ import Testimonial from '../components/Testimonial';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import Advantages from '../components/advantages';
+import NavBar from '../components/NavBar';
 
 
 

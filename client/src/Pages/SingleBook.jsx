@@ -1,44 +1,77 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import BookCard from '../SharedComponents/BookCard';
 
-const SingleBook = ({ id }) => {
+const SingleBook = () => {
+  const { id } = useParams();
   const [book, setBook] = useState(null);
   const [relatedBooks, setRelatedBooks] = useState([]);
+  const [error, setError] = useState(null); // État pour stocker les erreurs
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem('token');
+
+  // Vérifiez si le token est présent et redirigez si nécessaire
+  useEffect(() => {
+    if (!token) {
+      console.error("Erreur: Token JWT manquant.");
+      navigate('/login'); // Redirige vers la page de connexion
+    }
+  }, [token, navigate]);
+
+  const handleReadButtonClick = (book) => {
+    navigate('/Lecture', { state: { book } });
+  };
+
+  const handleListenButtonClick = (book) => {
+    navigate('/LectureAudio', { state: { book } });
+  };
 
   useEffect(() => {
     const fetchBookData = async () => {
       try {
-        const response = await fetch(`/Book/id/${id}`); // Utilisation de la route '/Book/:id' pour récupérer les détails du livre spécifique par son ID
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des données du livre');
-        }
-        const data = await response.json();
-        setBook(data);
+        const response = await axios.get(`http://localhost:3005/Book/id/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setBook(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des données du livre : ', error);
+        setError('Une erreur s\'est produite lors du chargement des détails du livre. Veuillez réessayer plus tard.');
       }
     };
 
-    fetchBookData();
-  }, [id]);
+    if (token) {
+      fetchBookData();
+    }
+  }, [id, token]);
 
   useEffect(() => {
     const fetchRelatedBooks = async () => {
       try {
-        if (!book) return; // Vérifie si le livre est chargé
-        const response = await fetch(`/Book/category/${book.category}`); // Utilisation de la route '/Book/category/:category' pour récupérer les livres liés par catégorie
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des livres liés');
-        }
-        const data = await response.json();
-        setRelatedBooks(data.filter(item => item.id !== book.id));
+        if (!book) return;
+        const response = await axios.get(`http://localhost:3005/Book/category/${book.category}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setRelatedBooks(response.data.filter(item => item.id !== book.id));
       } catch (error) {
         console.error('Erreur lors de la récupération des livres liés : ', error);
+        setError('Une erreur s\'est produite lors du chargement des livres liés. Veuillez réessayer plus tard.');
       }
     };
 
-    fetchRelatedBooks();
-  }, [book]);
+    if (book && token) {
+      fetchRelatedBooks();
+    }
+  }, [book, token]);
+
+  if (error) {
+    return <div>Erreur : {error}</div>; // Affichage du message d'erreur
+  }
 
   if (!book) {
     return <div>Chargement...</div>;
@@ -53,6 +86,8 @@ const SingleBook = ({ id }) => {
         <p>Catégorie : {book.category}</p>
         <p>Âge concerné : {book.age}</p>
         <p>Description : {book.description}</p>
+        <button onClick={() => handleReadButtonClick(book)}>Lire</button>
+        <button onClick={() => handleListenButtonClick(book)}>Écouter</button>
       </div>
 
       <div>

@@ -4,25 +4,36 @@ import LibrairieNavBar from '../components/LibrairieNavBar';
 import BookCard from '../SharedComponents/BookCard';
 import { useBookContext } from '../Context/BookContext';
 import Banner from '../SharedComponents/Banner';
-import { UserContext } from '../Context/userContext';
 
 const Librairie = () => {
   const { books, addBookToLibrary } = useBookContext();
-  const [booksByCategory, setBooksByCategory] = useState([]);
+  const [booksByCategory, setBooksByCategory] = useState({});
+  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [filteredCategories, setFilteredCategories] = useState({});
 
   useEffect(() => {
     fetchBooks();
   }, []);
 
+  useEffect(() => {
+    setFilteredBooks(books);
+  }, [books]);
+
+  useEffect(() => {
+    filterCategories();
+  }, [filteredBooks]);
+
   const fetchBooks = async () => {
     try {
-      const token = localStorage.getItem('token'); // Récupérez le jeton JWT depuis le localStorage
+      const token = localStorage.getItem('token');
       const response = await axios.get('http://localhost:3005/Book', {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      setBooksByCategory(groupBooksByCategory(response.data));
+      const groupedBooks = groupBooksByCategory(response.data);
+      setBooksByCategory(groupedBooks);
+      setFilteredBooks(response.data);
     } catch (error) {
       console.error('Error fetching books:', error);
     }
@@ -43,20 +54,38 @@ const Librairie = () => {
     addBookToLibrary(book);
   };
 
+  const filterCategories = () => {
+    const newFilteredCategories = {};
+    for (const category in booksByCategory) {
+      const filteredBooksInCategory = booksByCategory[category].filter(book =>
+        filteredBooks.some(filteredBook => filteredBook.id === book.id)
+      );
+      if (filteredBooksInCategory.length > 0) {
+        newFilteredCategories[category] = filteredBooksInCategory;
+      }
+    }
+    setFilteredCategories(newFilteredCategories);
+  };
+  
+
   return (
     <div>
       <LibrairieNavBar />
-      <Banner />
+      <Banner books={filteredBooks} setFilteredBooks={setFilteredBooks} />
       
       <div>
-        {Object.keys(booksByCategory).map(category => (
-          <div key={category}>
-            <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
-            <div className="ml-[-0px] mr-[-0px]">
-              <BookCard books={booksByCategory[category]} onAddToCollection={handleAddToCollection} />
+        {Object.keys(filteredCategories).length > 0 ? (
+          Object.keys(filteredCategories).map(category => (
+            <div key={category}>
+              <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
+              <div className="ml-[-0px] mr-[-0px]">
+                <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection} />
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <div className='mt-5 ml-20 text-2xl font-semibold'>No books available</div>
+        )}
       </div>
     </div>
   );

@@ -4,11 +4,8 @@ import LibrairieNavBar from '../components/LibrairieNavBar'
 const MonCompte = () => {
   return (
     <>
-       <LibrairieNavBar />  
-       <div>
-         Mon Compte 
-       </div>
-
+     <LibrairieNavBar /> 
+     <div>MonCompte</div>
     </>
     
   )

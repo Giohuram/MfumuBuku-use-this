@@ -33,8 +33,9 @@ const NavBar = () => {
         {/* Options du milieu */}
         <div className={`md:flex md:items-center md:justify-center ${isOpen ? 'block' : 'hidden'}`}>
           <Link to="/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Accueil</Link>
-          <Link to="#" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">À propos</Link>
-          <Link to="#" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Contactez-nous</Link>
+          <a href="https://enclasserdc.com/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium" target="_blank" rel="noopener noreferrer">À propos</a>
+          <a href="https://enclasserdc.com/contact/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium" target="_blank" rel="noopener noreferrer">Contactez-nous</a>
+
           <Link to="/Librairie" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Bibliothèque</Link>
         </div>
         {/* Boutons de connexion et d'inscription à droite */}

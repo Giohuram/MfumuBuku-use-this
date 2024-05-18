@@ -12,11 +12,16 @@ const avatarRoutes = require('./src/routes/AvatarRoutes');
 const jwtAuthMiddleware = require('./src/middlewares/jwtAuthMiddleware');
 const { PrismaClient } = require('@prisma/client');
 const session = require('express-session');
+const verificationRoutes = require('./src/routes/verificationRoutes');
+
 
 const app = express();
 
 // Import Prisma and instantiate it
 const prisma = new PrismaClient();
+
+const users = [];
+
 
 // Middleware pour CORS
 app.use(cors({
@@ -45,6 +50,9 @@ app.get('/getSessionValue', (req, res) => {
 
 // Middleware pour parser les données JSON
 app.use(express.json());
+
+app.use('/verification', verificationRoutes);
+
 
 // Initialisation de Passport
 app.use(passport.initialize());
@@ -77,7 +85,7 @@ app.use('/auth', authRoutes);
 app.use('/Book', jwtAuthMiddleware, bookRoutes);
 
 // Routes des utilisateurs avec le middleware d'authentification JWT
-app.use('/User', jwtAuthMiddleware, userRoutes);
+app.use('/user', jwtAuthMiddleware, userRoutes);
 
 // Middleware pour les routes liées aux avatars
 app.use('/avatars', avatarRoutes);

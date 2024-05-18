@@ -22,10 +22,6 @@ const BookCard = ({ headline, books, onAddToCollection }) => {
     return <div>No books available</div>;
   }
 
-  // const handleAddToCollection = (book) => {
-  //   addToMyBooks(book.id);
-  // };
-
   const handleReadButtonClick = (book) => {
     setSelectedBook(book);
     navigate('/Lecture', { state: { book } });

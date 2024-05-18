@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -27,7 +28,8 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-session": "^1.0.2",
-    "pg": "^8.11.5"
+    "pg": "^8.11.5",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "prisma": "^5.13.0",

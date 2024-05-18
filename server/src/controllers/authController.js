@@ -4,12 +4,18 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const validator = require('validator'); // Importer le module Validator
 
 // Fonction d'inscription
 const signup = async (req, res) => {
   const { username, password, email, parentName, childAge, schoolLevel, avatar } = req.body;
-  
+
   try {
+    // Vérifier si l'e-mail est valide
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ message: 'Adresse e-mail invalide' });
+    }
+
     // Vérifier si l'utilisateur existe déjà
     const existingUser = await prisma.user.findUnique({ where: { username } });
     if (existingUser) {
@@ -81,7 +87,7 @@ const getUserBooks = async (req, res) => {
       where: { userId },
       include: { book: true },
     });
-    
+
     res.status(200).json({ userBooks });
   } catch (error) {
     console.error('Error fetching user books:', error);

@@ -13,14 +13,18 @@ const authenticateUser = require('../middlewares/authenticateUser');
 router.post('/signup', verifyEmailAlreadyExist, verifyUsernameAlreadyExist, authController.signup);
 
 // Route de connexion
-router.post('/login', passport.authenticate('local', { session: false }), authenticateUser, authController.login);
+router.post('/login', passport.authenticate('local', { session: false }), authenticateUser,authController.login);
 
 // Route de déconnexion
-router.post('/logout', (req, res) => {
-    console.log('Requête de déconnexion reçue');
-    req.logout();
-    res.status(200).json({ message: 'Déconnexion réussie' });
-  });  
+router.post('/logout', (req, res, next) => {
+  req.logout(function(err) {
+      if (err) { 
+          return next(err);  // Use next() to handle the error properly
+      }
+      res.status(200).json({ message: 'Déconnexion réussie' });  // Send the response once
+  });
+});
+
 
 
 // Route de récupération des livres de l'utilisateur

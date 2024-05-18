@@ -15,10 +15,8 @@ router.get('/', jwtAuthMiddleware, userController.getUsers);
 // Route pour récupérer un utilisateur par son ID
 router.get('/:id', jwtAuthMiddleware, userController.getUserById);
 
-// Route pour récupérer les livres favoris d'un utilisateur par son ID
-// router.get('/:id/favorites', userController.getUserFavorites);
+// GET route to fetch user account information
+router.get('/user/:id/account', userController.getUserAccount);
 
-// Route pour ajouter un livre aux favoris d'un utilisateur
-// router.post('/:id/favorites', userController.addFavoriteBook);
 
 module.exports = router;

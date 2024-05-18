@@ -1,4 +1,4 @@
-require('dotenv').config(); // Charger les variables d'environnement à partir du fichier .env
+// require('dotenv').config(); // Charger les variables d'environnement à partir du fichier .env
 const jwt = require('jsonwebtoken');
 
 const jwtAuthMiddleware = (req, res, next) => {

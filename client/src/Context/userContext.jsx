@@ -15,48 +15,19 @@ const UserContextProvider = ({ children }) => {
     email: '',
     schoolLevel: '',
     avatar: '',
-    books: [], // Tableau des livres favoris
   });
 
   const updateUser = (userData) => {
+    console.log('Updating user:', userData); // Ajouter un console.log pour vérifier les mises à jour de l'utilisateur
     setUser(userData);
   };
 
-  const addToMyBooks = async (bookId) => {
-    try {
-      const response = await axiosInstance.post('/addFavorite', {
-        userId: user.id,
-        bookId,
-      });
-      setUser((prevUser) => ({
-        ...prevUser,
-        books: [...prevUser.books, response.data],
-      }));
-    } catch (error) {
-      console.error('Erreur lors de l\'ajout du livre aux favoris :', error);
-    }
-  };
-
   useEffect(() => {
-    const fetchFavorites = async () => {
-      if (user.id) {
-        try {
-          const response = await axiosInstance.get(`/${user.id}/favorites`);
-          setUser((prevUser) => ({
-            ...prevUser,
-            books: response.data,
-          }));
-        } catch (error) {
-          console.error('Erreur lors de la récupération des livres favoris :', error);
-        }
-      }
-    };
-
-    fetchFavorites();
-  }, [user.id]);
+    console.log('User:', user); // Ajouter un console.log pour afficher l'état de l'utilisateur
+  }, [user]);
 
   return (
-    <UserContext.Provider value={{ user, updateUser, addToMyBooks }}>
+    <UserContext.Provider value={{ user, updateUser }}>
       {children}
     </UserContext.Provider>
   );
