@@ -72,18 +72,20 @@ model ReadingHistory {
   userId    Int
   bookId    Int
   readDate  DateTime @default(now())
+  preferredCategory String
+  readingLevel     String // débutant / intermédiaire / avancé
   // Ajoutez d'autres champs pour l'historique de lecture selon vos besoins
 }
 
-// models/UserPreferences.model.prisma
-model UserPreferences {
-  id              Int      @id @default(autoincrement())
-  userId          Int
-  preferredLanguage String
-  preferredCategory String
-  readingLevel     String // débutant / intermédiaire / avancé
-  // Ajoutez d'autres champs de préférences utilisateur selon vos besoins
-}
+// // models/UserPreferences.model.prisma
+// model UserPreferences {
+//   id              Int      @id @default(autoincrement())
+//   userId          Int
+//   preferredLanguage String
+//   preferredCategory String
+//   readingLevel     String // débutant / intermédiaire / avancé
+//   // Ajoutez d'autres champs de préférences utilisateur selon vos besoins
+// }
 
 // models/ParentalControl.model.prisma
 model ParentalControl {

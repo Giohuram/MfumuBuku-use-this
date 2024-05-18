@@ -10,8 +10,8 @@ const NavBar = () => {
 
   return (
     <nav className={`bg-[#DC7211] p-4 ${isOpen ? 'fixed top-0 right-0 left-0' : ''}`}>
-      <div className="flex items-center justify-between">
-        {/* Logo et nom de l'entreprise à gauche */}
+      <div className="flex items-center justify-between mb-4 md:mb-0">
+        {/* Logo */}
         <Link to="/">
           <div className="flex items-center">
               <img src="Mfumu-logo.png" alt="Logo" className="h-8 w-8 mr-2" />
@@ -30,18 +30,26 @@ const NavBar = () => {
             </svg>
           </button>
         </div>
-        {/* Options du milieu */}
-        <div className={`md:flex md:items-center md:justify-center ${isOpen ? 'block' : 'hidden'}`}>
-          <Link to="/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Accueil</Link>
-          <a href="https://enclasserdc.com/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium" target="_blank" rel="noopener noreferrer">À propos</a>
-          <a href="https://enclasserdc.com/contact/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium" target="_blank" rel="noopener noreferrer">Contactez-nous</a>
-
-          <Link to="/Librairie" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">Bibliothèque</Link>
-        </div>
-        {/* Boutons de connexion et d'inscription à droite */}
+        {/* Menu sur les écrans non mobile */}
         <div className="hidden md:flex items-center">
-          <Link to={"/login"} className="bg-black text-white hover:bg-gray-900 hover:text-white px-3 py-2 mr-5 rounded-md text-sm font-medium">Se connecter</Link>
+          <Link to="/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium mr-4">Accueil</Link>
+          <a href="https://enclasserdc.com/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium mr-4" target="_blank" rel="noopener noreferrer">À propos</a>
+          <a href="https://enclasserdc.com/contact/" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium mr-4" target="_blank" rel="noopener noreferrer">Contactez-nous</a>
+          <Link to="/Librairie" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium mr-4">Bibliothèque</Link>
+        </div>
+        {/* Boutons de connexion et d'inscription */}
+        <div className="hidden md:flex items-center">
+          <Link to={"/login"} className="bg-black text-white hover:bg-gray-900 hover:text-white px-3 py-2 mr-2 rounded-md text-sm font-medium">Se connecter</Link>
           <Link to="/signup" className="bg-black text-white hover:bg-gray-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">S'inscrire</Link>
+        </div>
+      </div>
+      {/* Menu sur les écrans mobile */}
+      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
+        <div className="text-white">
+          <Link to="/" className="block px-3 py-2 rounded-md text-sm font-medium mb-2">Accueil</Link>
+          <a href="https://enclasserdc.com/" className="block px-3 py-2 rounded-md text-sm font-medium mb-2" target="_blank" rel="noopener noreferrer">À propos</a>
+          <a href="https://enclasserdc.com/contact/" className="block px-3 py-2 rounded-md text-sm font-medium mb-2" target="_blank" rel="noopener noreferrer">Contactez-nous</a>
+          <Link to="/Librairie" className="block px-3 py-2 rounded-md text-sm font-medium mb-2">Bibliothèque</Link>
         </div>
       </div>
     </nav>

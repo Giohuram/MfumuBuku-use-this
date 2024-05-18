@@ -1,0 +1,17 @@
+.parental-control {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .parental-control h2 {
+    color: #ff5722; /* Orange */
+    margin-bottom: 20px;
+  }
+  
+  .parental-control p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  

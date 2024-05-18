@@ -1,5 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { createContext, useContext, useState } from 'react';
 import axios from 'axios';
 
 const UserContext = createContext();
@@ -16,25 +15,51 @@ const UserContextProvider = ({ children }) => {
     schoolLevel: '',
     avatar: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const updateUser = (userData) => {
-    console.log('Updating user:', userData); // Ajouter un console.log pour vérifier les mises à jour de l'utilisateur
     setUser(userData);
+    setIsAuthenticated(!!userData.id);
   };
 
-  useEffect(() => {
-    console.log('User:', user); // Ajouter un console.log pour afficher l'état de l'utilisateur
-  }, [user]);
+  const login = async (credentials) => {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.post('/auth/login', credentials);
+      const { token } = response.data;
+      if (token) {
+        localStorage.setItem('token', token);
+        updateUser({ username: credentials.username });
+      } else {
+        console.error('Token non reçu. Veuillez réessayer.');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    updateUser({
+      id: null,
+      username: '',
+      email: '',
+      schoolLevel: '',
+      avatar: '',
+    });
+    setIsAuthenticated(false);
+  };
 
   return (
-    <UserContext.Provider value={{ user, updateUser }}>
+    <UserContext.Provider value={{ user, updateUser, loading, isAuthenticated, login, logout }}>
       {children}
     </UserContext.Provider>
   );
 };
 
-UserContextProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+const useUserContext = () => useContext(UserContext);
 
-export { UserContext, UserContextProvider };
+export { UserContext, UserContextProvider, useUserContext };

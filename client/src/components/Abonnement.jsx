@@ -43,7 +43,7 @@ const Abonnement = () => {
               <Feature>Bibliothèque numérique illimitée.</Feature>
               <Feature>Recommandations personnalisées</Feature>
             </ul>
-          <Link to="/Subscription">
+          <Link to="/PaymentPage">
             <button
               type="button"
               className="inline-flex w-full justify-center rounded-lg bg-[#DC7211] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#DC7211]focus:outline-none focus:ring-4 focus:ring-[#DC7211] dark:focus:ring-[#DC7211]"

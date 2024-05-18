@@ -31,37 +31,42 @@ const BookCategory = () => {
             <button className="bg-[#DC7211] text-white font-semibold py-2 px-4 rounded-full">Les fruits</button>
           </div>
         </div>
-        {/* Ajoutez plus de cartes selon vos besoins */}
+        {/* Carte 4 */}
         <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
           <img src="/numbers for kids.jpg" alt="Illustration 3" className="w-full h-full object-cover" />
           <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-center p-4">
             <button className="bg-[#DC7211] text-white font-semibold py-2 px-4 rounded-full">Les nombres</button>
           </div>
         </div>
+        {/* Carte 5 */}
         <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
           <img src="/contes africains.jpg" alt="Illustration 3" className="w-full h-full object-cover" />
           <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-center p-4">
             <button className="bg-[#DC7211] text-white font-semibold py-2 px-4 rounded-full">Les contes africains</button>
           </div>
         </div>
+        {/* Carte 6 */}
         <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
           <img src="/monde.jpg" alt="Illustration 3" className="w-full h-full object-cover" />
           <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-center p-4">
             <button className="bg-[#DC7211] text-white font-semibold py-2 px-4 rounded-full">Le Monde</button>
           </div>
         </div>
+        {/* Carte 7 */}
         <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
           <img src="/couleurs.jpg" alt="Illustration 3" className="w-full h-full object-cover" />
           <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-center p-4">
             <button className="bg-[#DC7211] text-white font-semibold py-2 px-4 rounded-full">Les couleurs</button>
           </div>
         </div>
+        {/* Carte 8 */}
         <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
           <img src="/Space.jpg" alt="Illustration 3" className="w-full h-full object-cover" />
           <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-center p-4">
             <button className="bg-[#DC7211] text-white font-semibold py-2 px-4 rounded-full">L'espace</button>
           </div>
         </div>
+        {/* Carte 9 */}
         <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
           <img src="/contes-fées.jpg" alt="Illustration 3" className="w-full h-full object-cover" />
           <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-center p-4">

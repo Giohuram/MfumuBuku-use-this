@@ -1,0 +1,60 @@
+/* Styles/UserProfilePage.css */
+
+.user-profile-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    background-color: #DC7211;
+    padding: 10px;
+  }
+  
+  .menu-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu-item {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .menu-link {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    margin-right: 8px;
+  }
+  
+  .menu-text {
+    font-size: 0.875rem;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  /* Styles for larger screens */
+  @media (min-width: 768px) {
+    .menu-list {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  
+    .menu-item {
+      margin-bottom: 0;
+      margin-right: 20px;
+    }
+  }
+  

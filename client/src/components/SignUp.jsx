@@ -51,16 +51,6 @@ const SignUp = () => {
             <p>Chez Mfumu Buku Kids, nous nous engageons à offrir une expérience sûre, éducative et divertissante pour vos enfants, tout en encourageant une passion durable pour la lecture. Rejoignez-nous dès aujourd'hui et laissez vos enfants explorer le monde merveilleux des livres avec Mfumu Buku Kids!</p>
           </div>
           <div className='text-center mt-5'>
-            <p className="text-white mb-4">Créer un compte pour votre enfant ici</p>
-            {/* Logos des fournisseurs d'identité */}
-            <div className="flex items-center justify-center mb-4">
-              <FaGoogle className="text-white mr-2" />
-              <FaFacebook className="text-white mr-2" />
-              <FaApple className="text-white mr-2" />
-            </div>
-
-            <p className="text-white my-4">--------------------- OU CONTINUER AVEC ---------------------</p>
-
             {/* Formulaire de connexion */}
             <form className="flex flex-col items-center" onSubmit={handleSignUp}>
               <input type="text" placeholder="Nom d'utilisateur (Prénom et nom de l'enfant)" className="mb-4 p-2 rounded border-2 border-gray-400 w-full text-black" value={username} onChange={(e) => setUserName(e.target.value)} />

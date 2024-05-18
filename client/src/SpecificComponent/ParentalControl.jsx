@@ -1,30 +1,39 @@
-import React, { useState } from 'react';
-import { FormControl, FormGroup, FormLabel, Switch, Button } from '@material-ui/core';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../Context/userContext';
+import axios from 'axios';
+import '../Styles/ParentalControl.css';
 
-const ParentalControl = ({ parentalControlEnabled, onToggleParentalControl }) => {
-    const [isEnabled, setIsEnabled] = useState(parentalControlEnabled);
+const ParentalControl = () => {
+  const { user } = useContext(UserContext);
+  const [parentalControl, setParentalControl] = useState(null);
 
-    const handleToggle = () => {
-        setIsEnabled(!isEnabled);
-        onToggleParentalControl(!isEnabled);
+  useEffect(() => {
+    const fetchParentalControl = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/parental-controls/${user.id}`);
+        setParentalControl(response.data);
+      } catch (error) {
+        console.error('Error fetching parental control:', error);
+      }
     };
+  
+    fetchParentalControl();
+  }, [user.id]);
 
-    return (
-        <FormControl component="fieldset">
-            <FormGroup>
-                <FormLabel component="legend">Contrôle parental</FormLabel>
-                <Switch
-                    checked={isEnabled}
-                    onChange={handleToggle}
-                    name="parentalControlSwitch"
-                    color="primary"
-                />
-                <Button onClick={handleToggle} variant="outlined">
-                    {isEnabled ? 'Désactiver' : 'Activer'} le contrôle parental
-                </Button>
-            </FormGroup>
-        </FormControl>
-    );
+  return (
+    <div className="parental-control">
+      <h2>Parental Control</h2>
+      {parentalControl ? (
+        <div>
+          <p>Enabled: {parentalControl.isEnabled ? 'Yes' : 'No'}</p>
+          <p>Allowed Start Time: {parentalControl.allowedStartTime}</p>
+          <p>Allowed End Time: {parentalControl.allowedEndTime}</p>
+        </div>
+      ) : (
+        <p>No parental control settings found.</p>
+      )}
+    </div>
+  );
 };
 
 export default ParentalControl;

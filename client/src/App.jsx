@@ -17,12 +17,14 @@ import { MyBooksProvider } from '../src/Context/MyBooksContext';
 import LectureAudio from './SpecificComponent/LectureAudio';
 import ParentalControl from './SpecificComponent/ParentalControl';
 import StatLecture from './LibraryPages/StatLecture';
-import SingleBook from './Pages/SingleBook'
-import MonCompte from './SpecificComponent/MonCompte';
+import SingleBook from './Pages/SingleBook';
 import {UserContextProvider} from './Context/userContext';
 import Banner from './SharedComponents/Banner';
 import ResetPassword from './Utils/ResetPassword';
 import ForgotPassword from './Utils/ForgotPassword';
+import UserProfilePage from './SpecificComponent/UserProfilePage';
+import ModalAbonnement from './SpecificComponent/ModalAbonnement';
+import PaymentPage from './Utils/PaymentPage';
 
 
 function App() {
@@ -35,7 +37,7 @@ function App() {
       <MyBooksProvider>
         <Router>
           <>
-            {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyLibrary') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/MonCompte') || window.location.pathname.includes('/Subscription') || window.location.pathname.includes('/SingleBook') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
+            {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyLibrary') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/UserProfilePage') || window.location.pathname.includes('/ParentalControl') || window.location.pathname.includes('/StatLecture')|| window.location.pathname.includes('/ModalAbonnement') || window.location.pathname.includes('/Subscription') || window.location.pathname.includes('/SingleBook') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
@@ -45,14 +47,15 @@ function App() {
               <Route path="/Lecture" element={< Lecture />} />
               <Route path="/LectureAudio" element={ < LectureAudio />} />  
               <Route path="/ReadingClub" element={<ReadingClub />} />
-              <Route path="/MonCompte" element={<MonCompte />}/>
+              <Route path="/UserProfilePage" element={<UserProfilePage />}/>
               <Route path="/MyProfile" element={<MyProfile />} />
               <Route path="/ParentalControl" element={<ParentalControl />} />
               <Route path="/Subscription" element={<Subscription />} />
-              <Route path="/Subscription" element={<Subscription />} />
+              <Route path="/ModalAbonnement" element={<ModalAbonnement />} />
               <Route path="/StatLecture" element={<StatLecture />} />
               <Route path="/Book/:id" element={<SingleBook />} />
               <Route path="/MyProfile" element={<MyProfile />} />
+              <Route path="/PaymentPage" element={<PaymentPage />} />
               <Route path="/" element={<Banner />} />
               <Route path="/ResetPassword" element={<ResetPassword />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />

@@ -2,7 +2,6 @@ const express = require('express');
 const passport = require('passport');
 const morgan = require('morgan'); 
 const bcrypt = require('bcrypt'); // Import bcrypt module
-// console.log(bcrypt);
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
@@ -12,7 +11,10 @@ const jwtAuthMiddleware = require('./src/middlewares/jwtAuthMiddleware');
 const { PrismaClient } = require('@prisma/client');
 const session = require('express-session');
 const verificationRoutes = require('./src/routes/verificationRoutes');
-
+const subscriptionRoutes = require('./src/routes/subscriptionRoutes');
+const readingHistoryRoutes = require('./src/routes/readingHistoryRoutes');
+const parentalControlRoutes = require('./src/routes/parentalControlRoutes');
+const paymentRoutes = require('./src/routes/paymentRoutes');
 
 const app = express();
 
@@ -91,6 +93,13 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Internal Server Error');
 });
+
+app.use('/subscriptions', subscriptionRoutes);
+app.use('/reading-histories', readingHistoryRoutes);
+app.use('/parental-controls', parentalControlRoutes);
+
+// Route de paiement 
+app.use('/api', paymentRoutes);
 
 // Middleware de journalisation
 app.use(morgan('dev'));

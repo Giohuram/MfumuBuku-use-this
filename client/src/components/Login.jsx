@@ -59,7 +59,7 @@ const Login = ({ setIsLoggedIn, setUserData }) => {
   };
 
   return (
-    <div className="bg-[#DC7211] py-16 px-4 md:px-0">
+    <div className="bg-[#DC7211] py-16 px-4 md:px-0 max-h-full">
       <div className="container mx-auto flex flex-col md:flex-row items-center">
         <div className="md:w-1/2">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">Bienvenue chez Mfumu buku kids</h1>
@@ -68,15 +68,6 @@ const Login = ({ setIsLoggedIn, setUserData }) => {
             <p className='text-white'>Bonne lecture d’avance!</p>
           </div>
           <div className='text-center mt-5'>
-            <p className="text-white mb-4">Connectez-vous à votre compte.</p>
-            <div className="flex items-center justify-center mb-4">
-              <FaGoogle className="text-white mr-2" />
-              <FaFacebook className="text-white mr-2" />
-              <FaApple className="text-white mr-2" />
-            </div>
-
-            <p className="text-white my-4">--------------------- OU CONTINUER AVEC ---------------------</p>
-
             <form className="flex flex-col items-center" onSubmit={handleLogin}>
               <input
                 type="text"
