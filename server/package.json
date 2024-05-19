@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "studio": "npx prisma studio",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "build": "echo 'Build step not needed' && exit 0"
   },
   "author": "",
   "license": "ISC",
