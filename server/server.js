@@ -26,7 +26,7 @@ const users = [];
 
 // Middleware pour CORS
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://mfumubuku-kids-frontend.onrender.com',
   credentials: true, 
 }));
 
