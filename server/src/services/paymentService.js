@@ -1,8 +1,8 @@
 const { Flexpay } = require('flexpay');
 
 const flexpay = new Flexpay({
-  webhookUrl: "VOTRE_URL_DE_WEBHOOK",
-  apiKey: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcL2xvZ2luIiwicm9sZXMiOlsiTUVSQ0hBTlQiXSwiZXhwIjoxNzM3NzExMDg0LCJzdWIiOiI5MmExOTA5ZWIwMWE3ZGU3OGQwZmQwNTU0MDA3MWI1MiJ9.45Gkzm121LEeWkMGPRRxnzCQYJ4gWEoWx59l9521CaE",
+  webhookUrl: process.env.FLEXPAY_WEBHOOK_URL, // Assurez-vous d'ajouter également cette variable d'environnement
+  apiKey: process.env.FLEXPAY_API_KEY,
   merchant: "ENCLASSE",
 });
 
