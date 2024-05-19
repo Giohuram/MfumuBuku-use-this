@@ -9,7 +9,8 @@ const PaymentPage = () => {
     e.preventDefault();
     const amount = '10'; // Montant fixe de 10 USD
     try {
-      const response = await fetch('http://localhost:3005/api/pay', {
+      const apiUrl = process.env.REACT_APP_BACKEND_URL + '/api/pay'; // Construire l'URL de l'API backend
+      const response = await fetch(apiUrl, { // Utiliser l'URL de l'API backend
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,6 +28,7 @@ const PaymentPage = () => {
       setPaymentStatus('Failure');
     }
   };
+  
 
   const styles = {
     paymentPage: {

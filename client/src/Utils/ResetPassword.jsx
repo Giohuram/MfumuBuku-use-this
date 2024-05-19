@@ -14,31 +14,34 @@ const ResetPassword = () => {
     // Vérifier si le jeton est valide lors du chargement de la page
     const verifyToken = async () => {
       try {
-        await axios.post('http://localhost:3005/auth/verify-reset-token', { token });
+        const apiUrl = 'https://mfumubuku-kids.onrender.com/auth/verify-reset-token'; // URL de l'API backend réelle
+        await axios.post(apiUrl, { token });
       } catch (error) {
         setError('Le lien de réinitialisation du mot de passe est invalide ou a expiré.');
         console.error('Error verifying reset token:', error);
       }
     };
-
+  
     verifyToken();
   }, [token]);
-
+  
   const handleChangePassword = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError('Les mots de passe ne correspondent pas.');
       return;
     }
-
+  
     try {
-      const response = await axios.post('http://localhost:3005/auth/reset-password', { token, password });
+      const apiUrl = 'https://mfumubuku-kids.onrender.com/auth/reset-password'; // URL de l'API backend réelle
+      const response = await axios.post(apiUrl, { token, password });
       setSuccessMessage(response.data.message);
     } catch (error) {
       setError('Une erreur est survenue lors de la réinitialisation du mot de passe.');
       console.error('Error resetting password:', error);
     }
   };
+  
 
   return (
     <div className="bg-[#DC7211] py-16 px-4 md:px-0">

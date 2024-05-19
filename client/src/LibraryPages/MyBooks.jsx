@@ -29,18 +29,22 @@ const MyBooks = () => {
     try {
       // Récupération du token depuis le contexte utilisateur
       const token = localStorage.getItem('token');
+      // Configuration de l'URL de l'API backend
+      const apiUrl = `https://mfumubuku-kids.onrender.com/user/${user.id}/favorites/${bookId}`;
+  
       // Configuration du header avec le token JWT
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-
-      // Appel axios avec le header
-      await axios.delete(`/user/${user.id}/favorites/${bookId}`, { headers });
+  
+      // Appel axios avec l'URL de l'API backend et le header
+      await axios.delete(apiUrl, { headers });
       removeFromMyBooks(bookId);
     } catch (error) {
       console.error('Error removing book from favorites:', error);
     }
   };
+  
 
   return (
     <div>

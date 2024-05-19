@@ -10,16 +10,20 @@ const ForgotPassword = () => {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
-
+  
     try {
+      // Construire l'URL de l'API backend
+      const apiUrl ='https://mfumubuku-kids.onrender.com/auth/forgot-password';
+  
       // Envoyer l'adresse e-mail au backend pour la réinitialisation du mot de passe
-      await axios.post('http://localhost:3005/auth/forgot-password', { email });
+      await axios.post(apiUrl, { email });
       setSuccessMessage('Un e-mail de réinitialisation du mot de passe a été envoyé.');
     } catch (error) {
       console.error('Error sending forgot password email:', error);
       setError('Une erreur est survenue. Veuillez réessayer plus tard.');
     }
   };
+  
 
   return (
     <div className="bg-[#DC7211] min-h-screen flex items-center justify-center">

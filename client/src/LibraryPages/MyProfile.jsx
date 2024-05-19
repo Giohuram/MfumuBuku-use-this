@@ -35,7 +35,10 @@ const MyProfile = () => {
       formDataToSend.append(key, formData[key]);
     }
     try {
-      const response = await axios.put(`http://localhost:3005/user/${user.id}`, formDataToSend, {
+      // Configuration de l'URL de l'API backend
+      const apiUrl = `https://mfumubuku-kids.onrender.com/user/${user.id}`;
+  
+      const response = await axios.put(apiUrl, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`, // Ajouter le token d'authentification
@@ -51,6 +54,7 @@ const MyProfile = () => {
       console.error('Error updating profile:', error);
     }
   };
+  
   
   return (
     <form onSubmit={handleSubmit} className="profile-form max-w-md mx-auto">

@@ -18,7 +18,7 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3005/auth/signup', {
+      const response = await axios.post('https://mfumubuku-kids.onrender.com/auth/signup', {
         username, 
         parentName,
         childAge,

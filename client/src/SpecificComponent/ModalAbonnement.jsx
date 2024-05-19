@@ -10,7 +10,8 @@ const ModalAbonnement = () => {
   useEffect(() => {
     const fetchSubscription = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/subscriptions/${user.id}`);
+        const apiUrl = `https://mfumubuku-kids.onrender.com/subscriptions/${user.id}`; // Construire l'URL de l'API backend
+        const response = await axios.get(apiUrl);
         setSubscription(response.data);
       } catch (error) {
         console.error('Error fetching subscription:', error);
@@ -19,6 +20,7 @@ const ModalAbonnement = () => {
   
     fetchSubscription();
   }, [user.id]);
+  
 
   return (
     <div className="subscription">

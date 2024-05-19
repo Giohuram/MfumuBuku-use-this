@@ -12,7 +12,10 @@ const StatLecture = () => {
   useEffect(() => {
     const fetchReadingHistory = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/reading-histories/${user.id}`);
+        // Configuration de l'URL de l'API backend
+        const apiUrl = `https://mfumubuku-kids.onrender.com/reading-histories/${user.id}`;
+  
+        const response = await axios.get(apiUrl);
         setReadingHistory(response.data);
       } catch (error) {
         console.error('Error fetching reading history:', error);
@@ -21,6 +24,7 @@ const StatLecture = () => {
   
     fetchReadingHistory();
   }, [user.id]);
+  
   
   return (
     <div className="reading-history">

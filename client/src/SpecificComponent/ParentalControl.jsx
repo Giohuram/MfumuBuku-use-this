@@ -10,7 +10,8 @@ const ParentalControl = () => {
   useEffect(() => {
     const fetchParentalControl = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/parental-controls/${user.id}`);
+        const apiUrl = `https://mfumubuku-kids.onrender.com/parental-controls/${user.id}`; // Construire l'URL de l'API backend
+        const response = await axios.get(apiUrl);
         setParentalControl(response.data);
       } catch (error) {
         console.error('Error fetching parental control:', error);
@@ -19,6 +20,7 @@ const ParentalControl = () => {
   
     fetchParentalControl();
   }, [user.id]);
+  
 
   return (
     <div className="parental-control">

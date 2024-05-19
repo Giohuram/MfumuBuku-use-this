@@ -31,7 +31,8 @@ const SingleBook = () => {
   useEffect(() => {
     const fetchBookData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3005/Book/id/${id}`, {
+        const apiUrl = `https://mfumubuku-kids.onrender.com/Book/id/${id}`; // Construire l'URL de l'API backend
+        const response = await axios.get(apiUrl, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -42,17 +43,18 @@ const SingleBook = () => {
         setError('Une erreur s\'est produite lors du chargement des détails du livre. Veuillez réessayer plus tard.');
       }
     };
-
+  
     if (token) {
       fetchBookData();
     }
   }, [id, token]);
-
+  
   useEffect(() => {
     const fetchRelatedBooks = async () => {
       try {
         if (!book) return;
-        const response = await axios.get(`http://localhost:3005/Book/category/${book.category}`, {
+        const apiUrl = `https://mfumubuku-kids.onrender.com/Book/category/${book.category}`; // Construire l'URL de l'API backend
+        const response = await axios.get(apiUrl, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -63,11 +65,12 @@ const SingleBook = () => {
         setError('Une erreur s\'est produite lors du chargement des livres liés. Veuillez réessayer plus tard.');
       }
     };
-
+  
     if (book && token) {
       fetchRelatedBooks();
     }
   }, [book, token]);
+  
 
   if (error) {
     return <div>Erreur : {error}</div>; // Affichage du message d'erreur

@@ -7,9 +7,6 @@ import SignUp from './components/SignUp';
 import NavBar from './components/NavBar';
 import LandingPage from './LandingPage/Landingpage';
 import Librairie from './Pages/Librairie';
-import MyLibrary from './LibraryPages/MyLibrary';
-import ReadingClub from './LibraryPages/ReadingClub';
-import Subscription from './LibraryPages/Subscription';
 import MyProfile from './LibraryPages/MyProfile';
 import Lecture from './SpecificComponent/Lecture';
 import { BookProvider } from '../src/Context/BookContext';
@@ -37,20 +34,17 @@ function App() {
       <MyBooksProvider>
         <Router>
           <>
-            {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyLibrary') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/UserProfilePage') || window.location.pathname.includes('/ParentalControl') || window.location.pathname.includes('/StatLecture')|| window.location.pathname.includes('/ModalAbonnement') || window.location.pathname.includes('/Subscription') || window.location.pathname.includes('/SingleBook') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
+            {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/UserProfilePage') || window.location.pathname.includes('/ParentalControl') || window.location.pathname.includes('/StatLecture')|| window.location.pathname.includes('/ModalAbonnement') ||  window.location.pathname.includes('/SingleBook') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/librairie" element={isLoggedIn ? <Librairie /> : <Navigate to="/login" />} />
-              <Route path="/MyLibrary" element={<MyLibrary />} />
               <Route path="/Lecture" element={< Lecture />} />
               <Route path="/LectureAudio" element={ < LectureAudio />} />  
-              <Route path="/ReadingClub" element={<ReadingClub />} />
               <Route path="/UserProfilePage" element={<UserProfilePage />}/>
               <Route path="/MyProfile" element={<MyProfile />} />
               <Route path="/ParentalControl" element={<ParentalControl />} />
-              <Route path="/Subscription" element={<Subscription />} />
               <Route path="/ModalAbonnement" element={<ModalAbonnement />} />
               <Route path="/StatLecture" element={<StatLecture />} />
               <Route path="/Book/:id" element={<SingleBook />} />

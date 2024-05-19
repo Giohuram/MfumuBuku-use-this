@@ -28,7 +28,7 @@ const LibrairieNavBar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post('http://localhost:3005/auth/logout', {}, {
+      const response = await axios.post('https://mfumubuku-kids.onrender.com/auth/logout', {}, {
         headers: {
           'Content-Type': 'application/json',
         },

@@ -26,7 +26,8 @@ const Librairie = () => {
   const fetchBooks = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3005/Book', {
+      const apiUrl = `https://mfumubuku-kids.onrender.com/Book`; // Construire l'URL de l'API backend
+      const response = await axios.get(apiUrl, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -38,6 +39,7 @@ const Librairie = () => {
       console.error('Error fetching books:', error);
     }
   };
+  
 
   const groupBooksByCategory = (books) => {
     const groupedBooks = {};
