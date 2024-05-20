@@ -31,7 +31,7 @@ const LectureAudio = () => {
                 onPause={handlePlayPause}
               />
             </div>
-            <div style={{ marginTop: '20px' }}>
+            <div style={{ marginTop: '15px' }}>
               <LibrairieButton />
             </div>
           </>
