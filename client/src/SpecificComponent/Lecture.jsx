@@ -24,9 +24,9 @@ const Lecture = () => {
           location={0}
           locationChanged={(epubcfi) => console.log(epubcfi)}
         />
-      </div>
-      <div>
-        <LibrairieButton />
+        <div>
+          <LibrairieButton />
+        </div>
       </div>
     </>
   );

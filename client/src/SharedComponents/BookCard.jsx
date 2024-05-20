@@ -8,19 +8,14 @@ import { UserContext } from '../Context/userContext';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const BookCard = ({ headline, books, onAddToCollection }) => {
+const BookCard = ({ headline, books }) => {
   const { user, addToMyBooks } = useContext(UserContext);
   const [selectedBook, setSelectedBook] = useState(null);
   const navigate = useNavigate();
 
-  // Function to check if the book is already in favorites
-  const isFavorite = (bookId) => {
-    return user && user.books && user.books.some(favoriteBook => favoriteBook.id === bookId);
-  };
-
-  if (!books || books.length === 0) {
-    return <div>No books available</div>;
-  }
+  // if (!books || books.length === 0) {
+  //   return <div>No books available</div>;
+  // }
 
   const handleReadButtonClick = (book) => {
     setSelectedBook(book);

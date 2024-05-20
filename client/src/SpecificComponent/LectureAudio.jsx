@@ -30,12 +30,12 @@ const LectureAudio = () => {
                 onPlay={handlePlayPause}
                 onPause={handlePlayPause}
               />
+               <div>
+                <LibrairieButton />
+               </div>
             </div>
           </>
         )}
-        <div>
-          <LibrairieButton />
-        </div>
       </div>
   </>  
   );
