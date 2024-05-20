@@ -1,9 +1,12 @@
 const cloudinary = require('cloudinary').v2;
+require('dotenv').config(); // Charger les variables d'environnement
+
+
           
 cloudinary.config({ 
-  cloud_name: 'dxmozt7lf', 
-  api_key: '698929855347651', 
-  api_secret: 'gdz31dZ4ldyOrOmR1TiEAdMS7aU' ,
+  cloud_name: cloud_name, 
+  api_key: api_key, 
+  api_secret: api_secret,
   secure: true 
 });
 

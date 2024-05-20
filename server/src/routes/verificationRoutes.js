@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const verificationController = require('../controllers/verificationController');
 
+
 // Route pour la vérification de l'e-mail
 router.get('/verify', verificationController.verifyEmail);
 router.get('/verify-email/:token', async (req, res) => {
@@ -11,7 +12,7 @@ router.get('/verify-email/:token', async (req, res) => {
   
     try {
       // Vérifier le token de validation
-      const decodedToken = jwt.verify(token, 'your-secret-key');
+      const decodedToken = jwt.verify(token, JWT_SECRET_KEY);
   
       // Mettre à jour la base de données pour marquer l'email comme vérifié
       await prisma.user.update({

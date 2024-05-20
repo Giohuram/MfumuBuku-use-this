@@ -17,7 +17,7 @@ const nodemailer = require('nodemailer');
 router.post('/signup', verifyEmailAlreadyExist, verifyUsernameAlreadyExist, authController.signup);
 
 // Route de connexion
-router.post('/login', passport.authenticate('local', { session: false }), authenticateUser,authController.login);
+router.post('/login', passport.authenticate('local', { session: true }), authenticateUser,authController.login);
 
 // Route de déconnexion
 router.post('/logout', (req, res, next) => {

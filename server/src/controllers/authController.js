@@ -1,10 +1,11 @@
 // authController.js
-
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const validator = require('validator'); // Importer le module Validator
+
+
 
 // Fonction d'inscription
 const signup = async (req, res) => {
@@ -39,7 +40,7 @@ const signup = async (req, res) => {
     });
 
     // Générer un token JWT
-    const token = jwt.sign({ id: newUser.id }, 'rhksisnsws38jdd87DJS()$#435bjdsk');
+    const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET_KEY);
 
     // Envoyer la réponse avec le token
     res.status(201).json({ message: 'Inscription réussie', token });
@@ -67,7 +68,7 @@ const login = async (req, res) => {
     }
 
     // Générer un token JWT
-    const token = jwt.sign({ id: user.id }, 'rhksisnsws38jdd87DJS()$#435bjdsk');
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY);
 
     // Envoyer la réponse avec le token
     res.json({ token });
