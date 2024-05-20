@@ -9,7 +9,7 @@ const PaymentPage = () => {
     e.preventDefault();
     const amount = '10'; // Montant fixe de 10 USD
     try {
-      const apiUrl = process.env.REACT_APP_BACKEND_URL + '/api/pay'; // Construire l'URL de l'API backend
+      const apiUrl = 'https://mfumubuku-kids.onrender.com/api/pay'; // URL de l'API backend réelle
       const response = await fetch(apiUrl, { // Utiliser l'URL de l'API backend
         method: 'POST',
         headers: {
@@ -28,6 +28,7 @@ const PaymentPage = () => {
       setPaymentStatus('Failure');
     }
   };
+  
   
 
   const styles = {
