@@ -14,7 +14,7 @@ import { MyBooksProvider } from '../src/Context/MyBooksContext';
 import LectureAudio from './SpecificComponent/LectureAudio';
 import ParentalControl from './SpecificComponent/ParentalControl';
 import StatLecture from './LibraryPages/StatLecture';
-import SingleBook from './Pages/SingleBook';
+// import SingleBook from './Pages/SingleBook';
 import {UserContextProvider} from './Context/userContext';
 import Banner from './SharedComponents/Banner';
 import ResetPassword from './Utils/ResetPassword';
@@ -47,7 +47,7 @@ function App() {
               <Route path="/ParentalControl" element={<ParentalControl />} />
               <Route path="/ModalAbonnement" element={<ModalAbonnement />} />
               <Route path="/StatLecture" element={<StatLecture />} />
-              <Route path="/Book/:id" element={<SingleBook />} />
+              {/* <Route path="/Book/:id" element={<SingleBook />} /> */}
               <Route path="/MyProfile" element={<MyProfile />} />
               <Route path="/PaymentPage" element={<PaymentPage />} />
               <Route path="/" element={<Banner />} />

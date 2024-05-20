@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useLocation } from 'react-router-dom';
 import LibrairieNavBar from '../components/LibrairieNavBar';
+import LibrairieButton from '../SharedComponents/LibrairieButton';
 
 const LectureAudio = () => {
   const location = useLocation();
@@ -32,6 +33,9 @@ const LectureAudio = () => {
             </div>
           </>
         )}
+        <div>
+          <LibrairieButton />
+        </div>
       </div>
   </>  
   );

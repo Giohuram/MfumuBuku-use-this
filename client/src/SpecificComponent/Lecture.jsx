@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'; // Importez PropTypes depuis la bibliothèqu
 import { ReactReader } from 'react-reader';
 import { useLocation } from 'react-router-dom';
 import LibrairieNavBar from '../components/LibrairieNavBar';
+import LibrairieButton from '../SharedComponents/LibrairieButton';
 
 const Lecture = () => {
   const location = useLocation();
@@ -15,14 +16,19 @@ const Lecture = () => {
   }
 
   return (
-    <div style={{ height: '100vh' }}>
-      <LibrairieNavBar />
-      <ReactReader
-        url={book.content}
-        location={0}
-        locationChanged={(epubcfi) => console.log(epubcfi)}
-      />
-    </div>
+    <>
+      <div style={{ height: '100vh' }}>
+        <LibrairieNavBar />
+        <ReactReader
+          url={book.content}
+          location={0}
+          locationChanged={(epubcfi) => console.log(epubcfi)}
+        />
+      </div>
+      <div>
+        <LibrairieButton />
+      </div>
+    </>
   );
 };
 
