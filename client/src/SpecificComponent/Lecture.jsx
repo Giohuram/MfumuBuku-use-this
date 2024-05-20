@@ -24,7 +24,7 @@ const Lecture = () => {
           location={0}
           locationChanged={(epubcfi) => console.log(epubcfi)}
         />
-        <div>
+        <div className='text-center'>
           <LibrairieButton />
         </div>
       </div>
