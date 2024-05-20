@@ -72,6 +72,27 @@ const BookCategory = () => {
             <button className="bg-[#DC7211] text-white font-semibold py-2 px-4 rounded-full">Les contes de fées</button>
           </div>
         </div>
+         {/* Carte 10 */}
+        <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
+           <img src="https://books.google.cd/books/publisher/content?id=oqg-DwAAQBAJ&hl=fr&pg=PA6&img=1&zoom=3&bul=1&sig=ACfU3U28ERu1_S7pPY0KhqaxLB9zVmZ8Cg&w=1280" alt="Illustration 3" className="w-full h-48 object-cover md:h-64 lg:h-80" />
+          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-center p-4">
+            <button className="bg-[#DC7211] text-white font-semibold py-2 px-4 rounded-full">Bandes Dessinées</button>
+          </div>
+        </div>
+         {/* Carte 11 */}
+         <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
+           <img src="https://m.media-amazon.com/images/I/61ZyepEm89L._SY522_.jpg" alt="Illustration 3" className="w-full h-48 object-cover md:h-64 lg:h-80" />
+          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-center p-4">
+            <button className="bg-[#DC7211] text-white font-semibold py-2 px-4 rounded-full">Livres en lingala</button>
+          </div>
+        </div>
+        {/* Carte 12 */}
+        <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
+           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5exSGCdH7ot9RtwLUr1iHJHSx9mAO2PRyhSqduygb7Q&s" alt="Illustration 3" className="w-full h-48 object-cover md:h-64 lg:h-80" />
+          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-center p-4">
+            <button className="bg-[#DC7211] text-white font-semibold py-2 px-4 rounded-full">Comptines Africaines</button>
+          </div>
+        </div>
       </div>
       <div className="mt-10 text-center">
         <Link to="/login">
