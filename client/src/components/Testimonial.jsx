@@ -2,13 +2,13 @@ import React from 'react';
 
 const Testimonial = () => {
   return (
-    <div className="container mx-auto mt-10">
-      <div className="flex justify-between items-center mb-4">
-        <div>
+    <div className="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-4">
+        <div className="text-center md:text-left">
           <h2 className="font-bold text-3xl text-orange-500">TÉMOIGNAGES</h2>
           <p className="text-gray-500">Ce que disent les parents</p>
         </div>
-        <div>
+        <div className="mt-4 md:mt-0">
           {/* Icons for next and previous */}
           <i className="fas fa-chevron-left text-gray-500 mr-4"></i>
           <i className="fas fa-chevron-right text-gray-500"></i>

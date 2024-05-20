@@ -11,22 +11,22 @@ const Feature = ({ children }) => (
 );
 
 const CustomCard = ({ children }) => (
-  <Card className='max-w-md mx-auto bg-cover bg-no-repeat relative overflow-hidden p-8 mb-8 md:mb-0'>
+  <Card className="max-w-full md:max-w-md mx-auto bg-cover bg-no-repeat relative overflow-hidden p-8 mb-8 md:mb-0">
     {children}
   </Card>
 );
 
 const Abonnement = () => {
   return (
-    <div className="container mx-auto mt-20 flex flex-col md:flex-row items-start md:items-center">
+    <div className="container mx-auto mt-20 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center">
       {/* Titre et texte */}
-      <div className="md:w-1/2 md:mr-4 mb-8 pb-20 md:mb-0">
-        <h2 className="font-bold text-3xl mb-2 text-[#DC7211]">Abonnez-vous dès aujourd’hui</h2>
-        <p className="mb-4 font-semibold text-black">Faites entrer votre enfant dans l’univers de Mfumu Buku Kids</p>
-        <p className="mb-4 text-black">Offrez à vos enfants une aventure littéraire inoubliable avec Mfumu Buku Kids Library ! Plongez dans un monde magique de livres soigneusement sélectionnés pour stimuler leur imagination, nourrir leur curiosité et enrichir leur apprentissage. Rejoignez notre communauté de lecteurs passionnés et offrez à vos enfants la clé d'un univers infini de découvertes et d'aventures passionnantes. Abonnez-vous dès maintenant et ouvrez la porte à un monde de possibilités pour vos petits explorateurs !</p>
+      <div className="md:w-1/2 md:mr-4 mb-8 md:mb-0">
+        <h2 className="font-bold text-3xl mb-2 text-[#DC7211] text-center md:text-left">Abonnez-vous dès aujourd’hui</h2>
+        <p className="mb-4 font-semibold text-black text-center md:text-left">Faites entrer votre enfant dans l’univers de Mfumu Buku Kids</p>
+        <p className="mb-4 text-black text-center md:text-left">Offrez à vos enfants une aventure littéraire inoubliable avec Mfumu Buku Kids Library ! Plongez dans un monde magique de livres soigneusement sélectionnés pour stimuler leur imagination, nourrir leur curiosité et enrichir leur apprentissage. Rejoignez notre communauté de lecteurs passionnés et offrez à vos enfants la clé d'un univers infini de découvertes et d'aventures passionnantes. Abonnez-vous dès maintenant et ouvrez la porte à un monde de possibilités pour vos petits explorateurs !</p>
       </div>
       {/* Carte d'abonnement */}
-      <div className='md:w-1/2'>
+      <div className="md:w-1/2">
         <CustomCard>
           <h5 className="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400 text-center">Premium</h5>
           <div className="flex items-baseline text-gray-900 dark:text-white justify-center">
@@ -34,23 +34,23 @@ const Abonnement = () => {
             <span className="text-5xl font-extrabold tracking-tight">10</span>
             <span className="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">/an</span>
           </div>
-            <ul className="my-7 space-y-5">
-              <Feature>Accès à toutes les ressources</Feature>
-              <Feature>Clubs de lecture interactifs</Feature>
-              <Feature>Concours de lecture exclusifs.</Feature>
-              <Feature>Accès aux newsletters premium</Feature>
-              <Feature>Contenus éducatifs exclusifs.</Feature>
-              <Feature>Bibliothèque numérique illimitée.</Feature>
-              <Feature>Recommandations personnalisées</Feature>
-            </ul>
+          <ul className="my-7 space-y-5">
+            <Feature>Accès à toutes les ressources</Feature>
+            <Feature>Clubs de lecture interactifs</Feature>
+            <Feature>Concours de lecture exclusifs</Feature>
+            <Feature>Accès aux newsletters premium</Feature>
+            <Feature>Contenus éducatifs exclusifs</Feature>
+            <Feature>Bibliothèque numérique illimitée</Feature>
+            <Feature>Recommandations personnalisées</Feature>
+          </ul>
           <Link to="/PaymentPage">
             <button
               type="button"
-              className="inline-flex w-full justify-center rounded-lg bg-[#DC7211] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#DC7211]focus:outline-none focus:ring-4 focus:ring-[#DC7211] dark:focus:ring-[#DC7211]"
+              className="inline-flex w-full justify-center rounded-lg bg-[#DC7211] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#DC7211] focus:outline-none focus:ring-4 focus:ring-[#DC7211] dark:focus:ring-[#DC7211]"
             >
               Souscrire pour mon enfant
             </button>
-          </Link>  
+          </Link>
         </CustomCard>
       </div>
     </div>

@@ -1,11 +1,10 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
-
 const Footer = () => {
   return (
     <footer className="bg-[#DC7211] text-white py-8 mt-20">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Colonne 1 */}
         <div className="flex flex-col">
           <h3 className="text-2xl font-bold mb-4">Mfumu Buku Kids</h3>
@@ -20,7 +19,7 @@ const Footer = () => {
         </div>
 
         {/* Colonne 2 */}
-        <div className="flex flex-col pl-20 ml-20 md:pl-0">
+        <div className="flex flex-col">
           <h3 className="text-2xl font-bold mb-4">Liens Utiles</h3>
           <ul className="text-sm">
             <li className="mb-2"><a href="#">À propos</a></li>
@@ -37,9 +36,9 @@ const Footer = () => {
           <p className="text-sm mb-4">Bureau En Classe RDC Av. Sergent Moke 10651 Kinshasa - Kintambo Concession Boukin Entre rond point Socimat et rond point Safricas.</p>
         </div>
 
-         {/* Colonne 4 */}
-        <div className=''>
-         <p className="text-sm mt-auto text-white">© En Classe RDC 2024 designed by Huram Abi</p>
+        {/* Colonne 4 */}
+        <div className="flex flex-col">
+          <p className="text-sm mt-auto text-white">© En Classe RDC 2024 designed by Huram Abi</p>
         </div>
       </div>
     </footer>
