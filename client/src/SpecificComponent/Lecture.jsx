@@ -23,9 +23,6 @@ const Lecture = () => {
         location={0}
         locationChanged={(epubcfi) => console.log(epubcfi)}
       />
-       <div style={{ marginTop: '20px', textAlign: 'center' }}>
-        <LibrairieButton />
-      </div>
     </div>
   );
 };
