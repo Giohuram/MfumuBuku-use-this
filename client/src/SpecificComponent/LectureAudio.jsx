@@ -14,13 +14,13 @@ const LectureAudio = () => {
   };
 
   return (
-   <> 
+    <>
       <LibrairieNavBar />
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', textAlign: 'center' }}>
         {book && (
           <>
-            <h1 style={{ textAlign: 'center' }} className='mt-30 mb-10 text-4xl'>Vous êtes en train d'écouter <span className='text-[#DC7211] font-semibold'>{book.title}</span></h1>
-            <div style={{ maxWidth: '100%', maxHeight: '70vh' }}>
+            <h1 className='mt-30 mb-10 text-4xl'>Vous êtes en train d'écouter <span className='text-[#DC7211] font-semibold'>{book.title}</span></h1>
+            <div style={{ maxWidth: '100%', maxHeight: '70vh', width: '100%' }}>
               <ReactPlayer
                 url={book.audioContent}
                 playing={playing}
@@ -30,14 +30,14 @@ const LectureAudio = () => {
                 onPlay={handlePlayPause}
                 onPause={handlePlayPause}
               />
-               <div className='text-center'>
-                <LibrairieButton />
-               </div>
+            </div>
+            <div style={{ marginTop: '20px' }}>
+              <LibrairieButton />
             </div>
           </>
         )}
       </div>
-  </>  
+    </>
   );
 };
 

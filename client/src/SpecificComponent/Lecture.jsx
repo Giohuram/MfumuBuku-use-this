@@ -1,7 +1,5 @@
-// Affiche la page de lecture du livre sélectionné
-
 import React from 'react';
-import PropTypes from 'prop-types'; // Importez PropTypes depuis la bibliothèque prop-types
+import PropTypes from 'prop-types';
 import { ReactReader } from 'react-reader';
 import { useLocation } from 'react-router-dom';
 import LibrairieNavBar from '../components/LibrairieNavBar';
@@ -9,7 +7,7 @@ import LibrairieButton from '../SharedComponents/LibrairieButton';
 
 const Lecture = () => {
   const location = useLocation();
-  const book = location.state?.book; // Access book from state, handle potential absence
+  const book = location.state?.book;
 
   if (!book) {
     return <div>Loading...</div>;
@@ -17,27 +15,27 @@ const Lecture = () => {
 
   return (
     <>
-      <div style={{ height: '100vh' }}>
+      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
         <LibrairieNavBar />
-        <ReactReader
-          url={book.content}
-          location={0}
-          locationChanged={(epubcfi) => console.log(epubcfi)}
-        />
-        <div className='text-center'>
-          <LibrairieButton />
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <ReactReader
+            url={book.content}
+            location={0}
+            locationChanged={(epubcfi) => console.log(epubcfi)}
+          />
+          <div style={{ marginTop: '20px' }}>
+            <LibrairieButton />
+          </div>
         </div>
       </div>
     </>
   );
 };
 
-// Définissez les types de props attendus pour le composant BookReader
 Lecture.propTypes = {
   book: PropTypes.shape({
-    bookContentURL: PropTypes.string.isRequired, // Définissez le type et assurez-vous qu'il est requis
-    // Ajoutez d'autres propriétés ici si nécessaire
-  }).isRequired, // Assurez-vous que book est requis
+    bookContentURL: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export default Lecture
+export default Lecture;
