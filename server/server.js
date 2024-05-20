@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
-const morgan = require('morgan'); 
-const bcrypt = require('bcrypt'); // Import bcrypt module
+const morgan = require('morgan');
+const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
@@ -23,16 +23,22 @@ const prisma = new PrismaClient();
 
 const users = [];
 
-
 // Middleware pour CORS
+const allowedOrigins = ['http://localhost:5173', 'https://mfumubuku-kids-frontend.onrender.com'];
 app.use(cors({
-  origin: 'https://mfumubuku-kids-frontend.onrender.com',
-  credentials: true, 
+  origin: function(origin, callback){
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
 
 // Utilisation du middleware de session
 app.use(session({
-  secret: '35jfbejfb489njedbjb#bjfb%@{}?.<>\|', // Clé secrète pour signer la session
+  secret: '35jfbejfb489njedbjb#bjfb%@{}?.<>\|',
   resave: false,
   saveUninitialized: false,
 }));
@@ -53,7 +59,6 @@ app.get('/getSessionValue', (req, res) => {
 app.use(express.json());
 
 app.use('/verification', verificationRoutes);
-
 
 // Initialisation de Passport
 app.use(passport.initialize());
@@ -98,7 +103,7 @@ app.use('/subscriptions', subscriptionRoutes);
 app.use('/reading-histories', readingHistoryRoutes);
 app.use('/parental-controls', parentalControlRoutes);
 
-// Route de paiement 
+// Route de paiement
 app.use('/api', paymentRoutes);
 
 // Middleware de journalisation
