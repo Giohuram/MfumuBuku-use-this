@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
 import { useUserContext } from '../Context/useUserContext';
+import Footer from './Footer';
 
 const Login = ({ setIsLoggedIn, setUserData }) => {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -125,7 +126,8 @@ const Login = ({ setIsLoggedIn, setUserData }) => {
         <div className="md:w-1/2 md:pl-8 mt-8 md:mt-0">
           <img src="/login-pic.png" alt="Image" className="w-full" />
         </div>
-      </div>
+      </div><hr/>
+      <Footer />
     </div>
   );
 }

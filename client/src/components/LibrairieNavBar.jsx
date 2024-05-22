@@ -48,9 +48,13 @@ const LibrairieNavBar = () => {
       }
     } catch (error) {
       console.error('Erreur lors de la déconnexion', error);
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+      }
     }
   };
-
+  
   return (
     <header>
       <nav className={`py-6 px-4 md:px-24 ${isSticky ? "fixed top-0 right-0 left-0 bg-[#DC7211]" : "bg-[#DC7211]"} w-full z-50 transition-all duration-300`}>
