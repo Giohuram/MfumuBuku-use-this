@@ -36,7 +36,7 @@ const redisClient = redis.createClient({
 // Use dynamic import for connect-redis
 import('connect-redis').then(({ default: RedisStore }) => {
   // Middleware for CORS
-  const allowedOrigins = ['http://localhost:5173', 'https://mfumubuku-kids-frontend.onrender.com'];
+  const allowedOrigins = ['http://localhost:5174', 'https://mfumubuku-kids-frontend.onrender.com'];
   app.use(cors({
     origin: function(origin, callback){
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {

@@ -21,11 +21,21 @@ router.post('/login', passport.authenticate('local', { session: false }), authen
 
 // Route de déconnexion
 router.post('/logout', (req, res, next) => {
+  console.log('Logout request received'); // Logging the request
   req.logout(function(err) {
-      if (err) { 
-          return next(err);  // Use next() to handle the error properly
+    if (err) { 
+      console.error('Logout error:', err); // Logging the error
+      return next(err);  // Use next() to handle the error properly
+    }
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Session destruction error:', err); // Logging session destruction error
+        return res.status(500).json({ message: 'Erreur lors de la destruction de la session' });
       }
+      res.clearCookie('connect.sid', { path: '/' }); // Clear the session cookie
       res.status(200).json({ message: 'Déconnexion réussie' });  // Send the response once
+      console.log('Logout successful'); // Logging the success
+    });
   });
 });
 
