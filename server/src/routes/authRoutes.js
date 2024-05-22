@@ -23,21 +23,22 @@ router.post('/login', passport.authenticate('local', { session: false }), authen
 router.post('/logout', (req, res, next) => {
   console.log('Logout request received'); // Logging the request
   req.logout(function(err) {
-    if (err) { 
+    if (err) {
       console.error('Logout error:', err); // Logging the error
-      return next(err);  // Use next() to handle the error properly
+      return next(err); // Use next() to handle the error properly
     }
     req.session.destroy((err) => {
       if (err) {
         console.error('Session destruction error:', err); // Logging session destruction error
-        return res.status(500).json({ message: 'Erreur lors de la destruction de la session' });
+        return res.status(500).json({ message: 'Erreur lors de la destruction de la session' }); // Send a specific error message
       }
       res.clearCookie('connect.sid', { path: '/' }); // Clear the session cookie
-      res.status(200).json({ message: 'Déconnexion réussie' });  // Send the response once
+      res.status(200).json({ message: 'Déconnexion réussie' }); // Send the success response
       console.log('Logout successful'); // Logging the success
     });
   });
 });
+
 
 // Route de récupération des livres de l'utilisateur
 router.get('/user/books', jwtAuthMiddleware, authController.getUserBooks);
