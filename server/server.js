@@ -1,4 +1,3 @@
-// Add this line at the beginning of your server.js file
 require('events').EventEmitter.defaultMaxListeners = 15; 
 const express = require('express');
 const passport = require('passport');
@@ -17,13 +16,28 @@ const subscriptionRoutes = require('./src/routes/subscriptionRoutes');
 const readingHistoryRoutes = require('./src/routes/readingHistoryRoutes');
 const parentalControlRoutes = require('./src/routes/parentalControlRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const { body, validationResult } = require('express-validator');
+
+// Load environment variables from .env file
+require('dotenv').config();
 
 const app = express();
 
+// Security middleware
+app.use(helmet());
+
+// Rate limiting middleware
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.'
+});
+app.use(limiter);
+
 // Import Prisma and instantiate it
 const prisma = new PrismaClient();
-
-const users = [];
 
 // Import the redis module and create a Redis client instance
 const redis = require('redis');
@@ -38,7 +52,7 @@ import('connect-redis').then(({ default: RedisStore }) => {
   // Middleware for CORS
   const allowedOrigins = ['http://localhost:5174', 'https://mfumubuku-kids-frontend.onrender.com'];
   app.use(cors({
-    origin: function(origin, callback){
+    origin: function (origin, callback) {
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
@@ -55,7 +69,7 @@ import('connect-redis').then(({ default: RedisStore }) => {
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true,
+      secure: process.env.NODE_ENV === 'production', // secure cookie in production
       maxAge: 1000 * 60 * 60 * 24
     }
   }));
@@ -113,7 +127,10 @@ import('connect-redis').then(({ default: RedisStore }) => {
   // Error handler
   app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send({
+      error: 'Internal Server Error',
+      message: err.message
+    });
   });
 
   app.use('/subscriptions', subscriptionRoutes);
@@ -131,6 +148,4 @@ import('connect-redis').then(({ default: RedisStore }) => {
   app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
   });
-
 });
-
