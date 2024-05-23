@@ -35,11 +35,9 @@ const Footer = () => {
           <h3 className="text-2xl font-bold mb-4">Adresse</h3>
           <p className="text-sm mb-4">Bureau En Classe RDC Av. Sergent Moke 10651 Kinshasa - Kintambo Concession Boukin Entre rond point Socimat et rond point Safricas.</p>
         </div>
-
-        {/* Colonne 4 */}
-        <div className="flex flex-col">
-          <p className="text-sm mt-auto text-white">© En Classe RDC 2024 designed by Huram Abi</p>
-        </div>
+      </div>
+      <div className='ml-[6rem]'>
+          <p className="text-sm mt-auto text-white">© En Classe RDC 2024 designed by Giovanni Masala</p>
       </div>
     </footer>
   );

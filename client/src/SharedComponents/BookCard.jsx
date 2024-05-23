@@ -9,23 +9,12 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const BookCard = ({ headline, books }) => {
-  const { user, addToMyBooks } = useContext(UserContext);
-  const [selectedBook, setSelectedBook] = useState(null);
-  const navigate = useNavigate();
+  const { user, addBookToLibrary } = useContext(UserContext);
 
-  // if (!books || books.length === 0) {
-  //   return <div>No books available</div>;
-  // }
 
-  const handleReadButtonClick = (book) => {
-    setSelectedBook(book);
-    navigate('/Lecture', { state: { book } });
-  };
-
-  const handleListenButtonClick = (book) => {
-    setSelectedBook(book);
-    navigate('/LectureAudio', { state: { book } });
-  };
+  if (!books || books.length === 0) {
+    return <div>No books available</div>;
+  }
 
 
   return (
@@ -67,18 +56,9 @@ const BookCard = ({ headline, books }) => {
                   <p className="text-center font-semibold">Âge concerné: {book.age} ans</p>
                 </Link>
                 <div className="text-center">
-                      <button
-                        className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2 mr-2"
-                        onClick={() => handleReadButtonClick(book)}
-                      >
-                        Lire
-                      </button>
-                      <button
-                        className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2"
-                        onClick={() => handleListenButtonClick(book)}
-                      >
-                        Écouter
-                      </button>
+                  <button onClick={() => addBookToLibrary(book)} className='bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2'>
+                    Ajouter à ma bibliothèque
+                  </button>
                 </div>      
               </div>
             </SwiperSlide>

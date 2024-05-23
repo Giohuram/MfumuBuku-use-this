@@ -79,7 +79,7 @@ const Librairie = () => {
             <div key={category}>
               <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
               <div className="ml-[-0px] mr-[-0px]">
-                <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection} />
+                <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection} addBookToLibrary={addBookToLibrary}  />
               </div>
             </div>
           ))
