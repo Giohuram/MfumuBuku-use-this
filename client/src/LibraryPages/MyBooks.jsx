@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
@@ -9,18 +9,32 @@ import LibrairieNavBar from '../components/LibrairieNavBar';
 import { UserContext } from '../Context/userContext';
 
 const MyBooks = () => {
-  const { groupedBooks } = useBookContext();
+  const { books } = useBookContext(); // Assurez-vous que useBookContext fournit tous les livres disponibles
   const { user, removeFromMyBooks } = useContext(UserContext);
   const navigate = useNavigate();
-  const [selectedBook, setSelectedBook] = useState(null);
+  const [groupedBooks, setGroupedBooks] = useState({});
+
+  useEffect(() => {
+    const myBooksDetails = user.myBooks.map(bookId => books.find(book => book.id === bookId));
+    setGroupedBooks(groupBooksByCategory(myBooksDetails));
+  }, [user.myBooks, books]);
+
+  const groupBooksByCategory = (books) => {
+    const groupedBooks = {};
+    books.forEach(book => {
+      if (!groupedBooks[book.category]) {
+        groupedBooks[book.category] = [];
+      }
+      groupedBooks[book.category].push(book);
+    });
+    return groupedBooks;
+  };
 
   const handleReadButtonClick = (book) => {
-    setSelectedBook(book);
     navigate('/Lecture', { state: { book } });
   };
 
   const handleListenButtonClick = (book) => {
-    setSelectedBook(book);
     navigate('/LectureAudio', { state: { book } });
   };
 
@@ -28,51 +42,55 @@ const MyBooks = () => {
     <div>
       <LibrairieNavBar />
       <div className="mt-10 ml-2 mr-2">
-        {Object.keys(groupedBooks).map((category) => (
-          <div key={category}>
-            <h2 className='text-2xl font-semibold'>{category}</h2>
-            <Swiper
-              slidesPerView={1}
-              spaceBetween={10}
-              pagination={{ clickable: true }}
-              breakpoints={{
-                640: { slidesPerView: 2, spaceBetween: 20 },
-                768: { slidesPerView: 4, spaceBetween: 40 },
-                1024: { slidesPerView: 5, spaceBetween: 50 },
-              }}
-              modules={[Pagination]}
-              className="mySwiper w-full h-full"
-            >
-              {groupedBooks[category].map((book, index) => (
-                <SwiperSlide key={index}>
-                  <div className="flex flex-col items-center">
-                    <img src={book.bookCover} alt="bookCover" className="mb-2" />
-                    <div className="text-center">
-                      <button
-                        className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2 mr-2"
-                        onClick={() => handleReadButtonClick(book)}
-                      >
-                        Lire
-                      </button>
-                      <button
-                        className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2"
-                        onClick={() => handleListenButtonClick(book)}
-                      >
-                        Écouter
-                      </button>
-                      <button
-                        className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2"
-                        onClick={() => removeFromMyBooks(book.id)}
-                      >
-                        Supprimer
-                      </button>
+        {Object.keys(groupedBooks).length > 0 ? (
+          Object.keys(groupedBooks).map((category) => (
+            <div key={category}>
+              <h2 className='text-2xl font-semibold'>{category}</h2>
+              <Swiper
+                slidesPerView={1}
+                spaceBetween={10}
+                pagination={{ clickable: true }}
+                breakpoints={{
+                  640: { slidesPerView: 2, spaceBetween: 20 },
+                  768: { slidesPerView: 4, spaceBetween: 40 },
+                  1024: { slidesPerView: 5, spaceBetween: 50 },
+                }}
+                modules={[Pagination]}
+                className="mySwiper w-full h-full"
+              >
+                {groupedBooks[category].map((book, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="flex flex-col items-center">
+                      <img src={book.bookCover} alt="bookCover" className="mb-2" />
+                      <div className="text-center">
+                        <button
+                          className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2 mr-2"
+                          onClick={() => handleReadButtonClick(book)}
+                        >
+                          Lire
+                        </button>
+                        <button
+                          className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2"
+                          onClick={() => handleListenButtonClick(book)}
+                        >
+                          Écouter
+                        </button>
+                        <button
+                          className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2"
+                          onClick={() => removeFromMyBooks(book.id)}
+                        >
+                          Supprimer
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        ))}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          ))
+        ) : (
+          <div className='mt-5 ml-20 text-2xl font-semibold'>No books in your collection</div>
+        )}
       </div>
     </div>
   );

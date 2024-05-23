@@ -11,7 +11,7 @@ const Librairie = () => {
   const [booksByCategory, setBooksByCategory] = useState({});
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState({});
-  const { addToMyBooks } = useContext(UserContext); 
+  const { addToMyBooks } = useContext(UserContext);
 
   useEffect(() => {
     fetchBooks();

@@ -51,7 +51,7 @@ const BookCard = ({ headline, books, onAddToCollection }) => {
                 </Link>
                 <div className="text-center">
                   <button onClick={() => handleAddToCollection(book)} className='bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2'>
-                    Ajouter à ma bibliothèque
+                    Ajouter à ma collection
                   </button>
                 </div>      
               </div>
