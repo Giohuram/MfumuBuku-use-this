@@ -54,7 +54,7 @@ const LibrairieNavBar = () => {
       }
     }
   };
-  
+
   return (
     <header>
       <nav className={`py-6 px-4 md:px-24 ${isSticky ? "fixed top-0 right-0 left-0 bg-[#DC7211]" : "bg-[#DC7211]"} w-full z-50 transition-all duration-300`}>
@@ -73,6 +73,9 @@ const LibrairieNavBar = () => {
           <div className="hidden md:flex items-center space-x-12">
             <Link to="/Librairie" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
               Bibliothèque
+            </Link>
+            <Link to="/MyBooks" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
+              Ma collection 
             </Link>
             <Link to="/UserProfilePage" className="text-white hover:bg-black hover:text-[#DC7211] px-3 py-2 rounded-md text-sm font-medium">
               Mon Compte
@@ -96,6 +99,9 @@ const LibrairieNavBar = () => {
             <ul className="flex flex-col text-white space-y-4">
               <li>
                 <Link to="/Librairie" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211] rounded-md" onClick={() => setIsMenuOpen(false)}>Bibliothèque</Link>
+              </li>
+              <li>
+                <Link to="/Librairie" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211] rounded-md" onClick={() => setIsMenuOpen(false)}>Ma collection</Link>
               </li>
               <li>
                 <Link to="/MonCompte" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211] rounded-md" onClick={() => setIsMenuOpen(false)}>Mon Compte</Link>

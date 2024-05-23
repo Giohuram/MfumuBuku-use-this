@@ -14,7 +14,6 @@ import { MyBooksProvider } from '../src/Context/MyBooksContext';
 import LectureAudio from './SpecificComponent/LectureAudio';
 import ParentalControl from './SpecificComponent/ParentalControl';
 import StatLecture from './LibraryPages/StatLecture';
-// import SingleBook from './Pages/SingleBook';
 import {UserContextProvider} from './Context/userContext';
 import Banner from './SharedComponents/Banner';
 import ResetPassword from './Utils/ResetPassword';
@@ -22,6 +21,7 @@ import ForgotPassword from './Utils/ForgotPassword';
 import UserProfilePage from './SpecificComponent/UserProfilePage';
 import ModalAbonnement from './SpecificComponent/ModalAbonnement';
 import PaymentPage from './Utils/PaymentPage';
+import MyBooks from './LibraryPages/MyBooks';
 
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
           <>
             {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/UserProfilePage') || window.location.pathname.includes('/ParentalControl') || window.location.pathname.includes('/StatLecture')|| window.location.pathname.includes('/ModalAbonnement') ||  window.location.pathname.includes('/SingleBook') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
             <Routes>
-              <Route path="/" element={<LandingPage />} />
+              <Route path="/Accueil" element={<LandingPage />} />
               <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/librairie" element={isLoggedIn ? <Librairie /> : <Navigate to="/login" />} />
@@ -53,6 +53,7 @@ function App() {
               <Route path="/" element={<Banner />} />
               <Route path="/ResetPassword" element={<ResetPassword />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />
+              <Route path="/MyBooks" element={<MyBooks />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </>

@@ -26,7 +26,7 @@ const Login = ({ setIsLoggedIn, setUserData }) => {
     setError('');
     try {
       const response = await axios.post('https://mfumubuku-kids.onrender.com/auth/login', form);
-      console.log('Login response:', response.data);
+      // console.log('Login response:', response.data);
       const { token } = response.data;
       if (token) {
         localStorage.setItem('token', token);

@@ -5,12 +5,12 @@ import PropTypes from 'prop-types'; // Importez PropTypes depuis la bibliothèqu
 import { ReactReader } from 'react-reader';
 import { useLocation } from 'react-router-dom';
 import LibrairieNavBar from '../components/LibrairieNavBar';
-import LibrairieButton from '../SharedComponents/LibrairieButton';
+
 
 const Lecture = () => {
   const location = useLocation();
   const book = location.state?.book; // Access book from state, handle potential absence
-
+  
   if (!book) {
     return <div>Loading...</div>;
   }

@@ -25,27 +25,6 @@ const MyBooks = () => {
     navigate('/LectureAudio', { state: { book } });
   };
 
-  const handleReturnBook = async (bookId) => {
-    try {
-      // Récupération du token depuis le contexte utilisateur
-      const token = localStorage.getItem('token');
-      // Configuration de l'URL de l'API backend
-      const apiUrl = `https://mfumubuku-kids.onrender.com/user/${user.id}/favorites/${bookId}`;
-  
-      // Configuration du header avec le token JWT
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-  
-      // Appel axios avec l'URL de l'API backend et le header
-      await axios.delete(apiUrl, { headers });
-      removeFromMyBooks(bookId);
-    } catch (error) {
-      console.error('Error removing book from favorites:', error);
-    }
-  };
-  
-
   return (
     <div>
       <LibrairieNavBar />
@@ -81,12 +60,6 @@ const MyBooks = () => {
                         onClick={() => handleListenButtonClick(book)}
                       >
                         Écouter
-                      </button>
-                      <button
-                        className="mt-2 py-2 px-4 rounded-lg bg-red-500 text-white"
-                        onClick={() => handleReturnBook(book.id)}
-                      >
-                        Retourner ce livre
                       </button>
                     </div>
                   </div>
