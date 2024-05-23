@@ -36,7 +36,7 @@ function App() {
           <>
             {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/UserProfilePage') || window.location.pathname.includes('/ParentalControl') || window.location.pathname.includes('/StatLecture')|| window.location.pathname.includes('/ModalAbonnement') ||  window.location.pathname.includes('/SingleBook') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
             <Routes>
-              <Route path="/Accueil" element={<LandingPage />} />
+              <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/librairie" element={isLoggedIn ? <Librairie /> : <Navigate to="/login" />} />
