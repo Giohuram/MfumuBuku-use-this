@@ -39,7 +39,7 @@ const BookCard = ({ headline, books, onAddToCollection }) => {
           {books.map(book => (
             <SwiperSlide key={book.id}>
               <div className="flex flex-col items-center">
-                <div className="flex flex-col items-center">
+                <div>
                   <img src={book.bookCover} alt="bookCover" className="mb-2 w-full max-w-[200px] h-auto" />
                   <p className="text-center font-semibold">{book.title}</p>
                   <p className="text-center font-semibold">Âge concerné: {book.age} ans</p>

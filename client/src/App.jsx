@@ -47,8 +47,6 @@ function App() {
               <Route path="/ParentalControl" element={<ParentalControl />} />
               <Route path="/ModalAbonnement" element={<ModalAbonnement />} />
               <Route path="/StatLecture" element={<StatLecture />} />
-              {/* <Route path="/Book/:id" element={<SingleBook />} /> */}
-              <Route path="/MyProfile" element={<MyProfile />} />
               <Route path="/PaymentPage" element={<PaymentPage />} />
               <Route path="/" element={<Banner />} />
               <Route path="/ResetPassword" element={<ResetPassword />} />
