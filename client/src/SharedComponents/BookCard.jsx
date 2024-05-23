@@ -7,14 +7,11 @@ import { UserContext } from '../Context/userContext';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const BookCard = ({ headline, books, onAddToCollection }) => {
+const BookCard = ({ headline, books, addedMessage }) => {
   const { addBookToLibrary } = useContext(UserContext);
 
   const handleAddToCollection = (book) => {
-    addBookToLibrary(book);
-    if (onAddToCollection) {
-      onAddToCollection(book);
-    }
+    addBookToLibrary(book); // Invoke addBookToLibrary function from UserContext
   };
 
   return (
@@ -48,6 +45,7 @@ const BookCard = ({ headline, books, onAddToCollection }) => {
                   <button onClick={() => handleAddToCollection(book)} className='bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2'>
                     Ajouter à ma collection
                   </button>
+                  {addedMessage && <p>{addedMessage}</p>}
                 </div>      
               </div>
             </SwiperSlide>
