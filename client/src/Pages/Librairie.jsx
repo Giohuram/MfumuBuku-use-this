@@ -13,6 +13,7 @@ const Librairie = () => {
   const [filteredCategories, setFilteredCategories] = useState({});
   const { addToMyBooks } = useContext(UserContext);
   const [addedMessage, setAddedMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Added state for loading
 
   useEffect(() => {
     fetchBooks();
@@ -24,9 +25,10 @@ const Librairie = () => {
 
   useEffect(() => {
     filterCategories();
-  }, [filteredBooks]);
+  }, [filteredBooks, booksByCategory]); // Optimized dependency array
 
   const fetchBooks = async () => {
+    setIsLoading(true); // Set loading state to true
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get('https://mfumubuku-kids.onrender.com/Book', {
@@ -39,6 +41,9 @@ const Librairie = () => {
       setFilteredBooks(response.data);
     } catch (error) {
       console.error('Error fetching books:', error);
+      // Handle error by displaying a message to the user
+    } finally {
+      setIsLoading(false); // Set loading state to false
     }
   };
 
@@ -55,7 +60,7 @@ const Librairie = () => {
 
   const handleAddToCollection = (book) => {
     addBookToLibrary(book);
-    addToMyBooks(book.id); 
+    addToMyBooks(book.id);
     setAddedMessage('Ce livre a été ajouté avec succès');
     setTimeout(() => {
       setAddedMessage('');
@@ -75,24 +80,33 @@ const Librairie = () => {
     setFilteredCategories(newFilteredCategories);
   };
 
+  const displayNoBooksMessage = () => (
+    <div className='mt-5 ml-20 text-2xl font-semibold'>No books available</div>
+  );
+
   return (
     <div>
       <LibrairieNavBar />
       <Banner books={filteredBooks} setFilteredBooks={setFilteredBooks} />
-      <div>
-        {Object.keys(filteredCategories).length > 0 ? (
-          Object.keys(filteredCategories).map(category => (
-            <div key={category}>
-              <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
-              <div className="ml-[-0px] mr-[-0px]">
-                <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection} addedMessage={addedMessage} />
+      {isLoading ? (
+        // Display loading indicator while fetching books
+        <div>Chargement des livres...</div>
+      ) : (
+        <div>
+          {Object.keys(filteredCategories).length > 0 ? (
+            Object.keys(filteredCategories).map(category => (
+              <div key={category}>
+                <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
+                <div className="ml-[-0px] mr-[-0px]">
+                  <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection} addedMessage={addedMessage} />
+                </div>
               </div>
-            </div>
-          ))
-        ) : (
-          <div className='mt-5 ml-20 text-2xl font-semibold'>No books available</div>
-        )}
-      </div>
+            ))
+          ) : (
+            displayNoBooksMessage()
+          )}
+        </div>
+      )}
     </div>
   );
 };
