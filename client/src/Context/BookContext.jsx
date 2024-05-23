@@ -1,13 +1,20 @@
 import { createContext, useState, useContext, useEffect } from 'react';
+import { useUserContext } from './userContext'; // Importez useUserContext
 
-// Créez un contexte pour stocker les livres ajoutés à la bibliothèque
 const BookContext = createContext();
 
 export const BookProvider = ({ children }) => {
   const [myBooks, setMyBooks] = useState([]);
+  const { addToMyBooks, removeFromMyBooks } = useUserContext(); // Utilisez les fonctions de UserContext
 
   const addBookToLibrary = (book) => {
     setMyBooks([...myBooks, book]);
+    addToMyBooks(book.id); // Ajoutez le livre à la bibliothèque de l'utilisateur
+  };
+
+  const removeBookFromLibrary = (bookId) => {
+    setMyBooks(myBooks.filter(book => book.id !== bookId));
+    removeFromMyBooks(bookId); // Retirez le livre de la bibliothèque de l'utilisateur
   };
 
   // Fonction pour regrouper les livres par catégorie
@@ -31,14 +38,12 @@ export const BookProvider = ({ children }) => {
   }, [myBooks]);
 
   return (
-    <BookContext.Provider value={{ myBooks, addBookToLibrary, groupedBooks }}>
+    <BookContext.Provider value={{ myBooks, addBookToLibrary, removeBookFromLibrary, groupedBooks }}>
       {children}
     </BookContext.Provider>
   );
 };
 
-// Utilisez un hook personnalisé pour accéder au contexte
 export const useBookContext = () => {
   return useContext(BookContext);
 };
-
