@@ -112,6 +112,9 @@ router.post('/forgot-password', async (req, res) => {
   }
 });
 
+router.post('/addBookToCollection', authController.addBookToCollection);
+// router.get('/getUserBooks/:userId', authController.getUserBooks);
+
 
 
 module.exports = router;
