@@ -53,7 +53,7 @@ const BookCard = ({ headline, books, onAddToCollection }) => {
                   <button onClick={() => handleAddToCollection(book)} className='bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2'>
                     Ajouter à ma bibliothèque
                   </button>
-                </div>      /
+                </div>      
               </div>
             </SwiperSlide>
           ))}
