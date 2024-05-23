@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import axios from 'axios';
 
-
 const UserContext = createContext();
 
 const axiosInstance = axios.create({
@@ -15,12 +14,16 @@ const UserContextProvider = ({ children }) => {
     email: '',
     schoolLevel: '',
     avatar: '',
+    myBooks: [] // Ajout de myBooks pour suivre les livres de l'utilisateur
   });
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const updateUser = (userData) => {
-    setUser(userData);
+    setUser((prevUser) => ({
+      ...prevUser,
+      ...userData
+    }));
     setIsAuthenticated(!!userData.id);
   };
 
@@ -50,12 +53,29 @@ const UserContextProvider = ({ children }) => {
       email: '',
       schoolLevel: '',
       avatar: '',
+      myBooks: [] // Réinitialiser myBooks lors de la déconnexion
     });
     setIsAuthenticated(false);
   };
 
+  // Fonction pour ajouter un livre à la bibliothèque de l'utilisateur
+  const addToMyBooks = (bookId) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      myBooks: [...prevUser.myBooks, bookId]
+    }));
+  };
+
+  // Fonction pour retirer un livre de la bibliothèque de l'utilisateur
+  const removeFromMyBooks = (bookId) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      myBooks: prevUser.myBooks.filter((id) => id !== bookId)
+    }));
+  };
+
   return (
-    <UserContext.Provider value={{ user, updateUser, loading, isAuthenticated, login, logout }}>
+    <UserContext.Provider value={{ user, updateUser, loading, isAuthenticated, login, logout, addToMyBooks, removeFromMyBooks }}>
       {children}
     </UserContext.Provider>
   );

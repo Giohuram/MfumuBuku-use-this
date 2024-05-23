@@ -13,7 +13,6 @@ const Librairie = () => {
   const [filteredCategories, setFilteredCategories] = useState({});
   const { addToMyBooks } = useContext(UserContext); 
 
-
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -70,20 +69,18 @@ const Librairie = () => {
     }
     setFilteredCategories(newFilteredCategories);
   };
-  
 
   return (
     <div>
       <LibrairieNavBar />
       <Banner books={filteredBooks} setFilteredBooks={setFilteredBooks} />
-      
       <div>
         {Object.keys(filteredCategories).length > 0 ? (
           Object.keys(filteredCategories).map(category => (
             <div key={category}>
               <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
               <div className="ml-[-0px] mr-[-0px]">
-                <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection}  />
+                <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection} />
               </div>
             </div>
           ))

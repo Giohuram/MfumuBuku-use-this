@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +7,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import LibrairieNavBar from '../components/LibrairieNavBar';
 import { UserContext } from '../Context/userContext';
-import axios from 'axios'; // Importez axios ici
 
 const MyBooks = () => {
   const { groupedBooks } = useBookContext();
@@ -60,6 +59,12 @@ const MyBooks = () => {
                         onClick={() => handleListenButtonClick(book)}
                       >
                         Écouter
+                      </button>
+                      <button
+                        className="bg-[#DC7211] text-white py-2 px-4 rounded-lg mt-2"
+                        onClick={() => removeFromMyBooks(book.id)}
+                      >
+                        Supprimer
                       </button>
                     </div>
                   </div>
