@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../Context/userContext';
 
 // Import Swiper styles
@@ -9,11 +8,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const BookCard = ({ headline, books, onAddToCollection }) => {
-  const { user, addBookToLibrary } = useContext(UserContext);
-
-  if (!books || books.length === 0) {
-    return <div>No books available</div>;
-  }
+  const { addBookToLibrary } = useContext(UserContext);
 
   const handleAddToCollection = (book) => {
     addBookToLibrary(book);

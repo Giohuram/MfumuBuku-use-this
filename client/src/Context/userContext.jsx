@@ -59,19 +59,29 @@ const UserContextProvider = ({ children }) => {
   };
 
   // Fonction pour ajouter un livre à la bibliothèque de l'utilisateur
-  const addToMyBooks = (bookId) => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      myBooks: [...prevUser.myBooks, bookId]
-    }));
+  const addToMyBooks = async (bookId) => {
+    try {
+      const response = await axiosInstance.post(`/users/${user.id}/books/${bookId}`);
+      setUser((prevUser) => ({
+        ...prevUser,
+        myBooks: [...prevUser.myBooks, bookId]
+      }));
+    } catch (error) {
+      console.error('Error adding book to library:', error);
+    }
   };
 
   // Fonction pour retirer un livre de la bibliothèque de l'utilisateur
-  const removeFromMyBooks = (bookId) => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      myBooks: prevUser.myBooks.filter((id) => id !== bookId)
-    }));
+  const removeFromMyBooks = async (bookId) => {
+    try {
+      const response = await axiosInstance.delete(`/users/${user.id}/books/${bookId}`);
+      setUser((prevUser) => ({
+        ...prevUser,
+        myBooks: prevUser.myBooks.filter((id) => id !== bookId)
+      }));
+    } catch (error) {
+      console.error('Error removing book from library:', error);
+    }
   };
 
   return (
