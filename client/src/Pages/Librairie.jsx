@@ -66,6 +66,7 @@ const Librairie = () => {
       setAddedMessage('');
     }, 3000); // Effacez le message après 3 secondes
   };
+  console.log(handleAddToCollection); 
 
   const filterCategories = () => {
     const newFilteredCategories = {};
@@ -98,7 +99,7 @@ const Librairie = () => {
               <div key={category}>
                 <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
                 <div className="ml-[-0px] mr-[-0px]">
-                  <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection} addedMessage={addedMessage} />
+                  <BookCard books={filteredCategories[category]} addedMessage={addedMessage} />
                 </div>
               </div>
             ))
