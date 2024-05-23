@@ -1,15 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import LibrairieNavBar from '../components/LibrairieNavBar';
 import BookCard from '../SharedComponents/BookCard';
 import { useBookContext } from '../Context/BookContext';
 import Banner from '../SharedComponents/Banner';
+import { UserContext } from '../Context/userContext';
 
 const Librairie = () => {
   const { books, addBookToLibrary } = useBookContext();
   const [booksByCategory, setBooksByCategory] = useState({});
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState({});
+  const { addToMyBooks } = useContext(UserContext); 
+
 
   useEffect(() => {
     fetchBooks();
@@ -52,6 +55,7 @@ const Librairie = () => {
 
   const handleAddToCollection = (book) => {
     addBookToLibrary(book);
+    addToMyBooks(book.id); 
   };
 
   const filterCategories = () => {
@@ -79,7 +83,7 @@ const Librairie = () => {
             <div key={category}>
               <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
               <div className="ml-[-0px] mr-[-0px]">
-                <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection} addBookToLibrary={addBookToLibrary}  />
+                <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection}  />
               </div>
             </div>
           ))
