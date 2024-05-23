@@ -28,7 +28,7 @@ const Librairie = () => {
   const fetchBooks = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('https://https://mfumubuku-kids.onrender.com/Book', {
+      const response = await axios.get('https://mfumubuku-kids.onrender.com/Book', {
         headers: {
           Authorization: `Bearer ${token}`
         }
