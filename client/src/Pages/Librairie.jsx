@@ -63,7 +63,7 @@ const Librairie = () => {
     try {
       addBookToLibrary(book);
       const token = localStorage.getItem('token');
-      const response = await axios.post('https://mfumubuku-kids.onrender.com/UserBooks', {
+      const response = await axios.post('https://mfumubuku-kids.onrender.com/userBooks', {
         bookId: book.id
       }, {
         headers: {
