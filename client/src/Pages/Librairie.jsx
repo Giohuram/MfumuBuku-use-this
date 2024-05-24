@@ -13,7 +13,8 @@ const Librairie = () => {
   const [filteredCategories, setFilteredCategories] = useState({});
   const { addToMyBooks } = useContext(UserContext);
   const [addedMessage, setAddedMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // Added state for loading
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(''); // State for error messages
 
   useEffect(() => {
     fetchBooks();
@@ -25,10 +26,10 @@ const Librairie = () => {
 
   useEffect(() => {
     filterCategories();
-  }, [filteredBooks, booksByCategory]); // Optimized dependency array
+  }, [filteredBooks, booksByCategory]);
 
   const fetchBooks = async () => {
-    setIsLoading(true); // Set loading state to true
+    setIsLoading(true);
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get('https://mfumubuku-kids.onrender.com/Book', {
@@ -41,9 +42,9 @@ const Librairie = () => {
       setFilteredBooks(response.data);
     } catch (error) {
       console.error('Error fetching books:', error);
-      // Handle error by displaying a message to the user
+      setErrorMessage('Erreur lors de la récupération des livres. Veuillez réessayer plus tard.');
     } finally {
-      setIsLoading(false); // Set loading state to false
+      setIsLoading(false);
     }
   };
 
@@ -58,15 +59,31 @@ const Librairie = () => {
     return groupedBooks;
   };
 
-  const handleAddToCollection = (book) => {
-    addBookToLibrary(book);
-    addToMyBooks(book.id);
-    setAddedMessage('Ce livre a été ajouté avec succès');
-    setTimeout(() => {
-      setAddedMessage('');
-    }, 3000); // Effacez le message après 3 secondes
+  const handleAddToCollection = async (book) => {
+    try {
+      addBookToLibrary(book);
+      const token = localStorage.getItem('token');
+      const response = await axios.post('https://mfumubuku-kids.onrender.com/UserBooks', {
+        bookId: book.id
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.status === 200) {
+        addToMyBooks(book.id);
+        setAddedMessage('Ce livre a été ajouté avec succès');
+        setTimeout(() => {
+          setAddedMessage('');
+        }, 3000);
+      } else {
+        throw new Error('Failed to add book to collection');
+      }
+    } catch (error) {
+      console.error('Error adding book to collection:', error);
+      setErrorMessage('Erreur lors de l\'ajout du livre à votre collection. Veuillez réessayer.');
+    }
   };
-  console.log(handleAddToCollection); 
 
   const filterCategories = () => {
     const newFilteredCategories = {};
@@ -90,10 +107,10 @@ const Librairie = () => {
       <LibrairieNavBar />
       <Banner books={filteredBooks} setFilteredBooks={setFilteredBooks} />
       {isLoading ? (
-        // Display loading indicator while fetching books
         <div>Chargement des livres...</div>
       ) : (
         <div>
+          {errorMessage && <div className='mt-5 ml-20 text-2xl font-semibold text-red-600'>{errorMessage}</div>}
           {Object.keys(filteredCategories).length > 0 ? (
             Object.keys(filteredCategories).map(category => (
               <div key={category}>
