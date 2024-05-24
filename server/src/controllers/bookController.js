@@ -1,5 +1,3 @@
-// bookController.js
-
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -8,7 +6,6 @@ const createBook = async (req, res) => {
   const { title, author, content, category, datePublished, bookCover, audioContent, age, description } = req.body;
 
   try {
-    // Créer un nouveau livre dans la base de données
     const newBook = await prisma.book.create({
       data: {
         title,
@@ -33,7 +30,6 @@ const createBook = async (req, res) => {
 // Controller pour récupérer tous les livres
 const getAllBooks = async (req, res) => {
   try {
-    // Récupérer tous les livres de la base de données
     const allBooks = await prisma.book.findMany();
     res.json(allBooks);
   } catch (error) {
@@ -47,7 +43,6 @@ const getBooksByCategory = async (req, res) => {
   const { category } = req.params;
 
   try {
-    // Récupérer les livres par catégorie de la base de données
     const booksByCategory = await prisma.book.findMany({
       where: { category }
     });
@@ -64,7 +59,6 @@ const getBookById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    // Récupérer un livre par son ID de la base de données
     const book = await prisma.book.findUnique({
       where: { id: parseInt(id) }
     });
@@ -76,4 +70,23 @@ const getBookById = async (req, res) => {
   }
 };
 
-module.exports = { createBook, getAllBooks, getBooksByCategory, getBookById };
+// Controller pour ajouter un livre à la collection de l'utilisateur
+const addBookToUserCollection = async (req, res) => {
+  const { userId, bookId } = req.body;
+
+  try {
+    const userBook = await prisma.userBooks.create({
+      data: {
+        userId: parseInt(userId),
+        bookId: parseInt(bookId)
+      }
+    });
+
+    res.status(201).json(userBook);
+  } catch (error) {
+    console.error('Error adding book to user collection:', error);
+    res.status(500).json({ error: 'Échec de l\'ajout du livre à la collection de l\'utilisateur' });
+  }
+};
+
+module.exports = { createBook, getAllBooks, getBooksByCategory, getBookById, addBookToUserCollection };
