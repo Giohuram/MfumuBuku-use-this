@@ -62,6 +62,7 @@ const UserContextProvider = ({ children }) => {
   const addToMyBooks = async (bookId) => {
     try {
       const response = await axiosInstance.post(`/users/${user.id}/books/${bookId}`);
+      console.log(response); 
       setUser((prevUser) => ({
         ...prevUser,
         myBooks: [...prevUser.myBooks, bookId]
@@ -75,6 +76,7 @@ const UserContextProvider = ({ children }) => {
   const removeFromMyBooks = async (bookId) => {
     try {
       const response = await axiosInstance.delete(`/users/${user.id}/books/${bookId}`);
+      console.log(response); 
       setUser((prevUser) => ({
         ...prevUser,
         myBooks: prevUser.myBooks.filter((id) => id !== bookId)

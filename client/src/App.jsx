@@ -30,8 +30,6 @@ function App() {
 
   return (
   <UserContextProvider>
-    <BookProvider>
-      <MyBooksProvider>
         <Router>
           <>
             {!(window.location.pathname.includes('/librairie') || window.location.pathname.includes('/MyBooks') || window.location.pathname.includes('/ReadingClub') || window.location.pathname.includes('/UserProfilePage') || window.location.pathname.includes('/ParentalControl') || window.location.pathname.includes('/StatLecture')|| window.location.pathname.includes('/ModalAbonnement') ||  window.location.pathname.includes('/SingleBook') || window.location.pathname.includes('/LectureAudio') || window.location.pathname.includes('/Lecture') || window.location.pathname.includes('/book/:id') || window.location.pathname.includes('/MyProfile')) && <NavBar isLoggedIn={isLoggedIn} />}
@@ -39,7 +37,21 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/librairie" element={isLoggedIn ? <Librairie /> : <Navigate to="/login" />} />
+              <Route 
+                path="/librairie" 
+                element={isLoggedIn ? 
+                  
+                  <BookProvider>
+                    <MyBooksProvider>
+                      <Librairie /> 
+                    </MyBooksProvider>
+                  </BookProvider>
+                   
+                  : <Navigate to="/login" 
+                  
+                  />} 
+                  
+                  />
               <Route path="/Lecture" element={< Lecture />} />
               <Route path="/LectureAudio" element={ < LectureAudio />} />  
               <Route path="/UserProfilePage" element={<UserProfilePage />}/>
@@ -51,14 +63,20 @@ function App() {
               <Route path="/" element={<Banner />} />
               <Route path="/ResetPassword" element={<ResetPassword />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />
-              <Route path="/MyBooks" element={<MyBooks />} />
+              <Route 
+                path="/MyBooks" 
+                element={
+                  <BookProvider>
+                  <MyBooksProvider>
+                    <MyBooks />
+                    </MyBooksProvider>
+                  </BookProvider>
+                } />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </>
       
         </Router>
-    </MyBooksProvider>
-   </BookProvider>
   </UserContextProvider>    
   );
 }
