@@ -4,14 +4,12 @@ import LibrairieNavBar from '../components/LibrairieNavBar';
 import BookCard from '../SharedComponents/BookCard';
 import { useBookContext } from '../Context/BookContext';
 import Banner from '../SharedComponents/Banner';
-import { UserContext } from '../Context/userContext';
 
 const Librairie = () => {
   const { books, addBookToLibrary } = useBookContext();
   const [booksByCategory, setBooksByCategory] = useState({});
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState({});
-  const { addToMyBooks } = useContext(UserContext); 
 
 
   useEffect(() => {
@@ -29,7 +27,7 @@ const Librairie = () => {
   const fetchBooks = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('https://mfumubuku-kids.onrender.com/Book', {
+      const response = await axios.get('https://https://mfumubuku-kids.onrender.com/Book', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -53,10 +51,9 @@ const Librairie = () => {
     return groupedBooks;
   };
 
-  const handleAddToCollection = (book) => {
-    addBookToLibrary(book);
-    addToMyBooks(book.id)
-  };
+  // const handleAddToCollection = (book) => {
+  //   addBookToLibrary(book);
+  // };
 
   const filterCategories = () => {
     const newFilteredCategories = {};
@@ -83,12 +80,12 @@ const Librairie = () => {
             <div key={category}>
               <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
               <div className="ml-[-0px] mr-[-0px]">
-                <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection}  />
+                <BookCard books={filteredCategories[category]}  />
               </div>
             </div>
           ))
         ) : (
-          <div className='mt-5 ml-20 text-2xl font-semibold'>Livres en telechargement...</div>
+          <div className='mt-5 ml-20 text-2xl font-semibold'>No books available</div>
         )}
       </div>
     </div>
