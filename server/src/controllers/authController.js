@@ -1,4 +1,6 @@
 // authController.js
+const dotenv = require('dotenv'); // Imports the npm package dotenv 
+dotenv.config(); // Loads environment variables into process.env
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -40,7 +42,7 @@ const signup = async (req, res) => {
     });
 
     // Générer un token JWT
-    const token = jwt.sign({ id: newUser.id }, 'rhksisnsws38jdd87DJS()$#435bjdsk');
+    const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET_KEY);
 
     // Envoyer la réponse avec le token
     res.status(201).json({ message: 'Inscription réussie', token });

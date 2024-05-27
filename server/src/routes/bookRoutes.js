@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createBook, getAllBooks, getBooksByCategory, getBookById } = require('../controllers/bookController');
+const { createBook, getAllBooks, getBooksByCategory, getBookById, addBookToUserCollection } = require('../controllers/bookController');
 const jwtAuthMiddleware = require('../middlewares/jwtAuthMiddleware');
 
 // Route pour créer un livre
@@ -15,5 +15,7 @@ router.get('/category/:category', jwtAuthMiddleware, getBooksByCategory);
 // Route pour récupérer un livre par son ID
 router.get('/:id', jwtAuthMiddleware, getBookById);
 
-module.exports = router;
+// Route pour ajouter un livre à la collection de l'utilisateur
+router.post('/userBooks', jwtAuthMiddleware, addBookToUserCollection);
 
+module.exports = router;

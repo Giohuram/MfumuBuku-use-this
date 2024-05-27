@@ -60,9 +60,10 @@ const sessionStore = new RedisStore({ client: redisClient });
 app.use(session({
   store: sessionStore,
   secret: process.env.Session_Secret_Key,
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
   cookie: {
+    httpOnly: true, 
     secure: process.env.NODE_ENV === 'production', // secure cookie in production
     maxAge: 1000 * 60 * 60 * 24,
   }
