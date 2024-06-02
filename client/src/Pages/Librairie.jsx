@@ -4,14 +4,14 @@ import LibrairieNavBar from '../components/LibrairieNavBar';
 import BookCard from '../SharedComponents/BookCard';
 import { useBookContext } from '../Context/BookContext';
 import Banner from '../SharedComponents/Banner';
-import { UserContext } from '../Context/userContext';
+// import { UserContext } from '../Context/userContext';
 
 const Librairie = () => {
   const { books, addBookToLibrary } = useBookContext();
   const [booksByCategory, setBooksByCategory] = useState({});
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState({});
-  const { addToMyBooks } = useContext(UserContext);
+  // const { addToMyBooks } = useContext(UserContext);
   const [addedMessage, setAddedMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Added state for loading
 
@@ -60,7 +60,7 @@ const Librairie = () => {
 
   const handleAddToCollection = (book) => {
     addBookToLibrary(book);
-    addToMyBooks(book.id);
+    // addToMyBooks(book.id);
     setAddedMessage('Ce livre a été ajouté avec succès');
     setTimeout(() => {
       setAddedMessage('');
