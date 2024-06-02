@@ -101,7 +101,7 @@ const LibrairieNavBar = () => {
                 <Link to="/Librairie" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211] rounded-md" onClick={() => setIsMenuOpen(false)}>Bibliothèque</Link>
               </li>
               <li>
-                <Link to="/Librairie" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211] rounded-md" onClick={() => setIsMenuOpen(false)}>Ma collection</Link>
+                <Link to="/MyBooks" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211] rounded-md" onClick={() => setIsMenuOpen(false)}>Ma collection</Link>
               </li>
               <li>
                 <Link to="/MonCompte" className="block py-2 px-4 hover:bg-black hover:text-[#DC7211] rounded-md" onClick={() => setIsMenuOpen(false)}>Mon Compte</Link>
