@@ -12,7 +12,7 @@ const BookCard = ({ headline, books, addedMessage, onAddToCollection  }) => {
 
   const handleAddToCollection = (book) => {
     onAddToCollection(book); // Invoke addBookToLibrary function from UserContext
-    addToMyBooks(book.id)
+    addBookToLibrary(book.id); 
   };
 
   return (
