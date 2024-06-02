@@ -139,7 +139,7 @@ app.use('/api', paymentRoutes);
 app.use(morgan('dev'));
 
 // Starting the server
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3006;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
