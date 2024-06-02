@@ -4,15 +4,15 @@ import LibrairieNavBar from '../components/LibrairieNavBar';
 import BookCard from '../SharedComponents/BookCard';
 import { useBookContext } from '../Context/BookContext';
 import Banner from '../SharedComponents/Banner';
-// import { UserContext } from '../Context/userContext';
+import { UserContext } from '../Context/userContext';
 
 const Librairie = () => {
   const { books, addBookToLibrary } = useBookContext();
   const [booksByCategory, setBooksByCategory] = useState({});
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState({});
-  // const { addToMyBooks } = useContext(UserContext);
-  const [addedMessage, setAddedMessage] = useState('');
+  const { addToMyBooks } = useContext(UserContext);
+  // const [addedMessage, setAddedMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Added state for loading
 
   useEffect(() => {
@@ -60,11 +60,7 @@ const Librairie = () => {
 
   const handleAddToCollection = (book) => {
     addBookToLibrary(book);
-    // addToMyBooks(book.id);
-    setAddedMessage('Ce livre a été ajouté avec succès');
-    setTimeout(() => {
-      setAddedMessage('');
-    }, 3000); // Effacez le message après 3 secondes
+    addToMyBooks(book.id);
   };
 
   const filterCategories = () => {
@@ -98,7 +94,7 @@ const Librairie = () => {
               <div key={category}>
                 <h2 className='mt-5 ml-20 text-2xl font-semibold'>{category}</h2>
                 <div className="ml-[-0px] mr-[-0px]">
-                  <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection} addedMessage={addedMessage} />
+                  <BookCard books={filteredCategories[category]} onAddToCollection={handleAddToCollection} />
                 </div>
               </div>
             ))
