@@ -12,7 +12,6 @@ const Librairie = () => {
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState({});
   const { addToMyBooks } = useContext(UserContext);
-  // const [addedMessage, setAddedMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Added state for loading
 
   useEffect(() => {
