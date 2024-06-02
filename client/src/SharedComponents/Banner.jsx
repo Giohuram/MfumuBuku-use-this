@@ -35,9 +35,8 @@ const Banner = ({ books, setFilteredBooks }) => {
               Salut {username ? `${username}` : ''}
             </h2>
           </div>  
-          <p className='text-white'>
-            Nous sommes ravis de vous accueillir à nouveau parmi nous. Êtes-vous prêts à plonger dans un monde plein d'aventures ? Laissez-vous emporter par les récits merveilleux qui nourriront votre imagination et votre créativité.<br/>
-            <span>Bonne lecture !</span>
+          <p className='text-white text-4xl'>
+           Bienvenue dans votre bibliothèque et Bonne Lecture!
           </p>
           <SearchBar onSearch={handleSearch} />
         </div>
