@@ -1,20 +1,18 @@
 import React, { useContext } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-// import { UserContext } from '../Context/userContext';
-import { BookProvider, useBookContext } from '../Context/BookContext';
+import { useUserContext } from '../Context/userContext';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const BookCard = ({ headline, books, addedMessage, onAddToCollection  }) => {
-  // const { addToMyBooks } = useContext(UserContext);
-  const { addBookToLibrary} = useBookContext(BookProvider); 
+const BookCard = ({ headline, books, addedMessage, onAddToCollection }) => {
+  const { user, addToMyBooks } = useUserContext(); 
 
   const handleAddToCollection = (book) => {
-    onAddToCollection(book); // Invoke addBookToLibrary function from UserContext
-    addBookToLibrary(book.id); 
+    onAddToCollection(book); // This could be used for additional actions
+    addToMyBooks(book.id); // Use addToMyBooks from UserContext
   };
 
   return (
