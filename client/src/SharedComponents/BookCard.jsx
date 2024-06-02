@@ -7,8 +7,8 @@ import { UserContext } from '../Context/userContext';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const BookCard = ({ headline, books, addedMessage }) => {
-  const { addBookToLibrary, addToMyBooks } = useContext(UserContext);
+const BookCard = ({ headline, books, addedMessage, addBookToLibrary }) => {
+  const {addToMyBooks } = useContext(UserContext);
 
   const handleAddToCollection = (book) => {
     addBookToLibrary(book); // Invoke addBookToLibrary function from UserContext
